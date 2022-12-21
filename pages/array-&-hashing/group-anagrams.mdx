@@ -1,0 +1,77 @@
+import DifficultyChip from '../../components/DifficultyChip'
+
+# [Group Anagrams](https://leetcode.com/problems/group-anagrams/) <DifficultyChip difficulty="medium" />
+
+## Problem
+
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+Example 1:
+
+```text
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+```
+
+Example 2:
+
+```text
+Input: strs = [""]
+Output: [[""]]
+```
+
+
+Example 3:
+
+```text
+Input: strs = ["a"]
+Output: [["a"]]
+```
+
+## Solution
+
+### Approach: Sorting and Using Hash Map
+
+To solve this problem, you can use a hash map to store the anagrams. The key for the hash map will be a string that represents the sorted characters in the word, and the value will be an array of words that are anagrams of each other.
+
+```javascript
+function groupAnagrams(strs) {
+  // Create a map to store the anagrams
+  const map = new Map();
+
+  // Iterate through each string in the input array
+  for (const str of strs) {
+    // Sort the characters in the string
+    const sortedStr = str.split('').sort().join('');
+
+    // If the sorted string is not in the map, add it as a key with an empty array as the value
+    if (!map.has(sortedStr)) {
+      map.set(sortedStr, []);
+    }
+
+    // Add the string to the array of anagrams for the sorted string
+    map.get(sortedStr).push(str);
+  }
+
+  // Convert the map values to an array and return it
+  return [...map.values()];
+}
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of the function above is O(n * m * log m), where n is the number of strings in the input array and m is the length of each string.
+
+This is because the function loops through each string in the input array (O(n)), and for each string, it sorts the characters (O(m * log m)) and checks if the sorted string is in the Map (O(1)).
+
+### Space Complexity
+
+The space complexity of both versions of the function is O(n * m), where n is the number of strings in the input array and m is the length of each string.
+
+This is because the function stores each string in the input array in the anagrams object or Map. Since the function stores all the strings, the space complexity is directly proportional to the size of the input array and the length of the strings.
+
+For example, if the input array contains n strings of length m, the function will require O(n * m) space to store the anagrams.
