@@ -28,7 +28,7 @@ const config: DocsThemeConfig = {
   footer: {
     text: (
       <span>
-        MIT {new Date().getFullYear()} © Thank you for visiting our JavaScript
+        MIT {new Date().getFullYear()} © Thank you for visiting my JavaScript
         LeetCode practices documentation website.
         <br />
         I hope that you have found this resource helpful in improving your

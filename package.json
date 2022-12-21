@@ -1,7 +1,7 @@
 {
   "name": "leetcode-practitioner",
   "version": "0.0.1",
-  "description": "Welcome to our JavaScript LeetCode practices repository! Here, you will find a collection of solved problems from the popular coding platform LeetCode, implemented in JavaScript.",
+  "description": "Welcome to my JavaScript LeetCode practices repository! Here, you will find a collection of solved problems from the popular coding platform LeetCode, implemented in JavaScript.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
