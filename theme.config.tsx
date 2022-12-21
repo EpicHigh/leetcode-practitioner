@@ -1,8 +1,25 @@
 import React from "react";
 import Link from "next/link";
-import { DocsThemeConfig } from "nextra-theme-docs";
+import { useRouter } from "next/router";
+import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
+  head() {
+    const { asPath } = useRouter();
+    const { frontMatter } = useConfig();
+    return (
+      <>
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="LeetCode Practitioner" />
+        <meta
+          property="og:url"
+          content={`https://leetcode-practitioner.vercel.app${asPath}`}
+        />
+        <meta name="keywords" content={frontMatter.keywords || ""} />
+      </>
+    );
+  },
   logo: <span>LeetCode Practitioner</span>,
   project: {
     link: "https://github.com/EpicHigh/leetcode-practitioner",
