@@ -1,0 +1,111 @@
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Valid Anagram](https:leetcode.com/problems/valid-anagram) <DifficultyChip difficulty="easy" />
+
+## Problem
+
+Given two strings s and t , return true if t is an anagram of s, and false otherwise.
+
+Example 1:
+
+```text
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+```
+
+Example 2:
+
+```text
+Input: s = "rat", t = "car"
+Output: false
+```
+
+## Solution
+
+### Approach 1: 3 Loops
+
+To solve this problem, you can check if a string t is an anagram of another string s, you can follow these steps:
+
+1. Check if the length of `s` and `t` are equal. If they are not equal, then `t` cannot be an anagram of `s`, so you can return `false`.
+2. Create a frequency map of the characters in `s`. You can do this by creating an empty dictionary and then iterating through each character in `s`. For each character, increment the count of that character in the dictionary by 1.
+3. Iterate through each character in `t` and decrement the count of that character in the dictionary. If the count of a character in the dictionary becomes less than 0 at any point, then `t` cannot be an anagram of `s`, so you can return `false`.
+4. After you have finished iterating through `t`, check the dictionary for any character with a count greater than 0. If there are any characters with a count greater than 0, then `t` cannot be an anagram of `s`, so you can return `false`.
+5. If none of the above conditions are met, then `t` is an anagram of `s`, so you can return `true`.
+
+Here is some sample code that implements this algorithm:
+
+```javascript
+function isAnagram(s, t) {
+    if (s.length !== t.length) {
+        return false;
+    }
+
+    const sFreq = {};
+    for (const c of s) {
+        sFreq[c] = (sFreq[c] || 0) + 1;
+    }
+
+    for (const c of t) {
+        if (!sFreq[c]) {
+            return false;
+        }
+        sFreq[c]--;
+        if (sFreq[c] < 0) {
+            return false;
+        }
+    }
+
+    for (const c in sFreq) {
+        if (sFreq[c] > 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+```
+
+This code has a time complexity of **O(n)**, where n is the length of the strings s and t, and a space complexity of **O(1)**, since the frequency map will only ever have a maximum of 26 keys (one for each letter of the alphabet).
+
+### Approach 2: Single Loop
+
+One way to optimize the code above is to use a single loop instead of three loops. You can do this by using a single loop to iterate through both `s` and `t` simultaneously, and using a single frequency map to track the counts of characters in both `s` and `t`.
+
+```javascript
+function isAnagram(s, t) {
+    if (s.length !== t.length) {
+        return false;
+    }
+
+    const freq = {};
+    for (let i = 0; i < s.length; i++) {
+        freq[s[i]] = (freq[s[i]] || 0) + 1;
+        freq[t[i]] = (freq[t[i]] || 0) - 1;
+    }
+
+    for (const c in freq) {
+        if (freq[c] !== 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The first approach has a time complexity of O(n) because it iterates through the input strings (`s` and `t`) once each, and it iterates through the sFreq object once to check if all the values are 0.
+
+The second approach also has a time complexity of O(n) because it iterates through the input strings (`s` and `t`) once each, and it iterates through the freq object once to check if all the values are 0.
+
+Overall, both approaches have a time complexity of O(n) and a space complexity of O(n).
+
+### Space Complexity
+
+The first approach has a space complexity of O(n), because it uses an object (sFreq) to store the frequencies of the characters in s, and the size of this object will grow as the size of the input string grows.
+
+The second approach has a space complexity of O(n), because it uses an object (freq) to store the differences in the frequencies of the characters in `s` and `t`, and the size of this object will grow as the size of the input strings grows.
