@@ -1,7 +1,7 @@
 {
-  "name": "nextra-docs-template",
+  "name": "leetcode-practitioner",
   "version": "0.0.1",
-  "description": "Nextra docs template",
+  "description": "Welcome to our JavaScript LeetCode practices repository! Here, you will find a collection of solved problems from the popular coding platform LeetCode, implemented in JavaScript.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
+    "url": "git+https://github.com/EpicHigh/leetcode-practitioner.git"
   },
-  "author": "Shu Ding <g@shud.in>",
+  "author": "Prasit Tongpradit <prasit_tongpradit@windowslive.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
+    "url": "https://github.com/EpicHigh/leetcode-practitioner/issues"
   },
-  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
+  "homepage": "https://github.com/EpicHigh/leetcode-practitioner#readme",
   "dependencies": {
     "next": "^13.0.6",
     "nextra": "2.0.1",
