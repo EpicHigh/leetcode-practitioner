@@ -44,7 +44,7 @@ To find the k most frequent elements in an array, you can use the following step
 
 Here is a solution in JavaScript:
 
-### Approach 1: Using a Map and Sorting
+### Approach 1: Frequency Sorting
 
 The first step creates a map that stores the frequency of each number in the input array nums. It then converts the map to an array of [number, frequency] pairs, sorts the array in descending order by frequency, and returns the first k numbers.
 
@@ -100,7 +100,7 @@ The space complexity of the first implementation is O(n), because it creates a m
 
 Note that this analysis assumes that the sort function has a time complexity of O(n * log(n)). Some implementations of the sort function may have a different time complexity, such as O(n^2) or O(n * log(n) * log(n)). However, in practice, the time complexity of the sort function is usually O(n * log(n)), so this is a reasonable assumption.
 
-### Approach 2: Using a Map and a Min Heap
+### Approach 2: Using Heap
 
 The Heap class is a min heap implementation that provides the following methods: push(element), pop(), and size(). The toArray() method returns an array representation of the heap.
 
