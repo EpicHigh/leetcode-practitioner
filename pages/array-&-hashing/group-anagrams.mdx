@@ -45,8 +45,6 @@ Output: [["a"]]
 
 ## Solution
 
-### Approach: Sorting and Using Hash Map
-
 To solve this problem, you can use a hash map to store the anagrams. The key for the hash map will be a string that represents the sorted characters in the word, and the value will be an array of words that are anagrams of each other.
 
 ```javascript
@@ -73,15 +71,11 @@ function groupAnagrams(strs) {
 }
 ```
 
-## Complexity Analysis
-
-### Time Complexity
+### Complexity Analysis
 
 The time complexity of the function above is O(n * m * log m), where n is the number of strings in the input array and m is the length of each string.
 
 This is because the function loops through each string in the input array (O(n)), and for each string, it sorts the characters (O(m * log m)) and checks if the sorted string is in the Map (O(1)).
-
-### Space Complexity
 
 The space complexity of both versions of the function is O(n * m), where n is the number of strings in the input array and m is the length of each string.
 
