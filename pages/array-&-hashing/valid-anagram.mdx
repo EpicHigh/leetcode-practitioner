@@ -35,7 +35,7 @@ Output: false
 
 ## Solution
 
-### Approach 1: Using a Map and Sorting strings
+### Approach 1: Sort-Based Anagram Grouping
 
 To solve this problem, we can create a hash map where the keys are the sorted versions of each string in the input array, and the values are arrays containing the anagrams. Then, we can iterate through the input array and add each string to the appropriate value array in the hash map. Finally, we can return the values of the hash map as the solution.
 
@@ -69,7 +69,7 @@ function groupAnagrams(strs) {
 
 This function should have a time complexity of O(n * m * log(m)), where n is the length of the input array and m is the length of the longest string in the array. The space complexity is O(n * m), since the hash map can potentially store n strings of length m.
 
-### Approach 2: Using a Map and Adding up the ASCII values
+### Approach 2: Hash-Based Anagram Grouping
 
 To solve this problem, we can create a hash map where the keys are the sum of the ASCII values of each character in each string in the input array, and the values are arrays containing the anagrams. Then, we can iterate through the input array and add each string to the appropriate value array in the hash map. Finally, we can return the values of the hash map as the solution.
 
