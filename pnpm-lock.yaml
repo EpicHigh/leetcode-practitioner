@@ -5,6 +5,7 @@ specifiers:
   '@types/node': 18.11.18
   '@vercel/analytics': ^0.1.6
   autoprefixer: ^10.4.13
+  husky: ^8.0.3
   next: ^13.0.6
   nextra: 2.1.0
   nextra-theme-docs: 2.1.0
@@ -27,6 +28,7 @@ devDependencies:
   '@trivago/prettier-plugin-sort-imports': 4.0.0_bpy7jqxzjipbm7yazmajhmq2fa
   '@types/node': 18.11.18
   autoprefixer: 10.4.13_postcss@8.4.20
+  husky: 8.0.3
   postcss: 8.4.20
   prettier: 2.8.2
   tailwindcss: 3.2.4_postcss@8.4.20
@@ -1330,6 +1332,12 @@ packages:
       property-information: 6.2.0
       space-separated-tokens: 2.0.2
     dev: false
+
+  /husky/8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
 
   /inline-style-parser/0.1.1:
     resolution: {integrity: sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==}

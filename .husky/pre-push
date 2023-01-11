@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+dir=$(dirname "$0")
+
+echo "Running pre-push hook"
+
+prettier --write "$dir/../pages/**/*.{js,jsx,ts,tsx}" "$dir/../components/**/*.{js,jsx,ts,tsx}"
