@@ -1,7 +1,3 @@
 {
-  "contain-duplicate": "1. Contains Duplicate",
-  "valid-anagram": "2. Valid Anagram",
-  "two-sum": "3. Two Sum",
-  "group-anagrams": "4. Group Anagrams",
-	"top-k-frequent-elements": "5. Top K Frequent Elements"
+	"valid-sudoku": "7. Valid Sudoku"
 }
