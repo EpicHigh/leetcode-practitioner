@@ -3,6 +3,6 @@
 
 dir=$(dirname "$0")
 
-echo "Running pre-push hook"
+echo "Running pre-commit hook"
 
 prettier --write "$dir/../pages/**/*.{js,jsx,ts,tsx}" "$dir/../components/**/*.{js,jsx,ts,tsx}"
