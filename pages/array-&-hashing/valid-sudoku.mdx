@@ -42,20 +42,24 @@ Here is the implementation code in JavaScript:
 
 ```javascript
 function isValidSudoku(board) {
-    const rows = new Array(9).fill("").map(() => new Set());
-    const cols = new Array(9).fill("").map(() => new Set());
-    const boxes = new Array(9).fill("").map(() => new Set());
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            if (board[i][j] === '.') continue;
-            const num = board[i][j];
-            const boxIdx = Math.floor(i / 3) * 3 + Math.floor(j / 3);
-            if (rows[i].has(num) || cols[j].has(num) || boxes[boxIdx].has(num)) return false;
-            rows[i].add(num);
-            cols[j].add(num);
-            boxes[boxIdx].add(num);
-        }
+  const rows = new Array(board.length).fill(undefined).map(() => new Set());
+  const cols = new Array(board.length).fill(undefined).map(() => new Set());
+  const boxes = new Array(board.length).fill(undefined).map(() => new Set());
+  for (let row in board) {
+    for (let col in board) {
+      const num = board[row][col];
+      if (num === '.') continue;
+      const box = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+      if (rows[row].has(num) || cols[col].has(num) || boxes[box].has(num)) {
+        return false;
+      } else {
+        console.log(row, rows[row], 'rows[row]');
+        rows[row].add(num);
+        cols[col].add(num);
+        boxes[box].add(num);
+      }
     }
-    return true;
+  }
+  return true;
 }
 ```
