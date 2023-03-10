@@ -1,0 +1,160 @@
+import DifficultyChip from '../../components/DifficultyChip';
+
+
+# [3Sum](https://leetcode.com/problems/3sum) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/jzZsG8n2R9A"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem:
+
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+Notice that the solution set must not contain duplicate triplets.
+
+## Example 1:
+
+Input: nums = [-1,0,1,2,-1,-4]
+
+Output: [[-1,-1,2],[-1,0,1]]
+
+## Example 2:
+
+Input: nums = []
+
+Output: []
+
+## Example 3:
+
+Input: nums = [0]
+
+Output: []
+
+## Solution:
+
+One way to solve this problem is to sort the input array and then use a nested loop to iterate through each pair of numbers. For each pair, we can use a binary search to find the third number that adds up to zero. We need to be careful to avoid duplicate triplets, so we can skip over any numbers that are the same as the previous one.
+
+### Step-by-step explanation:
+
+1. Initialize an empty array result to store the triplets that add up to zero.
+
+2. Sort the input array nums in non-decreasing order, which allows us to use two pointers to find all pairs of numbers that add up to the negative of the current number.
+
+```typescript
+nums.sort((a, b) => a - b);
+```
+
+3. Iterate through the input array nums using a single loop, and for each number nums[i], use two pointers j and k to find all pairs of numbers that add up to -nums[i]. We can start j at i + 1 and k at n - 1, where n is the length of nums.
+
+```typescript
+for (let i = 0; i < nums.length; i++) {
+	let j = i + 1;
+	let k = nums.length - 1;
+}
+```
+
+4. To avoid duplicate triplets, we can skip over any numbers that are the same as the previous one. We can check if nums[i] is equal to the previous number (nums[i - 1]) by adding a condition to the loop.
+
+```typescript
+if (i > 0 && nums[i] === nums[i - 1]) {
+    continue;
+}
+```
+
+5. Using the two pointers j and k, we can find all pairs of numbers that add up to -nums[i]. If the sum of the triplet is zero, we add it to the result array and move both pointers towards each other to find the next pair of numbers. If the sum is less than zero, we move the left pointer j towards the right. If the sum is greater than zero, we move the right pointer k towards the left.
+
+```typescript
+while (j < k) {
+    const sum = nums[i] + nums[j] + nums[k];
+    if (sum === 0) {
+        result.push([nums[i], nums[j], nums[k]]);
+        while (j < k && nums[j] === nums[j + 1]) {
+            j++;
+        }
+        while (j < k && nums[k] === nums[k - 1]) {
+            k--;
+        }
+        j++;
+        k--;
+    } else if (sum < 0) {
+        j++;
+    } else {
+        k--;
+    }
+}
+```
+
+6. Return the result array containing all unique triplets that add up to zero.
+
+```typescript
+return result;
+```
+
+### In TypeScript:
+
+```typescript
+function threeSum(nums: number[]): number[][] {
+    const result: number[][] = [];
+    nums.sort((a, b) => a - b);
+    for (let i = 0; i < nums.length - 2; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+        let j = i + 1;
+        let k = nums.length - 1;
+        while (j < k) {
+            const sum = nums[i] + nums[j] + nums[k];
+            if (sum === 0) {
+                result.push([nums[i], nums[j], nums[k]]);
+                while (j < k && nums[j] === nums[j + 1]) {
+                    j++;
+                }
+                while (j < k && nums[k] === nums[k - 1]) {
+                    k--;
+                }
+                j++;
+                k--;
+            } else if (sum < 0) {
+                j++;
+            } else {
+                k--;
+            }
+        }
+    }
+    return result;
+}
+```
+
+### In Python:
+
+```python
+def threeSum(nums: List[int]) -> List[List[int]]:
+    nums.sort()
+    result = []
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+        j = i + 1
+        k = len(nums) - 1
+        while j < k:
+            s = nums[i] + nums[j] + nums[k]
+            if s == 0:
+                result.append([nums[i], nums[j], nums[k]])
+                while j < k and nums[j] == nums[j + 1]:
+                    j += 1
+                while j < k and nums[k] == nums[k - 1]:
+                    k -= 1
+                j += 1
+                k -= 1
+            elif s < 0:
+                j += 1
+            else:
+                k -= 1
+    return result
+```
+
+The time complexity of this solution is O(n^2), where n is the length of the input array. This is because we iterate through the input array once and then use a nested loop to find all pairs of numbers that add up to the negative of the current number. The space complexity of both the original and optimized solutions for the "3Sum" problem is O(n), where n is the length of the input array. This is because we need to store the output array, which could contain up to O(n^2) triplets in the worst case. However, since the number of unique triplets is much smaller than O(n^2) for most inputs, the actual space usage is usually much smaller than the worst case. Other than the output array, the space usage is constant (i.e., O(1)) because we only need to store a few pointers and temporary variables.

@@ -1,5 +1,6 @@
 {
 	"two-sum": "1. Two Sum",
 	"best-time-to-buy-and-sell-stock": "2. Best Time to Buy and Sell Stock",
-	"insert-interval": "3. Insert Interval"
+	"insert-interval": "3. Insert Interval",
+	"3sum": "4. 3Sum"
 }
