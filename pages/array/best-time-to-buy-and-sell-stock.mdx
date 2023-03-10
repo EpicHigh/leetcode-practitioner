@@ -1,0 +1,69 @@
+---
+title: Best Time to Buy and Sell Stock
+description: You are given an array of prices where prices[i] are the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+keywords: leetcode, leetcode algorithm, leetcode problem, leetcode solution, leetcode interview, leetcode interview question, leetcode interview question solution, leetcode interview question answer, leetcode interview question walkthrough, leetcode interview question explanation, leetcode interview question example, leetcode interview question practice, leetcode interview question practice solution, leetcode interview question practice answer, leetcode interview question practice walkthrough, leetcode interview question practice explanation, leetcode interview question practice example, leetcode interview question practice problem, leetcode interview question practice problem solution, leetcode interview question practice problem answer, leetcode interview question practice problem walkthrough, leetcode interview question practice problem explanation, leetcode interview question practice problem example, leetcode interview question practice problem practice, leetcode interview question practice problem practice solution, leetcode interview question practice problem practice answer, leetcode interview question practice problem practice walkthrough, leetcode interview question practice problem practice explanation, leetcode interview question practice problem practice example, leetcode interview question practice problem practice problem, leetcode interview question practice problem practice problem solution, leetcode interview question practice problem practice problem answer, leetcode interview question practice problem practice problem walkthrough, leetcode interview question practice problem practice problem explanation, leetcode interview question practice problem practice problem example, leetcode interview question practice problem practice problem practice, leetcode interview question practice problem practice problem practice solution, leetcode interview question practice problem practice problem practice answer, leetcode interview question practice problem practice problem practice walkthrough, leetcode interview question practice problem practice problem practice explanation, leetcode interview question practice problem practice problem practice example, leetcode interview question practice problem practice problem practice problem, leetcode interview question practice problem practice problem practice problem solution, leetcode interview question practice problem practice problem practice problem answer, leetcode interview question practice problem practice problem practice problem walkthrough, leetcode interview question practice problem practice problem practice problem explanation, leetcode interview question practice problem practice problem practice problem example, leetcode interview question practice problem practice problem practice problem practice, leetcode interview question practice problem practice problem practice problem practice solution, leetcode interview question practice problem practice problem practice problem practice answer, leetcode interview question practice problem practice problem practice problem practice walkthrough, leetcode interview question practice problem practice problem practice problem practice explanation, leetcode interview question practice problem practice problem practice problem practice example, leetcode interview question practice problem practice problem practice problem practice problem, leetcode interview question practice problem practice problem practice problem practice problem solution, leetcode interview question practice problem
+---
+
+# [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/1pkOgXD63yU"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem:
+
+You are given an array of prices where prices[i] are the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+## Example:
+
+Input: prices = [7,1,5,3,6,4]
+
+Output: 5
+
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+
+## Solution:
+
+One way to solve this problem is to keep track of the minimum price seen so far and the maximum profit that can be obtained by selling on the current day. We can update these values as we iterate through the array.
+
+In TypeScript:
+
+```typescript
+function maxProfit(prices: number[]): number {
+	let minPrice = Number.MAX_SAFE_INTEGER;
+	let maxProfit = 0;
+
+	for (let i = 0; i < prices.length; i++) {
+		if (prices[i] < minPrice) {
+			minPrice = prices[i];
+		} else if (prices[i] - minPrice > maxProfit) {
+			maxProfit = prices[i] - minPrice;
+		}
+	}
+
+	return maxProfit;
+}
+```
+
+In Python3:
+
+```python
+def maxProfit(prices: List[int]) -> int:
+	minPrice = float('inf')
+	maxProfit = 0
+
+	for price in prices:
+		if price < minPrice:
+			minPrice = price
+		elif price - minPrice > maxProfit:
+			maxProfit = price - minPrice
+
+	return maxProfit
+```
+
+The time complexity of this solution is O(n), where n is the length of the input array. The space complexity is O(1), because we only need to store two variables (minPrice and maxProfit) at any given time.
