@@ -15,7 +15,7 @@ import DifficultyChip from '../../components/DifficultyChip';
 					allowFullScreen></iframe>
 </div>
 
-## Problem:
+## Problem
 
 Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
 
@@ -29,12 +29,51 @@ Input: nums = [1,2,3,4]
 
 Output: [24,12,8,6]
 
-
-## Solution:
+## Summary
 
 To solve this problem, we need to use two passes over the array. In the first pass, the solution calculates the product of all elements to the left of each element in the array, storing each product in the corresponding position in answer. In the second pass, the solution calculates the product of all elements to the right of each element in the array, multiplying it by the corresponding value in answer. The final answer array contains the desired products.
 
-### Step-by-step explanation:
+## Solution
+
+### In TypeScript
+
+```typescript
+function productExceptSelf(nums: number[]): number[] {
+	const n = nums.length;
+	const answer = new Array(n).fill(1);
+	let leftProduct = 1;
+	for (let i = 0; i < n; i++) {
+		answer[i] *= leftProduct;
+		leftProduct *= nums[i];
+	}
+	let rightProduct = 1;
+	for (let i = n - 1; i >= 0; i--) {
+		answer[i] *= rightProduct;
+		rightProduct *= nums[i];
+	}
+	return answer;
+}
+```
+
+### In Python
+
+```python
+def productExceptSelf(nums: List[int]) -> List[int]:
+	n = len(nums)
+	answer = [1] * n
+	leftProduct = 1
+	for i in range(n):
+		answer[i] *= leftProduct
+		leftProduct *= nums[i]
+	rightProduct = 1
+	for i in range(n - 1, -1, -1):
+		answer[i] *= rightProduct
+		rightProduct *= nums[i]
+	return answer
+```
+
+
+## Step-by-step explanation
 
 1. The length of the input array is stored in a variable n.
 
@@ -90,41 +129,12 @@ for (let i = n - 1; i >= 0; i--) {
 return answer;
 ```
 
-### In TypeScript:
+## Complexity Analysis
 
-```typescript
-function productExceptSelf(nums: number[]): number[] {
-	const n = nums.length;
-	const answer = new Array(n).fill(1);
-	let leftProduct = 1;
-	for (let i = 0; i < n; i++) {
-		answer[i] *= leftProduct;
-		leftProduct *= nums[i];
-	}
-	let rightProduct = 1;
-	for (let i = n - 1; i >= 0; i--) {
-		answer[i] *= rightProduct;
-		rightProduct *= nums[i];
-	}
-	return answer;
-}
-```
+### Time Complexity
 
-### In Python:
+The time complexity of this solution is O(n) because the solution uses two separate passes over the array.
 
-```python
-def productExceptSelf(nums: List[int]) -> List[int]:
-	n = len(nums)
-	answer = [1] * n
-	leftProduct = 1
-	for i in range(n):
-		answer[i] *= leftProduct
-		leftProduct *= nums[i]
-	rightProduct = 1
-	for i in range(n - 1, -1, -1):
-		answer[i] *= rightProduct
-		rightProduct *= nums[i]
-	return answer
-```
+### Space Complexity
 
-The time complexity of this solution is O(n) by using two separate passes over the array. The space complexity is O(n) because the answer array is created to hold the final products.
+The space complexity of this solution is O(n) because the answer array is created to hold the final products.
