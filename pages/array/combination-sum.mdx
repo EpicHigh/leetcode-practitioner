@@ -15,7 +15,7 @@ import DifficultyChip from '../../components/DifficultyChip';
 					allowFullScreen></iframe>
 </div>
 
-## Problem:
+## Problem
 
 Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
 
@@ -36,7 +36,7 @@ To avoid duplicates, we can start each recursive call from the current index ins
 
 ## Solution
 
-### In TypeScript:
+### In TypeScript
 
 ```typescript
 function combinationSum(candidates: number[], target: number): number[][] {
@@ -63,7 +63,7 @@ function combinationSum(candidates: number[], target: number): number[][] {
 }
 ```
 
-### In Python:
+### In Python
 
 ```python
 def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
@@ -85,9 +85,9 @@ def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
 	return results
 ```
 
-## Step-by-step explanation:
+## Step-by-step explanation
 
-1. An empty 2D array results is created to hold the final combinations.
+1. An empty 2D array result is created to hold the final combinations.
 
 ```typescript
 const results: number[][] = [];
