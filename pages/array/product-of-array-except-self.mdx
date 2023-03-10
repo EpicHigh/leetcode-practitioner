@@ -1,0 +1,124 @@
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/bNvIQI2wAjk"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem:
+
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
+
+## Example
+
+Input: nums = [1,2,3,4]
+
+Output: [24,12,8,6]
+
+
+## Solution:
+
+To solve this problem, we need to use two passes over the array. In the first pass, the solution calculates the product of all elements to the left of each element in the array, storing each product in the corresponding position in answer. In the second pass, the solution calculates the product of all elements to the right of each element in the array, multiplying it by the corresponding value in answer. The final answer array contains the desired products.
+
+### Step-by-step explanation:
+
+1. The length of the input array is stored in a variable n.
+
+```typescript
+const n = nums.length;
+```
+
+2. An array of length n is created and filled with 1 values. This array will hold the final products for each element of the input array.
+
+```typescript
+const answer = new Array(n).fill(1);
+```
+
+3. A variable leftProduct is initialized to 1. This variable will hold the product of all elements to the left of the current element.
+
+```typescript
+let leftProduct = 1;
+```
+
+4. A loop is started that iterates over the input array from left to right:
+  1. The corresponding element in answer is multiplied by leftProduct.
+  2. leftProduct is multiplied by the current element in the input array.
+  3. This calculates the product of all elements to the left of the current element.
+
+```typescript
+for (let i = 0; i < n; i++) {
+	answer[i] *= leftProduct;
+	leftProduct *= nums[i];
+}
+```
+
+5. A variable rightProduct is initialized to 1. This variable will hold the product of all elements to the right of the current element.
+
+```typescript
+let rightProduct = 1;
+```
+
+6. A loop is started that iterates over the input array from right to left:
+	1. The corresponding element in answer is multiplied by rightProduct.
+	2. rightProduct is multiplied by the current element in the input array.
+	3. This calculates the product of all elements to the right of the current element.
+
+```typescript
+for (let i = n - 1; i >= 0; i--) {
+	answer[i] *= rightProduct;
+	rightProduct *= nums[i];
+}
+```
+
+7. The function returns the answer array, which contains the desired products.
+
+```typescript
+return answer;
+```
+
+### In TypeScript:
+
+```typescript
+function productExceptSelf(nums: number[]): number[] {
+	const n = nums.length;
+	const answer = new Array(n).fill(1);
+	let leftProduct = 1;
+	for (let i = 0; i < n; i++) {
+		answer[i] *= leftProduct;
+		leftProduct *= nums[i];
+	}
+	let rightProduct = 1;
+	for (let i = n - 1; i >= 0; i--) {
+		answer[i] *= rightProduct;
+		rightProduct *= nums[i];
+	}
+	return answer;
+}
+```
+
+### In Python:
+
+```python
+def productExceptSelf(nums: List[int]) -> List[int]:
+	n = len(nums)
+	answer = [1] * n
+	leftProduct = 1
+	for i in range(n):
+		answer[i] *= leftProduct
+		leftProduct *= nums[i]
+	rightProduct = 1
+	for i in range(n - 1, -1, -1):
+		answer[i] *= rightProduct
+		rightProduct *= nums[i]
+	return answer
+```
+
+The time complexity of this solution is O(n) by using two separate passes over the array. The space complexity is O(n) because the answer array is created to hold the final products.
