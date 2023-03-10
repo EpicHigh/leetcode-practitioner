@@ -53,13 +53,13 @@ function twoSum(nums: number[], target: number) {
 
 ```python
 def twoSum(self, nums: List[int], target: int) -> List[int]:
-		map = {}
-		for i in range(len(nums)):
-				complement = target - nums[i]
-				if complement in map:
-						return [map[complement], i]
-				map[nums[i]] = i
-		return []
+	map = {}
+	for i in range(len(nums)):
+			complement = target - nums[i]
+			if complement in map:
+					return [map[complement], i]
+			map[nums[i]] = i
+	return []
 ```
 
 The time complexity of this solution is O(n), where n is the length of the input array. The space complexity is also O(n), because we store all the elements of the array in the hash table.
