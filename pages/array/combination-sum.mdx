@@ -1,0 +1,159 @@
+---
+title: Combination Sum
+description: Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+keywords: combination sum, combination, sum, combinations, combination sum problem, combination sum algorithm, combination sum solution, combination sum leetcode, combination sum javascript, combination sum typescript, combination sum python, combination sum java, combination sum c++, combination sum c#, combination sum go, combination sum rust, combination sum swift, combination sum kotlin, combination sum dart, combination sum ruby, combination sum php, combination sum scala, combination sum clojure, combination sum haskell, combination sum elixir, combination sum f#, combination sum lua, combination sum
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Combination Sum](https://leetcode.com/problems/combination-sum/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/GBKI9VSKdGg"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+
+The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.
+
+It is guaranteed that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
+
+## Example
+
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+
+## Summary
+
+To solve this problem, we need to find all unique combinations of numbers in the input array candidates that sum up to the target number target. We can solve this problem recursively by iterating through the input array, selecting each element as a potential starting point for a combination, and then recursing on the remaining part of the input array to find all valid combinations that add up to the remaining target.
+
+To avoid duplicates, we can start each recursive call from the current index instead of the beginning of the input array. We can also keep track of the current sum and stop recursing once the sum is greater than the target. Finally, we can add the valid combinations to a results array and return it.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function combinationSum(candidates: number[], target: number): number[][] {
+	const results: number[][] = [];
+
+	function backtrack(current: number[], sum: number, start: number) {
+		if (sum > target) {
+			return;
+		}
+		if (sum === target) {
+			results.push(current.slice());
+			return;
+		}
+
+		for (let i = start; i < candidates.length; i++) {
+			current.push(candidates[i]);
+			backtrack(current, sum + candidates[i], i);
+			current.pop();
+		}
+	}
+
+	backtrack([], 0, 0);
+	return results;
+}
+```
+
+### In Python
+
+```python
+def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+	results = []
+
+	def backtrack(current, sum, start):
+		if sum > target:
+			return
+		if sum == target:
+			results.append(current[:])
+			return
+
+		for i in range(start, len(candidates)):
+			current.append(candidates[i])
+			backtrack(current, sum + candidates[i], i)
+			current.pop()
+
+	backtrack([], 0, 0)
+	return results
+```
+
+## Step-by-step explanation
+
+1. An empty 2D array result is created to hold the final combinations.
+
+```typescript
+const results: number[][] = [];
+```
+
+2. The function backtrack is defined to recursively search for all valid combinations that add up to the target sum.
+
+```typescript
+function backtrack(current: number[], sum: number, start: number) {
+	// ...
+}
+```
+
+3. The function backtrack takes three parameters: current represents the current combination being built, sum represents the current sum of the elements in current, and start represents the index to start searching for new elements in the input array.
+4. If the current sum is greater than the target, the function returns and does not consider the current combination any further.
+
+```typescript
+if (sum > target) {
+	return;
+}
+```
+
+5. If the current sum is equal to the target, the current combination is a valid solution and is added to the results array.
+
+```typescript
+if (sum === target) {
+	results.push(current.slice());
+	return;
+}
+```
+
+6. Otherwise, the function iterates over the remaining elements in the input array starting from the start index.
+
+```typescript
+for (let i = start; i < candidates.length; i++) {
+	// ...
+}
+```
+
+7. For each element, it adds it to the current combination, recursively calls the backtrack function with the updated combination and sum, and then removes the added element to restore the previous state.
+
+```typescript
+current.push(candidates[i]);
+backtrack(current, sum + candidates[i], i);
+current.pop();
+```
+
+8. This process continues until all possible combinations have been explored.
+9. Finally, the backtrack function is called with an empty combination, a sum of 0, and a start index of 0 to initiate the search.
+
+```typescript
+backtrack([], 0, 0);
+```
+
+10. The function returns the results array, which contains all valid combinations that add up to the target sum.
+
+```typescript
+return results;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is exponential, as we may potentially explore all combinations of the input array. However, the actual runtime will depend on the structure of the input array and the target value. In practice, the algorithm is often able to prune large portions of the search tree early and terminate quickly.
+
+### Space Complexity
+
+The space complexity of this solution is also exponential, as we may potentially generate a large number of combinations. However, the space required for each recursive call is proportional to the depth of the recursion, which is limited by the size of the input array. Thus, the actual space usage will depend on the structure of the input array and the target value. In practice, the algorithm is often able to prune large portions of the search tree early and use less space.

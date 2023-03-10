@@ -1,3 +1,9 @@
+---
+title: 3Sum
+description: Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+keywords: 3sum, leetcode, leetcode medium, leetcode 3sum, leetcode 3sum problem, leetcode 3sum solution, leetcode 3sum explanation, leetcode 3sum walkthrough, leetcode 3sum video, leetcode 3sum animation, leetcode 3sum explanation video, leetcode 3sum explanation animation, leetcode 3sum walkthrough video, leetcode 3sum walkthrough animation, leetcode 3sum problem explanation, leetcode 3sum problem walkthrough, leetcode 3sum problem video, leetcode 3sum problem animation, leetcode 3sum problem explanation video, leetcode 3sum problem explanation animation, leetcode 3sum problem walkthrough video, leetcode 3sum problem walkthrough animation, leetcode 3sum solution explanation, leetcode 3sum solution walkthrough, leetcode 3sum solution video, leetcode 3sum solution animation, leetcode 3sum solution explanation video, leetcode 3sum solution explanation animation, leetcode 3sum solution walkthrough video, leetcode 3sum solution walkthrough animation, leetcode 3sum problem solution explanation, leetcode 3sum problem solution walkthrough, leetcode 3sum problem solution video, leetcode 3sum problem solution animation, leetcode 3sum problem solution explanation video, leetcode 3sum problem solution explanation animation, leetcode 3sum problem solution walkthrough video, leetcode 3sum problem solution walkthrough animation, leetcode 3sum problem explanation solution, leetcode 3sum problem walkthrough solution, leetcode 3sum problem video solution, leetcode 3sum problem animation solution, leetcode 3sum problem explanation video solution, leetcode 3sum problem explanation animation solution, leetcode 3sum problem walkthrough video solution, leetcode 3sum problem walkthrough animation solution, leetcode 3sum solution explanation solution, leetcode 3sum solution walkthrough solution, leetcode 3sum solution video solution, leetcode 3sum solution animation solution, leetcode 3sum solution explanation video solution, leetcode 3sum solution explanation animation solution, leetcode 3sum solution walkthrough video solution, leetcode 3sum solution walkthrough animation solution, leetcode 3sum problem solution explanation solution, leetcode 3sum problem solution walkthrough solution, leetcode 3sum problem solution video solution, leetcode 3sum problem solution animation solution, leetcode 3sum
+---
+
 import DifficultyChip from '../../components/DifficultyChip';
 
 
@@ -16,29 +22,112 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 
 Notice that the solution set must not contain duplicate triplets.
 
-## Example 1:
+## Example
+
+### Example 1:
 
 Input: nums = [-1,0,1,2,-1,-4]
 
 Output: [[-1,-1,2],[-1,0,1]]
 
-## Example 2:
+### Example 2:
 
 Input: nums = []
 
 Output: []
 
-## Example 3:
+### Example 3:
 
 Input: nums = [0]
 
 Output: []
 
-## Solution:
+## Summary
 
-One way to solve this problem is to sort the input array and then use a nested loop to iterate through each pair of numbers. For each pair, we can use a binary search to find the third number that adds up to zero. We need to be careful to avoid duplicate triplets, so we can skip over any numbers that are the same as the previous one.
+To solve this problem, we can sort the input array, iterate over each element, and use two pointers to find pairs of elements that sum up to the negation of the current element. We can skip duplicate elements and pairs to avoid duplicates in the output. We can return the unique triplets that satisfy the sum condition.
 
-### Step-by-step explanation:
+## Solution
+
+### In TypeScript
+
+```typescript
+function threeSum(nums: number[]): number[][] {
+  nums.sort((a, b) => a - b);
+
+  const results: number[][] = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+
+    let j = i + 1;
+    let k = nums.length - 1;
+
+    while (j < k) {
+      const sum = nums[i] + nums[j] + nums[k];
+
+      if (sum === 0) {
+        results.push([nums[i], nums[j], nums[k]]);
+        j++;
+        k--;
+
+        while (j < k && nums[j] === nums[j - 1]) {
+          j++;
+        }
+        while (j < k && nums[k] === nums[k + 1]) {
+          k--;
+        }
+      } else if (sum < 0) {
+        j++;
+      } else {
+        k--;
+      }
+    }
+  }
+
+  return results;
+}
+```
+
+### In Python
+
+```python
+from typing import List
+
+def threeSum(nums: List[int]) -> List[List[int]]:
+	nums.sort()
+
+	results = []
+
+	for i in range(len(nums)):
+		if i > 0 and nums[i] == nums[i - 1]:
+			continue
+
+		j = i + 1
+		k = len(nums) - 1
+
+		while j < k:
+			sum = nums[i] + nums[j] + nums[k]
+
+			if sum == 0:
+				results.append([nums[i], nums[j], nums[k]])
+				j += 1
+				k -= 1
+
+				while j < k and nums[j] == nums[j - 1]:
+						j += 1
+				while j < k and nums[k] == nums[k + 1]:
+						k -= 1
+			elif sum < 0:
+				j += 1
+			else:
+				k -= 1
+
+	return results
+```
+
+## Step-by-step explanation
 
 1. Initialize an empty array result to store the triplets that add up to zero.
 
@@ -72,14 +161,14 @@ while (j < k) {
     const sum = nums[i] + nums[j] + nums[k];
     if (sum === 0) {
         result.push([nums[i], nums[j], nums[k]]);
+        j++;
+        k--;
         while (j < k && nums[j] === nums[j + 1]) {
             j++;
         }
         while (j < k && nums[k] === nums[k - 1]) {
             k--;
         }
-        j++;
-        k--;
     } else if (sum < 0) {
         j++;
     } else {
@@ -94,67 +183,12 @@ while (j < k) {
 return result;
 ```
 
-### In TypeScript:
+## Complexity Analysis
 
-```typescript
-function threeSum(nums: number[]): number[][] {
-    const result: number[][] = [];
-    nums.sort((a, b) => a - b);
-    for (let i = 0; i < nums.length - 2; i++) {
-        if (i > 0 && nums[i] === nums[i - 1]) {
-            continue;
-        }
-        let j = i + 1;
-        let k = nums.length - 1;
-        while (j < k) {
-            const sum = nums[i] + nums[j] + nums[k];
-            if (sum === 0) {
-                result.push([nums[i], nums[j], nums[k]]);
-                while (j < k && nums[j] === nums[j + 1]) {
-                    j++;
-                }
-                while (j < k && nums[k] === nums[k - 1]) {
-                    k--;
-                }
-                j++;
-                k--;
-            } else if (sum < 0) {
-                j++;
-            } else {
-                k--;
-            }
-        }
-    }
-    return result;
-}
-```
+### Time Complexity
 
-### In Python:
+The time complexity of this solution is O(n^2), where n is the length of the input array. The sorting step takes O(n log n) time, and the nested loop takes O(n^2) time in the worst case. However, by using two pointers and skipping duplicates, the actual running time of the algorithm is significantly less than the worst case.
 
-```python
-def threeSum(nums: List[int]) -> List[List[int]]:
-    nums.sort()
-    result = []
-    for i in range(len(nums) - 2):
-        if i > 0 and nums[i] == nums[i - 1]:
-            continue
-        j = i + 1
-        k = len(nums) - 1
-        while j < k:
-            s = nums[i] + nums[j] + nums[k]
-            if s == 0:
-                result.append([nums[i], nums[j], nums[k]])
-                while j < k and nums[j] == nums[j + 1]:
-                    j += 1
-                while j < k and nums[k] == nums[k - 1]:
-                    k -= 1
-                j += 1
-                k -= 1
-            elif s < 0:
-                j += 1
-            else:
-                k -= 1
-    return result
-```
+### Space Complexity
 
-The time complexity of this solution is O(n^2), where n is the length of the input array. This is because we iterate through the input array once and then use a nested loop to find all pairs of numbers that add up to the negative of the current number. The space complexity of "3Sum" problem is O(n), where n is the length of the input array. This is because we need to store the output array, which could contain up to O(n^2) triplets in the worst case. However, since the number of unique triplets is much smaller than O(n^2) for most inputs, the actual space usage is usually much smaller than the worst case. Other than the output array, the space usage is constant (i.e., O(1)) because we only need to store a few pointers and temporary variables.
+The space complexity of this solution is O(log n) due to the sorting step.
