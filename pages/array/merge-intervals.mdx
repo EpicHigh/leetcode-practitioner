@@ -89,7 +89,7 @@ const merged: number[][] = [];
 
 3. The function iterates over the sorted intervals from left to right, and for each interval:
 
-	1.The start and end times of the interval are extracted using destructuring assignment.
+	1. The start and end times of the interval are extracted using destructuring assignment.
 	2. If the merged array is empty, or the end time of the previous interval in merged is less than the start time of the current interval, then the current interval is added to merged.
 	3. Otherwise, the end time of the previous interval in merged is updated to the maximum of the current and previous end times.
 
