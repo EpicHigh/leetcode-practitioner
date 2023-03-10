@@ -131,6 +131,8 @@ for (let i = start; i < candidates.length; i++) {
 
 ```typescript
 current.push(candidates[i]);
+backtrack(current, sum + candidates[i], i);
+current.pop();
 ```
 
 8. This process continues until all possible combinations have been explored.
