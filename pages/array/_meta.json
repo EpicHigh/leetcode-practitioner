@@ -3,5 +3,6 @@
 	"best-time-to-buy-and-sell-stock": "2. Best Time to Buy and Sell Stock",
 	"insert-interval": "3. Insert Interval",
 	"3sum": "4. 3Sum",
-	"product-of-array-except-self": "5. Product of Array Except Self"
+	"product-of-array-except-self": "5. Product of Array Except Self",
+	"combination-sum": "6. Combination Sum"
 }
