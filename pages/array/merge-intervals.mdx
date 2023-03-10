@@ -1,0 +1,126 @@
+---
+title: Merge Intervals
+description: Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+keywords: leetcode, leetcode algorithm, leetcode problem, leetcode solution, leetcode interview, leetcode interview question, leetcode interview question solution, leetcode interview question answer, leetcode interview question walkthrough, leetcode interview question explanation, leetcode interview question and answer, leetcode interview question and solution, leetcode interview question and walkthrough, leetcode interview question and explanation, leetcode interview question with answer, leetcode interview question with solution, leetcode interview question with walkthrough, leetcode interview question with explanation, leetcode interview question with code, leetcode interview question with code solution, leetcode interview question with code walkthrough, leetcode interview question with code explanation, leetcode interview question with code answer, leetcode interview question with code and solution, leetcode interview question with code and walkthrough, leetcode interview question with code and explanation, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code and answer, leetcode interview question with code and explanation, leetcode interview question with code and walkthrough, leetcode interview question with code and solution, leetcode interview question with code
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Merge Intervals](https://leetcode.com/problems/merge-intervals/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/44H3cEC2fFM"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+## Example
+
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+
+Output: [[1,6],[8,10],[15,18]]
+
+## Summary
+
+To solve this problem, we need to merge all overlapping intervals in the input array. We can do this by first sorting the intervals by their start times. We can then iterate through the sorted intervals and merge any intervals that overlap with the current interval. If two intervals overlap, we can merge them by updating the end time of the current interval to the maximum of the two end times.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function merge(intervals: number[][]): number[][] {
+	intervals.sort((a, b) => a[0] - b[0]);
+
+	const merged: number[][] = [];
+
+	for (let i = 0; i < intervals.length; i++) {
+		const [start, end] = intervals[i];
+
+		if (merged.length === 0 || merged[merged.length - 1][1] < start) {
+			merged.push([start, end]);
+		} else {
+			merged[merged.length - 1][1] = Math.max(
+				merged[merged.length - 1][1],
+				end
+			);
+		}
+	}
+
+	return merged;
+}
+```
+
+### In Python
+
+```python
+def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+	intervals.sort(key=lambda x: x[0])
+
+	merged = []
+
+	for interval in intervals:
+		if not merged or merged[-1][1] < interval[0]:
+			merged.append(interval)
+		else:
+			merged[-1][1] = max(merged[-1][1], interval[1])
+
+	return merged
+```
+
+## Step-by-step explanation
+
+1. The input intervals array is sorted in non-decreasing order by the start times of the intervals.
+
+```typescript
+intervals.sort((a, b) => a[0] - b[0]);
+```
+
+2. An empty 2D array merged is created to hold the merged intervals.
+
+```typescript
+const merged: number[][] = [];
+```
+
+3. The function iterates over the sorted intervals from left to right, and for each interval:
+	1.The start and end times of the interval are extracted using destructuring assignment.
+
+```typescript
+const [start, end] = intervals[i];
+```
+
+	2. If the merged array is empty, or the end time of the previous interval in merged is less than the start time of the current interval, then the current interval is added to merged.
+	3. Otherwise, the end time of the previous interval in merged is updated to the maximum of the current and previous end times.
+
+
+```typescript
+if (merged.length === 0 || merged[merged.length - 1][1] < start) {
+	merged.push([start, end]);
+} else {
+	merged[merged.length - 1][1] = Math.max(
+		merged[merged.length - 1][1],
+		end
+	);
+}
+```
+
+4. The merged array, which now contains the non-overlapping merged intervals, is returned.
+
+```typescript
+return merged;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n log n), where n is the number of intervals in the input array. The time complexity is dominated by the sorting step, which takes O(n log n) time in the worst case. The subsequent iteration over the sorted array takes O(n) time.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), where n is the number of intervals in the input array. The space required to store the merged intervals is proportional to the number of non-overlapping intervals, which is at most n in the worst case if no intervals overlap.
