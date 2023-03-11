@@ -5,5 +5,6 @@
 	"3sum": "4. 3Sum",
 	"product-of-array-except-self": "5. Product of Array Except Self",
 	"combination-sum": "6. Combination Sum",
-	"merge-intervals": "7. Merge Intervals"
+	"merge-intervals": "7. Merge Intervals",
+	"majority-element": "8. Majority Element"
 }

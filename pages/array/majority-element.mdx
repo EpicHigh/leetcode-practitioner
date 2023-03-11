@@ -1,0 +1,223 @@
+---
+title: Majority Element
+description: Given an array nums of size n, return the majority element. The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+keywords: [majority element, leetcode, leetcode easy, leetcode easy problems, leetcode easy problem, leetcode easy problem solution, leetcode easy problem solutions, leetcode easy problem walkthrough, leetcode easy problem walkthroughs, leetcode easy problem explanation, leetcode easy problem explanations, leetcode easy problem algorithm, leetcode easy problem algorithms, leetcode easy problem code, leetcode easy problem codes, leetcode easy problem solution code, leetcode easy problem solution codes, leetcode easy problem solution walkthrough, leetcode easy problem solution walkthroughs, leetcode easy problem solution explanation, leetcode easy problem solution explanations, leetcode easy problem solution algorithm, leetcode easy problem solution algorithms, leetcode easy problem solution in typescript, leetcode easy problem solution in python, leetcode easy problem solution in javascript, leetcode easy problem solution in java, leetcode easy problem solution in c#, leetcode easy problem solution in c++, leetcode easy problem solution in ruby, leetcode easy problem solution in go, leetcode easy problem solution in swift, leetcode easy problem solution in kotlin, leetcode easy problem solution in dart, leetcode easy problem solution in php, leetcode easy problem solution in rust, leetcode easy problem solution in scala, leetcode easy problem solution in elixir, leetcode easy problem solution in clojure, leetcode easy problem solution in haskell, leetcode easy problem solution in perl, leetcode easy problem solution in r, leetcode easy problem solution in julia, leetcode easy problem solution in lua, leetcode easy problem solution in crystal, leetcode easy problem solution in f#, leetcode easy problem solution in nim, leetcode easy problem solution in d, leetcode easy problem solution in pascal, leetcode easy problem solution in bash, leetcode easy problem solution in ocaml, leetcode easy problem solution in powershell, leetcode easy problem solution in typescript, leetcode easy problem solution in python, leetcode easy problem solution in javascript, leetcode easy problem solution in java, leetcode easy problem solution in c#, leetcode easy problem solution in c++, leetcode easy problem solution in ruby, leetcode easy problem solution in go, leetcode easy problem solution in swift, leetcode easy problem solution in kotlin, leetcode easy problem solution in dart, leetcode easy problem solution in php, leetcode easy problem solution in rust, leetcode easy problem solution in scala, leetcode easy problem solution
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Majority Element](https://leetcode.com/problems/majority-element) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/7pnhv842keE"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+## Example
+
+Input: nums = [2,2,1,1,1,2,2]
+Output: 2
+
+## Summary
+
+To solve this problem, we can use a hash table to count the number of occurrences of each element in the input array. We can then return the element with the highest count.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function majorityElement(nums: number[]): number {
+    const counts = new Map<number, number>();
+    let maxCount = 0;
+    let majority = 0;
+
+    for (const num of nums) {
+        counts.set(num, (counts.get(num) ?? 0) + 1);
+        if (counts.get(num) > maxCount) {
+            maxCount = counts.get(num);
+            majority = num;
+        }
+    }
+
+    return majority;
+}
+```
+
+### In Python
+
+```python
+from typing import List
+
+def majorityElement(nums: List[int]) -> int:
+    counts = {}
+    maxCount = 0
+    majority = 0
+
+    for num in nums:
+        counts[num] = counts.get(num, 0) + 1
+        if counts[num] > maxCount:
+            maxCount = counts[num]
+            majority = num
+
+    return majority
+```
+
+## Step-by-step explanation
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. The algorithm iterates over the input array once and performs constant time operations on each element, including hash table lookups and updates.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), where n is the length of the input array. The space required to store the hash table is proportional to the number of distinct elements in the input array, which is at most n in the worst case if all elements are distinct.
+
+## Variations
+
+There are actually several different algorithms that can be used to solve this problem, each with its own time and space complexity. Here are a few variations:
+
+### Sorting
+
+One simple approach is to sort the input array and return the element at index ⌊n/2⌋, where n is the length of the array. Since the majority element always appears more than ⌊n/2⌋ times, this element is guaranteed to be the majority element. The time complexity of this approach is O(n log n) due to the sorting step, and the space complexity is O(1) if we sort the input array in-place, or O(n) if we create a sorted copy of the input array.
+
+#### In TypeScript
+
+```typescript
+function majorityElement(nums: number[]): number {
+		nums.sort();
+		return nums[Math.floor(nums.length / 2)];
+}
+```
+
+#### In Python
+
+```python
+def majorityElement(nums: List[int]) -> int:
+		nums.sort()
+		return nums[len(nums) // 2]
+```
+
+### HashMap
+
+The approach I showed earlier uses a hash table to count the number of occurrences of each element in the input array. This approach has a time complexity of O(n), since we iterate over the input array once, and a space complexity of O(n), since we need to store the counts of each element in the hash table.
+
+### Boyer-Moore Voting Algorithm
+
+The Boyer-Moore Voting Algorithm is a clever algorithm that can find the majority element in O(n) time and O(1) space. The basic idea is to keep track of a "candidate" element that may be the majority element, and a count of how many times it has been seen. We iterate over the input array, updating the candidate and count as follows:
+
+1. If the count is 0, set the current element as the candidate.
+2. If the current element is equal to the candidate, increment the count.
+3. If the current element is not equal to the candidate, decrement the count.
+4. After iterating over the array, the candidate element is the majority element.
+
+This algorithm works because the majority element appears more than ⌊n/2⌋ times, so its count will never become negative, and it will always be the candidate element at the end of the iteration.
+
+#### In TypeScript
+
+```typescript
+function majorityElement(nums: number[]): number {
+		let candidate = 0;
+		let count = 0;
+
+		for (const num of nums) {
+				if (count === 0) {
+						candidate = num;
+				}
+
+				if (num === candidate) {
+						count++;
+				} else {
+						count--;
+				}
+		}
+
+		return candidate;
+}
+```
+
+#### In Python
+
+```python
+from typing import List
+
+def majorityElement(nums: List[int]) -> int:
+		candidate = 0
+		count = 0
+
+		for num in nums:
+				if count == 0:
+						candidate = num
+
+				if num == candidate:
+						count += 1
+				else:
+						count -= 1
+
+		return candidate
+```
+
+### Divide and Conquer
+
+The Divide and Conquer approach involves recursively splitting the input array in half, finding the majority element in each half, and then merging the results. This approach has a time complexity of O(n log n) in the worst case, but it can be faster than the other approaches on certain inputs. The basic idea is as follows:
+
+1. If the array has length 1, return the element as the majority element.
+2. Recursively find the majority element in the left half of the array.
+3. Recursively find the majority element in the right half of the array.
+4. If the majority elements in the left and right halves are the same, return that element as the majority element.
+5. Otherwise, count the number of occurrences of each candidate element in the entire array, and return the element with the highest count as the majority element.
+
+#### In TypeScript
+
+```typescript
+function majorityElement(nums: number[]): number {
+		if (nums.length === 1) {
+				return nums[0];
+		}
+
+		const mid = Math.floor(nums.length / 2);
+		const left = majorityElement(nums.slice(0, mid));
+		const right = majorityElement(nums.slice(mid));
+
+		if (left === right) {
+				return left;
+		}
+
+		const leftCount = nums.filter((num) => num === left).length;
+		const rightCount = nums.filter((num) => num === right).length;
+
+		return leftCount > rightCount ? left : right;
+}
+```
+
+#### In Python
+
+```python
+from typing import List
+
+def majorityElement(nums: List[int]) -> int:
+		if len(nums) == 1:
+				return nums[0]
+
+		mid = len(nums) // 2
+		left = majorityElement(nums[:mid])
+		right = majorityElement(nums[mid:])
+
+		if left == right:
+				return left
+
+		leftCount = len([num for num in nums if num == left])
+		rightCount = len([num for num in nums if num == right])
+
+		return left if leftCount > rightCount else right
+```
