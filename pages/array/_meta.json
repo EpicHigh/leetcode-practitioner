@@ -7,5 +7,6 @@
 	"combination-sum": "6. Combination Sum",
 	"merge-intervals": "7. Merge Intervals",
 	"majority-element": "8. Majority Element",
-	"sort-colors": "9. Sort Colors"
+	"sort-colors": "9. Sort Colors",
+	"contains-duplicate": "10. Contains Duplicate"
 }
