@@ -6,5 +6,6 @@
 	"product-of-array-except-self": "5. Product of Array Except Self",
 	"combination-sum": "6. Combination Sum",
 	"merge-intervals": "7. Merge Intervals",
-	"majority-element": "8. Majority Element"
+	"majority-element": "8. Majority Element",
+	"sort-colors": "9. Sort Colors"
 }

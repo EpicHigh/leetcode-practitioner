@@ -1,0 +1,137 @@
+---
+title:
+description:
+keywords:
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Sort Colors](https://leetcode.com/problems/sort-colors) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/4xbWSRZHqac"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+
+You must solve this problem without using the library's sort function.
+
+## Example
+
+Input: nums = [2,0,2,1,1,0]
+Output: [0,0,1,1,2,2]
+
+## Summary
+
+To solve this problem, we can use a modified version of the quicksort algorithm. We choose a pivot element (in this case, the value 1) and partition the input array into three sections:
+
+1. Elements less than the pivot (red).
+2. Elements equal to the pivot (white).
+3. Elements greater than the pivot (blue).
+
+We then recursively sort the red and blue sections using the same partitioning process, until the entire array is sorted.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function sortColors(nums: number[]): void {
+    let left = 0;
+    let right = nums.length - 1;
+    let i = 0;
+
+    while (i <= right) {
+        if (nums[i] === 0) {
+            [nums[left], nums[i]] = [nums[i], nums[left]];
+            left++;
+            i++;
+        } else if (nums[i] === 2) {
+            [nums[right], nums[i]] = [nums[i], nums[right]];
+            right--;
+        } else {
+            i++;
+        }
+    }
+}
+```
+
+### In Python
+
+```python
+from typing import List
+
+def sortColors(nums: List[int]) -> None:
+    left = 0
+    right = len(nums) - 1
+    i = 0
+
+    while i <= right:
+        if nums[i] == 0:
+            nums[left], nums[i] = nums[i], nums[left]
+            left += 1
+            i += 1
+        elif nums[i] == 2:
+            nums[right], nums[i] = nums[i], nums[right]
+            right -= 1
+        else:
+            i += 1
+```
+
+## Step-by-step explanation
+
+1. We initialize three variables: left is the index of the first element that has not yet been determined to be less than 0, right is the index of the first element that has not yet been determined to be greater than 2, and i is the index of the current element being examined.
+
+```typescript
+let left = 0;
+let right = nums.length - 1;
+let i = 0;
+```
+
+2. We use a while loop to iterate over the input array nums, until i is greater than right. Within the loop, we check the value of nums[i] and perform one of three actions:
+
+	1. If nums[i] is equal to 0, we swap nums[i] with the element at index left, increment left and i, since we know that all elements to the left of left are less than 0 and all elements to the right of right are greater than 2.
+	2. If nums[i] is equal to 2, we swap nums[i] with the element at index right, decrement right, since we know that all elements to the right of right are greater than 2.
+	3. If nums[i] is equal to 1, we simply increment i.
+
+```typescript
+while (i <= right) {
+		if (nums[i] === 0) {
+				[nums[left], nums[i]] = [nums[i], nums[left]];
+				left++;
+				i++;
+		} else if (nums[i] === 2) {
+				[nums[right], nums[i]] = [nums[i], nums[right]];
+				right--;
+		} else {
+				i++;
+		}
+}
+```
+
+3. After the loop has finished, the input array nums is sorted in-place.
+
+```typescript
+return nums;
+```
+
+The idea behind this solution is to use a modified version of the quicksort algorithm, where we partition the input array into three sections based on the value of a pivot element (in this case, the value 1). Elements less than the pivot (red) are moved to the left, elements equal to the pivot (white) are left in place, and elements greater than the pivot (blue) are moved to the right. We then recursively sort the red and blue sections using the same partitioning process, until the entire array is sorted.
+
+However, in this solution we use a single pass approach to partition the input array, avoiding the need for recursion. We maintain two pointers, left and right, and examine each element in the input array exactly once, swapping elements as necessary to move all elements less than 0 to the left and all elements greater than 2 to the right. The elements remaining in the middle are the elements equal to 1. By the end of the loop, the input array is sorted according to the problem statement.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We iterate over the input array once and perform constant time operations on each element.
+
+### Space Complexity
+
+The space complexity of this solution is O(1), since we sort the input array in-place and only use a constant amount of extra space for variables left, right, and i.
