@@ -138,3 +138,90 @@ The time complexity of this solution is O(n) because the solution uses two separ
 ### Space Complexity
 
 The space complexity of this solution is O(n) because the answer array is created to hold the final products.
+
+## Variations
+
+### Prefix and Suffix Products
+
+The approach I showed earlier calculates the prefix and suffix products of each element in the input array nums, and then multiply the prefix and suffix products to get the final result. This approach has a time complexity of O(n) and a space complexity of O(n).
+
+### Two-Pointer
+
+We can use two pointers to maintain the prefix and suffix products of each element in the input array nums. This approach has a time complexity of O(n) and a space complexity of O(1).
+
+#### In TypeScript
+
+```typescript
+function productExceptSelf(nums: number[]): number[] {
+		const n = nums.length;
+		const result = new Array<number>(n);
+		let leftProduct = 1;
+		let rightProduct = 1;
+		for (let i = 0; i < n; i++) {
+				result[i] = leftProduct;
+				leftProduct *= nums[i];
+		}
+		for (let i = n - 1; i >= 0; i--) {
+				result[i] *= rightProduct;
+				rightProduct *= nums[i];
+		}
+		return result;
+}
+
+```
+
+#### In Python
+
+```python
+def productExceptSelf(nums: List[int]) -> List[int]:
+		n = len(nums)
+		result = [1] * n
+		leftProduct = 1
+		rightProduct = 1
+		for i in range(n):
+				result[i] *= leftProduct
+				leftProduct *= nums[i]
+		for i in range(n - 1, -1, -1):
+				result[i] *= rightProduct
+				rightProduct *= nums[i]
+		return result
+```
+
+
+
+### Division
+
+We can calculate the product of all elements in the input array nums, and then divide the product by each element to get the final result. This approach has a time complexity of O(n) and a space complexity of O(1), but it may not work if there are zero elements in the input array.
+
+#### In TypeScript
+
+```typescript
+function productExceptSelf(nums: number[]): number[] {
+    const n = nums.length;
+    const product = nums.reduce((acc, val) => acc * val);
+    const result = new Array<number>(n);
+    for (let i = 0; i < n; i++) {
+        result[i] = product / nums[i];
+    }
+    return result;
+}
+```
+
+#### In Python
+
+```python
+def productExceptSelf(nums: List[int]) -> List[int]:
+    product = 1
+    zero_count = 0
+    for num in nums:
+        if num == 0:
+            zero_count += 1
+            if zero_count > 1:
+                return [0] * len(nums)
+        else:
+            product *= num
+    if zero_count == 1:
+        return [0 if num != 0 else product for num in nums]
+    else:
+        return [product // num for num in nums]
+```
