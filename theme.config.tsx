@@ -1,21 +1,21 @@
-import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { DocsThemeConfig, useConfig } from 'nextra-theme-docs';
+import React from 'react';
 
 const config: DocsThemeConfig = {
-	docsRepositoryBase: "https://github.com/EpicHigh/leetcode-practitioner",
+	docsRepositoryBase: 'https://github.com/EpicHigh/leetcode-practitioner',
 	footer: {
 		text: (
 			<span>
-				MIT {new Date().getFullYear()} © Thank you for visiting my JavaScript
-				LeetCode practices documentation website.
+				MIT {new Date().getFullYear()} © Thank you for visiting my LeetCode
+				practices documentation website.
 				<br />
 				I hope that you have found this resource helpful in improving your
 				coding skills and preparing for technical interviews.
 				<br />
-				Made with ❤️ by{" "}
+				Made with ❤️ by{' '}
 				<Link
 					className="footer-link"
 					href="https://linkedin.com/in/prasit-tongpradit"
@@ -23,8 +23,8 @@ const config: DocsThemeConfig = {
 					rel="noreferrer noopener"
 				>
 					Prasit Tongpradit
-				</Link>{" "}
-				and I would like to thank{" "}
+				</Link>{' '}
+				and I would like to thank{' '}
 				<Link
 					className="footer-link"
 					href="https://www.youtube.com/@NeetCode"
@@ -32,7 +32,7 @@ const config: DocsThemeConfig = {
 					rel="noreferrer noopener"
 				>
 					NeetCode
-				</Link>{" "}
+				</Link>{' '}
 				for their video resources. Keep practicing and happy coding!
 			</span>
 		),
@@ -66,7 +66,7 @@ const config: DocsThemeConfig = {
 				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 				<link rel="shortcut icon" href="/favicon.ico" />
 
-				<meta name="keywords" content={frontMatter.keywords || ""} />
+				<meta name="keywords" content={frontMatter.keywords || ''} />
 			</>
 		);
 	},
@@ -83,39 +83,39 @@ const config: DocsThemeConfig = {
 		</>
 	),
 	project: {
-		link: "https://github.com/EpicHigh/leetcode-practitioner",
+		link: 'https://github.com/EpicHigh/leetcode-practitioner',
 	},
 	useNextSeoProps() {
 		const { asPath } = useRouter();
 		const { frontMatter } = useConfig();
 		return {
-			titleTemplate: "%s – LeetCode Practitioner",
+			titleTemplate: '%s – LeetCode Practitioner',
 			description: frontMatter.description,
 			openGraph: {
-				type: "website",
-				locale: "en",
-				siteName: "LeetCode Practitioner",
+				type: 'website',
+				locale: 'en',
+				siteName: 'LeetCode Practitioner',
 				url: `https://leetcode-practitioner.vercel.app${asPath}`,
 				title: frontMatter.title,
 				description: frontMatter.description,
 				images: [
 					{
-						url: "https://leetcode-practitioner.vercel.app/apple-touch-icon.png",
+						url: 'https://leetcode-practitioner.vercel.app/apple-touch-icon.png',
 						width: 180,
 						height: 180,
-						alt: "LeetCode Practitioner Apple Touch Icon",
+						alt: 'LeetCode Practitioner Apple Touch Icon',
 					},
 					{
-						url: "https://leetcode-practitioner.vercel.app/android-chrome-192x192.png",
+						url: 'https://leetcode-practitioner.vercel.app/android-chrome-192x192.png',
 						width: 192,
 						height: 192,
-						alt: "LeetCode Practitioner Android Chrome Icon",
+						alt: 'LeetCode Practitioner Android Chrome Icon',
 					},
 					{
-						url: "https://leetcode-practitioner.vercel.app/android-chrome-512x512.png",
+						url: 'https://leetcode-practitioner.vercel.app/android-chrome-512x512.png',
 						width: 512,
 						height: 512,
-						alt: "LeetCode Practitioner Android Chrome Icon",
+						alt: 'LeetCode Practitioner Android Chrome Icon',
 					},
 				],
 			},
