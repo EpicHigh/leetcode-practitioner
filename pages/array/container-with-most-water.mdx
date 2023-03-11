@@ -1,0 +1,170 @@
+---
+title:
+description:
+keywords:
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Container With Most Water](https://leetcode.com/problems/container-with-most-water) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/XXXXXXXX"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.
+
+## Example
+
+Input: height = [1,8,6,2,5,4,8,3,7]
+
+Output: 49
+
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+
+## Summary
+
+## Solution
+
+To solve this problem, we can use the two pointer approach. We start by setting the left pointer to the beginning of the array and the right pointer to the end of the array. We compute the area between the two pointers, which is the minimum height between the two multiplied by the distance between them. We then move the pointer with the smaller height inward, since the distance between the pointers is reduced and the only way to increase the area is to increase the height. We repeat this process until the two pointers meet, and we return the maximum area seen so far.
+
+### In TypeScript
+
+```typescript
+function maxArea(height: number[]): number {
+    let maxArea = 0;
+    let left = 0;
+    let right = height.length - 1;
+    while (left < right) {
+        const area = Math.min(height[left], height[right]) * (right - left);
+        maxArea = Math.max(maxArea, area);
+        if (height[left] <= height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return maxArea;
+}
+```
+
+### In Python
+
+```python
+def maxArea(height: List[int]) -> int:
+    maxArea = 0
+    left = 0
+    right = len(height) - 1
+    while left < right:
+        area = min(height[left], height[right]) * (right - left)
+        maxArea = max(maxArea, area)
+        if height[left] <= height[right]:
+            left += 1
+        else:
+            right -= 1
+    return maxArea
+```
+
+## Step-by-step explanation
+
+1. We initialize the maximum area seen so far (maxArea) to 0, and we set two pointers left and right to the beginning and end of the array, respectively.
+
+```typescript
+let maxArea = 0;
+let left = 0;
+let right = height.length - 1;
+```
+
+2. We enter a while loop that continues until the two pointers meet. We do this because the area is determined by the minimum height between the two pointers multiplied by the distance between them. Therefore, if we want to maximize the area, we need to keep the pointers as far apart as possible, while also choosing the heights that result in the largest area.
+
+```typescript
+while (left < right) {
+    // ...
+}
+```
+
+3. Inside the while loop, we compute the area between the two pointers using the formula area = Math.min(height[left], height[right]) * (right - left). We take the minimum height between the two pointers, since that determines the height of the container, and we multiply that by the distance between the pointers, which is right - left.
+
+```typescript
+const area = Math.min(height[left], height[right]) * (right - left);
+```
+
+4. We update maxArea to be the maximum of the current area and the previous maximum area seen so far.
+
+```typescript
+maxArea = Math.max(maxArea, area);
+```
+
+5. We then compare the heights at the left and right pointers. If the height at the left pointer is less than or equal to the height at the right pointer, we increment the left pointer by 1. This is because if we were to keep the left pointer fixed and move the right pointer inward, the new container would have a smaller height than the current container, and thus a smaller area. Therefore, we move the left pointer inward instead, in the hopes of finding a taller height. If the height at the right pointer is less than the height at the left pointer, we decrement the right pointer by 1 for the same reason.
+
+```typescript
+if (height[left] <= height[right]) {
+		left++;
+} else {
+		right--;
+}
+```
+
+6. Finally, we return the maximum area seen so far, which is stored in maxArea.
+
+```typescript
+return maxArea;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We only iterate over the array once using the two pointer approach.
+
+### Space Complexity
+
+The space complexity of this solution is O(1), since we only use a constant amount of extra space.
+
+## Variations
+
+There are actually several different algorithms that can be used to solve this problem, each with its own time and space complexity. Here are a few variations:
+
+### Brute Force
+
+One way to solve this problem is to compute the area for every possible pair of lines and return the maximum area. This would involve two nested loops and would have a time complexity of O(n^2) and a space complexity of O(1).
+
+#### In TypeScript
+
+```typescript
+function maxArea(height: number[]): number {
+    let maxArea = 0;
+
+    for (let i = 0; i < height.length; i++) {
+        for (let j = i + 1; j < height.length; j++) {
+            const area = Math.min(height[i], height[j]) * (j - i);
+            maxArea = Math.max(maxArea, area);
+        }
+    }
+
+    return maxArea;
+}
+```
+
+#### In Python
+
+```python
+def maxArea(height: List[int]) -> int:
+		maxArea = 0
+
+		for i in range(len(height)):
+				for j in range(i + 1, len(height)):
+						area = min(height[i], height[j]) * (j - i)
+						maxArea = max(maxArea, area)
+
+		return maxArea
+```
+
+### Two Pointer
+
+As demonstrated in the solution above, we can use the two-pointer approach to find the maximum area between any two lines in the array, by moving the pointers towards each other based on the height of the lines. This approach has a time complexity of O(n) and a space complexity of O(1).

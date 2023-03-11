@@ -8,5 +8,6 @@
 	"merge-intervals": "7. Merge Intervals",
 	"majority-element": "8. Majority Element",
 	"sort-colors": "9. Sort Colors",
-	"contains-duplicate": "10. Contains Duplicate"
+	"contains-duplicate": "10. Contains Duplicate",
+	"container-with-most-water": "11. Container With Most Water"
 }
