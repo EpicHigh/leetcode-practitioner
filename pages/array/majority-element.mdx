@@ -73,6 +73,41 @@ def majorityElement(nums: List[int]) -> int:
 
 ## Step-by-step explanation
 
+1. We initialize an empty hash table counts, a variable maxCount to keep track of the maximum count of any element seen so far, and a variable majority to keep track of the element with the highest count seen so far.
+
+```typescript
+const counts = new Map<number, number>();
+```
+
+2. We iterate over the input array nums using a for...of loop.
+
+```typescript
+for (const num of nums) {
+    // ...
+}
+```
+
+3. For each element num in nums, we check if num is already in counts. If it is, we increment its count by 1. If it is not, we add it to counts with an initial count of 1.
+
+```typescript
+counts.set(num, (counts.get(num) ?? 0) + 1);
+```
+
+4. We then check if the count of num in counts is greater than maxCount. If it is, we update maxCount to be the count of num, and update majority to be num.
+
+```typescript
+if (counts.get(num) > maxCount) {
+		maxCount = counts.get(num);
+		majority = num;
+}
+```
+
+5. After iterating over all elements in nums, we return majority.
+
+```typescript
+return majority;
+```
+
 ## Complexity Analysis
 
 ### Time Complexity
