@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@next/font': ^13.2.4
   '@trivago/prettier-plugin-sort-imports': ^4.0.0
-  '@types/node': 18.15.0
+  '@types/node': 18.15.1
   '@vercel/analytics': ^0.1.6
   autoprefixer: ^10.4.13
   husky: ^8.0.3
@@ -28,7 +28,7 @@ dependencies:
 
 devDependencies:
   '@trivago/prettier-plugin-sort-imports': 4.0.0_bpy7jqxzjipbm7yazmajhmq2fa
-  '@types/node': 18.15.0
+  '@types/node': 18.15.1
   autoprefixer: 10.4.13_postcss@8.4.20
   husky: 8.0.3
   postcss: 8.4.20
@@ -683,8 +683,8 @@ packages:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: false
 
-  /@types/node/18.15.0:
-    resolution: {integrity: sha512-z6nr0TTEOBGkzLGmbypWOGnpSpSIBorEhC4L+4HeQ2iezKCi4f77kyslRwvHeNitymGQ+oFyIWGP96l/DPSV9w==}
+  /@types/node/18.15.1:
+    resolution: {integrity: sha512-U2TWca8AeHSmbpi314QBESRk7oPjSZjDsR+c+H4ECC1l+kFgpZf8Ydhv3SJpPy51VyZHHqxlb6mTTqYNNRVAIw==}
     dev: true
 
   /@types/parse5/6.0.3:
