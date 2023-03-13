@@ -49,6 +49,10 @@ const config: DocsThemeConfig = {
 				<meta name="mobile-web-app-capable" content="yes" />
 				<meta name="msapplication-TileColor" content="#2B5797" />
 				<meta name="msapplication-tap-highlight" content="no" />
+				<meta
+					name="google-site-verification"
+					content="6lYoiRDSgMvimZ6DzgL7tpq7kUlelV_QhO0Efsyd0Yg"
+				/>
 
 				<link
 					rel="icon"
