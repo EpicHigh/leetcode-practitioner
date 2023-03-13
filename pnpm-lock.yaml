@@ -8,6 +8,7 @@ specifiers:
   autoprefixer: ^10.4.13
   husky: ^8.0.3
   next: ^13.2.4
+  next-sitemap: ^4.0.5
   nextra: 2.2.19
   nextra-theme-docs: 2.2.19
   postcss: ^8.4.20
@@ -21,6 +22,7 @@ dependencies:
   '@next/font': 13.2.4
   '@vercel/analytics': 0.1.6_react@18.2.0
   next: 13.2.4_65aaefrptgalbi6a2fwpzxfmae
+  next-sitemap: 4.0.5_jccvrrmb7rb3yyi3af3znueaea
   nextra: 2.2.19_ld2jel3hspngo3u5lti2kgl2sq
   nextra-theme-docs: 2.2.19_i765vautotixoofbdi6dinfkwe
   react: 18.2.0
@@ -263,6 +265,10 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+
+  /@corex/deepmerge/4.0.37:
+    resolution: {integrity: sha512-PX90bEnrLdxd5e6rSFWsghExMuSw0Uov3fWJuuaoFuUQIS/446diu/4seExK5b+43L+SOBbd2uBGwYUkG1JfCw==}
+    dev: false
 
   /@headlessui/react/1.7.13_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-9n+EQKRtD9266xIHXdY5MfiXPDfYwl7zBM7KOx2Ae3Gdgxy8QML1FkCMjq6AsOf0l6N9uvI4HcFtuFlenaldKg==}
@@ -2118,6 +2124,10 @@ packages:
     resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
     dev: true
 
+  /minimist/1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+    dev: false
+
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -2158,6 +2168,20 @@ packages:
       next: 13.2.4_65aaefrptgalbi6a2fwpzxfmae
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /next-sitemap/4.0.5_jccvrrmb7rb3yyi3af3znueaea:
+    resolution: {integrity: sha512-kIABX4n8wJqY2sttRjivBF2r1MgQ1pg12y87qGT+5meippq0ivxaNSRldMDOj8pIGhXW6uFAsCxyH/JftqkwWQ==}
+    engines: {node: '>=14.18'}
+    hasBin: true
+    peerDependencies:
+      '@next/env': '*'
+      next: '*'
+    dependencies:
+      '@corex/deepmerge': 4.0.37
+      '@next/env': 13.2.4
+      minimist: 1.2.8
+      next: 13.2.4_65aaefrptgalbi6a2fwpzxfmae
     dev: false
 
   /next-themes/0.2.1_ld2jel3hspngo3u5lti2kgl2sq:
