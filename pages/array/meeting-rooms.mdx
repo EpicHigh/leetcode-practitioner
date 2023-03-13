@@ -1,0 +1,362 @@
+---
+title: Meeting Rooms
+description: Given an array of meeting time intervals where intervals[i] = [starti, endi], determine if a person could attend all meetings.
+keywords: leetcode, meeting rooms, meeting rooms problem, meeting rooms solution, meeting rooms typescript, meeting rooms python, meeting rooms javascript, meeting rooms java, meeting rooms c#, meeting rooms c++, meeting rooms go, meeting rooms ruby, meeting rooms swift, meeting rooms kotlin, meeting rooms scala, meeting rooms rust, meeting rooms php, meeting rooms dart, meeting rooms elixir, meeting rooms clojure, meeting rooms haskell, meeting rooms f#, meeting rooms sql, meeting rooms mysql, meeting rooms postgresql, meeting rooms oracle, meeting rooms sql server, meeting rooms sqlite, meeting rooms mongodb, meeting rooms cassandra, meeting rooms redis, meeting rooms neo4j, meeting rooms elasticsearch, meeting rooms memcached, meeting rooms dynamodb, meeting rooms couchdb, meeting rooms riak, meeting rooms couchbase, meeting rooms aerospike, meeting rooms orientdb, meeting rooms arangodb, meeting rooms firebase, meeting rooms firestore, meeting rooms dynamodb, meeting rooms azure cosmos db, meeting rooms azure table storage, meeting rooms azure sql, meeting rooms azure mysql, meeting rooms azure postgresql, meeting rooms azure mongodb, meeting rooms azure redis, meeting rooms azure sql server, meeting rooms azure sql data warehouse, meeting rooms azure sql elastic pools, meeting rooms azure sql managed instances, meeting rooms azure sql serverless, meeting rooms azure sql virtual machines, meeting rooms azure sql managed instance, meeting rooms azure sql elastic pool, meeting rooms azure sql data warehouse, meeting rooms azure sql serverless, meeting rooms azure sql virtual machine, meeting rooms azure sql managed instance, meeting rooms azure sql elastic pool, meeting rooms azure sql data warehouse, meeting rooms azure sql serverless, meeting rooms azure sql virtual machine, meeting rooms azure sql managed instance, meeting rooms azure sql elastic pool, meeting rooms azure sql data warehouse, meeting rooms azure sql serverless, meeting rooms azure sql virtual machine, meeting rooms azure sql managed instance, meeting rooms azure sql elastic pool, meeting rooms azure sql data warehouse, meeting rooms azure sql serverless, meeting rooms azure sql virtual machine, meeting rooms azure sql managed instance, meeting rooms azure sql elastic pool, meeting rooms azure sql data warehouse, meeting rooms azure sql serverless, meeting rooms azure sql virtual machine, meeting rooms azure sql managed instance, meeting rooms azure sql elastic pool, meeting rooms azure sql data warehouse, meeting rooms azure sql serverless, meeting rooms azure sql virtual machine, meeting rooms azure sql managed instance, meeting rooms azure sql elastic pool, meeting
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Meeting Rooms](https://leetcode.com/problems/meeting-rooms/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/PaJxqZVPhbg"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of meeting time intervals where intervals[i] = [starti, endi], determine if a person could attend all meetings.
+
+## Example
+
+Input: intervals = [[0,30],[5,10],[15,20]]
+
+Output: false
+
+Input: intervals = [[7,10],[2,4]]
+
+Output: true
+
+## Summary
+
+This problem requires us to determine whether there exists any overlapping meeting intervals. We can solve this problem by sorting the intervals by their start times, and then checking if any adjacent intervals overlap.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function canAttendMeetings(intervals: number[][]): boolean {
+    // Sort intervals by start time
+    intervals.sort((a, b) => a[0] - b[0]);
+
+    // Check if any adjacent intervals overlap
+    for (let i = 1; i < intervals.length; i++) {
+        if (intervals[i][0] < intervals[i-1][1]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+```
+
+### In Python
+
+```python
+def canAttendMeetings(intervals: List[List[int]]) -> bool:
+    # Sort intervals by start time
+    intervals.sort(key=lambda x: x[0])
+
+    # Check if any adjacent intervals overlap
+    for i in range(1, len(intervals)):
+        if intervals[i][0] < intervals[i-1][1]:
+            return False
+
+    return True
+```
+
+## Step-by-step explanation
+
+1. We sort the intervals array by their start times in ascending order using the built-in sort function and a comparison function that compares the first element of each interval.
+
+```typescript
+intervals.sort((a, b) => a[0] - b[0]);
+```
+
+2. We iterate over the sorted intervals array using a for loop starting at the second element (index 1) since we will be comparing each interval with the previous one. For each iteration, we check if the start time of the current interval is less than the end time of the previous interval. If it is, then the current and previous intervals overlap, and we immediately return false since the person cannot attend all meetings without overlapping.
+
+```typescript
+for (let i = 1; i < intervals.length; i++) {
+		if (intervals[i][0] < intervals[i-1][1]) {
+				return false;
+		}
+}
+```
+
+3. If we reach the end of the loop without returning false, it means that there are no overlapping intervals, and the person can attend all meetings without overlapping. In this case, we return true.
+
+```typescript
+return true;
+```
+
+Overall, the solution is efficient and easy to follow since it involves only a single loop and a sort function. The time complexity is O(n log n), where n is the number of intervals, due to the sorting step, and the space complexity is O(1), since we are only using constant extra space.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n log n), where n is the number of intervals. The sorting step takes O(n log n) time, and the loop over the intervals takes O(n) time.
+
+### Space
+
+The space complexity of this solution is O(1) because we are only using constant extra space to store variables for the loop.
+
+## Variations
+
+There are actually several different algorithms that can be used to solve this problem, each with its own time and space complexity. Here are a few variations:
+
+### Brute Force
+
+One possible solution is to compare every possible pair of intervals and check if any of them overlap. This approach would require a nested loop and result in a time complexity of O(n^2). The space complexity would be O(1) since no additional data structure is required.
+
+#### In TypeScript
+
+```typescript
+function canAttendMeetings(intervals: number[][]): boolean {
+    for (let i = 0; i < intervals.length; i++) {
+        for (let j = i + 1; j < intervals.length; j++) {
+            if (intervals[i][0] < intervals[j][1] && intervals[j][0] < intervals[i][1]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+```
+
+#### In Python
+
+```python
+def canAttendMeetings(intervals: List[List[int]]) -> bool:
+		for i in range(len(intervals)):
+				for j in range(i + 1, len(intervals)):
+						if intervals[i][0] < intervals[j][1] and intervals[j][0] < intervals[i][1]:
+								return False
+		return True
+```
+
+In this solution, we have two nested loops that iterate over every possible pair of intervals. For each pair, we check if the start time of the first interval is less than the end time of the second interval AND the start time of the second interval is less than the end time of the first interval. If this condition is true, it means that the two intervals overlap, and we immediately return false since the person cannot attend all meetings without overlapping.
+
+### Sorting
+
+As demonstrated in the solution above, we can sort the intervals by start time and then compare adjacent intervals to check for overlap. This approach requires sorting the intervals, which has a time complexity of O(n log n), and then iterating over the intervals, which has a time complexity of O(n). Therefore, the overall time complexity is O(n log n). The space complexity is O(1) since we only need to store a few variables to keep track of the current and previous intervals.
+
+### Interval Tree
+
+Another approach is to use an interval tree data structure to store the intervals and efficiently query for overlapping intervals. Building an interval tree has a time complexity of O(n log n), and querying the tree for overlapping intervals has a time complexity of O(log n) for each query. Therefore, the overall time complexity is O(n log n). The space complexity is O(n) since we need to store the intervals in the tree.
+
+#### In TypeScript
+
+```typescript
+class IntervalTreeNode {
+    start: number;
+    end: number;
+    left: IntervalTreeNode | null;
+    right: IntervalTreeNode | null;
+    constructor(start: number, end: number) {
+        this.start = start;
+        this.end = end;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class IntervalTree {
+    root: IntervalTreeNode | null;
+    constructor() {
+        this.root = null;
+    }
+
+    // Insert a new interval into the tree
+    insert(start: number, end: number) {
+        const newNode = new IntervalTreeNode(start, end);
+        if (!this.root) {
+            this.root = newNode;
+            return;
+        }
+        let curr = this.root;
+        while (true) {
+            if (start < curr.start) {
+                if (!curr.left) {
+                    curr.left = newNode;
+                    break;
+                }
+                curr = curr.left;
+            } else {
+                if (!curr.right) {
+                    curr.right = newNode;
+                    break;
+                }
+                curr = curr.right;
+            }
+        }
+    }
+
+    // Check if any intervals in the tree overlap with the given interval
+    overlaps(start: number, end: number): boolean {
+        let curr = this.root;
+        while (curr) {
+            if (end <= curr.start) {
+                curr = curr.left;
+            } else if (start >= curr.end) {
+                curr = curr.right;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+function canAttendMeetings(intervals: number[][]): boolean {
+    const tree = new IntervalTree();
+    for (let i = 0; i < intervals.length; i++) {
+        const [start, end] = intervals[i];
+        if (tree.overlaps(start, end)) {
+            return false;
+        }
+        tree.insert(start, end);
+    }
+    return true;
+}
+```
+
+#### In Python
+
+```python
+class IntervalTreeNode:
+    def __init__(self, start: int, end: int):
+        self.start = start
+        self.end = end
+        self.left = None
+        self.right = None
+
+class IntervalTree:
+    def __init__(self):
+        self.root = None
+
+    # Insert a new interval into the tree
+    def insert(self, start: int, end: int):
+        new_node = IntervalTreeNode(start, end)
+        if not self.root:
+            self.root = new_node
+            return
+        curr = self.root
+        while True:
+            if start < curr.start:
+                if not curr.left:
+                    curr.left = new_node
+                    break
+                curr = curr.left
+            else:
+                if not curr.right:
+                    curr.right = new_node
+                    break
+                curr = curr.right
+
+    # Check if any intervals in the tree overlap with the given interval
+    def overlaps(self, start: int, end: int) -> bool:
+        curr = self.root
+        while curr:
+            if end <= curr.start:
+                curr = curr.left
+            elif start >= curr.end:
+                curr = curr.right
+            else:
+                return True
+        return False
+
+def canAttendMeetings(intervals: List[List[int]]) -> bool:
+    tree = IntervalTree()
+    for interval in intervals:
+        start, end = interval
+        if tree.overlaps(start, end):
+            return False
+        tree.insert(start, end)
+    return True
+```
+
+In this solution, we define two classes: IntervalTreeNode and IntervalTree. IntervalTreeNode represents a single node in the interval tree and contains the start and end times of an interval, as well as pointers to its left and right child nodes. IntervalTree represents the interval tree itself and provides methods to insert new intervals into the tree and check if any intervals overlap with a given interval.
+
+The `canAttendMeetings` function first creates an empty interval tree. Then, for each interval in the input, it checks if the interval overlaps with any intervals in the tree using the overlaps method. If an overlap is found, it immediately returns false. Otherwise, it inserts the interval into the tree using the insert method. If we reach the end of the loop without returning false, it means that there are no overlapping intervals, and the person can attend all meetings without overlapping.
+
+### Sweep Line Algorithm
+
+The sweep line algorithm is another approach that can be used to solve the Meeting Rooms problem. The idea is to maintain a "sweep line" that moves from left to right across the intervals, and use an event queue to keep track of the start and end times of the intervals. As the sweep line moves, we can check for overlapping intervals using a data structure like a priority queue or a binary search tree. The time complexity of this approach is also O(n log n), and the space complexity is O(n) for the event queue and any additional data structures used for checking overlaps.
+
+#### In TypeScript
+
+```typescript
+function canAttendMeetings(intervals: number[][]): boolean {
+    // Create an array to store events
+    const events: [number, boolean][] = [];
+    for (let i = 0; i < intervals.length; i++) {
+        const [start, end] = intervals[i];
+        // Add start and end events to the events array
+        events.push([start, true]);
+        events.push([end, false]);
+    }
+    // Sort the events array by time
+    events.sort((a, b) => a[0] - b[0]);
+
+    // Initialize a variable to keep track of the number of overlapping intervals
+    let overlaps = 0;
+    for (let i = 0; i < events.length; i++) {
+        const [time, isStart] = events[i];
+        // If this is a start event, increment the overlaps counter
+        if (isStart) {
+            overlaps++;
+            // If there are more than one overlapping intervals, return false
+            if (overlaps > 1) {
+                return false;
+            }
+        }
+        // If this is an end event, decrement the overlaps counter
+        else {
+            overlaps--;
+        }
+    }
+    // If we reach the end of the loop without returning false, return true
+    return true;
+}
+```
+
+#### In Python
+
+```python
+def canAttendMeetings(intervals: List[List[int]]) -> bool:
+		# Create an array to store events
+		events = []
+		for interval in intervals:
+				start, end = interval
+				# Add start and end events to the events array
+				events.append((start, True))
+				events.append((end, False))
+		# Sort the events array by time
+		events.sort(key=lambda x: x[0])
+
+		# Initialize a variable to keep track of the number of overlapping intervals
+		overlaps = 0
+		for event in events:
+				time, is_start = event
+				# If this is a start event, increment the overlaps counter
+				if is_start:
+						overlaps += 1
+						# If there are more than one overlapping intervals, return false
+						if overlaps > 1:
+								return False
+				# If this is an end event, decrement the overlaps counter
+				else:
+						overlaps -= 1
+		# If we reach the end of the loop without returning false, return true
+		return True
+```
+
+In this solution, we use an array to store events that represent the start and end times of intervals. We iterate over the input array and add start and end events to the events array. Then, we sort the events array by time using the built-in sort function and a comparison function that compares the first element of each event.
+
+We then initialize a variable to keep track of the number of overlapping intervals and iterate over the events array. For each event, we check if it is a start event or an end event. If it is a start event, we increment the overlaps counter and check if there are more than one overlapping intervals. If there are, we immediately return false since the person cannot attend all meetings without overlapping. If it is an end event, we decrement the overlaps counter.
+
+If we reach the end of the loop without returning false, it means that there are no overlapping intervals, and the person can attend all meetings without overlapping. In this case, we return true.
