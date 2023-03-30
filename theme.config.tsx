@@ -37,6 +37,9 @@ const config: DocsThemeConfig = {
 			</span>
 		),
 	},
+	sidebar: {
+		defaultMenuCollapseLevel: 1,
+	},
 	head() {
 		const { frontMatter } = useConfig();
 		return (
