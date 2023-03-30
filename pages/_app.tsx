@@ -1,5 +1,5 @@
 import '../styles/global.css';
-import { Roboto } from '@next/font/google';
+import { Roboto } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
 

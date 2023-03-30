@@ -7,7 +7,7 @@
     "dev": "next dev",
     "prepare": "husky install",
     "start": "next start",
-		"postbuild": "next-sitemap"
+    "postbuild": "next-sitemap"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/EpicHigh/leetcode-practitioner#readme",
   "dependencies": {
-    "@next/font": "^13.2.4",
     "@vercel/analytics": "^0.1.6",
     "next": "^13.2.4",
     "next-sitemap": "^4.0.5",

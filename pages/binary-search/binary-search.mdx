@@ -1,0 +1,139 @@
+---
+title: Binary Search
+description: Binary search is a search algorithm that finds the position of a target value within a sorted array.
+keywords: binary search, leetcode, leetcode binary search, binary search algorithm, binary search javascript, binary search typescript, binary search python, binary search java, binary search c++, binary search c#, binary search go, binary search rust, binary search swift, binary search kotlin, binary search dart, binary search ruby, binary search php, binary search scala, binary search clojure, binary search elixir, binary search haskell, binary search julia, binary search lua, binary search nim, binary search perl, binary search r, binary search racket, binary search sql, binary search vb, binary search f#, binary search crystal, binary search d, binary search groovy, binary search julia, binary search kotlin, binary search objective-c, binary search pascal, binary search powershell, binary search raku, binary search reason, binary search typescript, binary search zig
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Binary Search](https://leetcode.com/problems/binary-search/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/s4DPM8ct1pI"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+
+## Example
+
+Input: nums = [-1,0,3,5,9,12], target = 9
+
+Output: 4
+
+## Summary
+
+To solve this problem, we can use binary search to efficiently search for the target in the sorted array nums. Binary search works by repeatedly dividing the search interval in half.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function search(nums: number[], target: number): number {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left <= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === target) {
+            return mid;
+        } else if (nums[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return -1;
+}
+```
+
+### In Python
+
+```python
+from typing import List
+
+def search(nums: List[int], target: int) -> int:
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+        mid = left + (right - left) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return -1
+```
+
+## Step-by-step explanation
+
+1. We initialize two pointers, `left` and `right`, which represent the boundaries of the search interval. Initially, `left` is set to 0 and `right` is set to the last index of the array (`nums.length - 1`).
+
+```typescript
+let left = 0;
+let right = nums.length - 1;
+```
+
+2. We run a `while` loop as long as `left` is less than or equal to `right`. This loop will continue until we either find the target or exhaust the search interval.
+
+```typescript
+while (left <= right) {
+		// ...
+}
+```
+
+3. Inside the loop, we calculate the middle index mid of the search interval by adding `left` and half the difference between `right` and `left`. This prevents potential integer overflow issues that could arise from simply calculating `(left + right) / 2`.
+
+```typescript
+const mid = left + Math.floor((right - left) / 2);
+```
+
+4. We check if the value at index `mid` is equal to the target. If it is, we return `mid` as the index where the target is found.
+
+```typescript
+if (nums[mid] === target) {
+		return mid;
+}
+```
+
+5. If the value at index mid is less than the target, it means that the target must be in the right half of the search interval. So, we update left to mid + 1.
+
+```typescript
+} else if (nums[mid] < target) {
+		left = mid + 1;
+}
+```
+
+6. If the value at index mid is greater than the target, it means that the target must be in the left half of the search interval. So, we update right to mid - 1.
+
+```typescript
+} else {
+		right = mid - 1;
+}
+```
+
+7. After the loop, if we have not found the target, it means that the target is not present in the array. So, we return -1.
+
+```typescript
+return -1;
+```
+
+This binary search algorithm efficiently searches for the target in the sorted array by repeatedly reducing the search interval in half until either the target is found or the search interval is exhausted.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(log n), where n is the length of the input array. Binary search reduces the search space by half at each iteration, resulting in a logarithmic time complexity.
+
+### Space Complexity
+
+The space complexity of this solution is O(1) since we only use a constant amount of additional memory to store the variables left, right, and mid.
