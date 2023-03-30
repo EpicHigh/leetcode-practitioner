@@ -1,7 +1,7 @@
 import '../styles/global.css';
-import { Roboto } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
+import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({ weight: ['400', '700'] });
 
