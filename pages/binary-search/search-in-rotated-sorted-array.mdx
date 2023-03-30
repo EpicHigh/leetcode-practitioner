@@ -1,0 +1,179 @@
+---
+title:
+description:
+keywords:
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/U8XENwh8Oy8"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an integer array nums sorted in ascending order (with distinct values) and possibly rotated at an unknown pivot index k, and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+
+## Example
+
+### Example 1:
+
+Input: nums = [4, 5, 6, 7, 0, 1, 2], target = 0
+
+Output: 4
+
+### Example 2:
+
+Input: nums = [4, 5, 6, 7, 0, 1, 2], target = 3
+
+Output: -1
+
+### Example 3:
+
+Input: nums = [1], target = 0
+
+Output: -1
+
+## Summary
+
+To solve this problem, we can use a modified binary search algorithm to find the target element in the rotated sorted array. First, we determine whether the search range is in the rotated part or not by comparing the middle element to the first element. Then, we update the search range accordingly, focusing on the sorted subarray that may contain the target element.
+
+## Solution
+
+To solve this problem, we can use a modified binary search algorithm. We can find the pivot index first and then perform binary search on the appropriate half of the array.
+
+### In TypeScript
+
+```typescript
+function search(nums: number[], target: number): number {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left <= right) {
+        const mid = left + Math.floor((right - left) / 2);
+        if (nums[mid] === target) return mid;
+
+        if (nums[left] <= nums[mid]) {
+            if (nums[left] <= target && target < nums[mid]) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        } else {
+            if (nums[mid] < target && target <= nums[right]) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+    }
+
+    return -1;
+}
+```
+
+### In Python
+
+```python
+def search(self, nums: List[int], target: int) -> int:
+		left = 0
+		right = len(nums) - 1
+
+		while left <= right:
+				mid = left + (right - left) // 2
+				if nums[mid] == target:
+						return mid
+
+				if nums[left] <= nums[mid]:
+						if nums[left] <= target and target < nums[mid]:
+								right = mid - 1
+						else:
+								left = mid + 1
+				else:
+						if nums[mid] < target and target <= nums[right]:
+								left = mid + 1
+						else:
+								right = mid - 1
+
+		return -1
+```
+
+## Step-by-step explanation
+
+1. Initialize `left` and `right` pointers to represent the boundaries of the search interval. Initially, `left` is set to 0 (the first index) and `right` is set to `nums.length - 1` (the last index).
+
+```typescript
+let left = 0;
+let right = nums.length - 1;
+```
+
+2. Start a while loop that runs as long as `left` is less than or equal to `right`.
+
+```typescript
+while (left <= right) {
+		// ...
+}
+```
+
+3. Calculate the middle index `mid` by adding `left` and `(right - left) / 2` (integer division).
+
+```typescript
+const mid = left + Math.floor((right - left) / 2);
+```
+
+4. If the value at the middle index `nums[mid]` is equal to the target, return the middle index `mid`.
+
+```typescript
+if (nums[mid] === target) return mid;
+```
+
+5. Determine whether the left half of the array is sorted by checking if `nums[left] <= nums[mid]`.
+
+```typescript
+if (nums[left] <= nums[mid]) {
+		// ...
+}
+```
+
+6. If the left half is sorted, check whether the target is in the left half by comparing it with the values at the `left` and `mid` indices. If it is, update `right` to `mid - 1` to search the left half. Otherwise, update `left` to `mid + 1` to search the right half.
+
+```typescript
+if (nums[left] <= target && target < nums[mid]) {
+		right = mid - 1;
+} else {
+		left = mid + 1;
+}
+```
+
+7. If the left half is not sorted, the right half must be sorted. Check whether the target is in the right half by comparing it with the values at the `mid` and `right` indices. If it is, update `left` to `mid + 1` to search the right half. Otherwise, update `right` to `mid - 1` to search the left half.
+
+```typescript
+} else {
+    if (nums[mid] < target && target <= nums[right]) {
+        left = mid + 1;
+    } else {
+        right = mid - 1;
+    }
+}
+```
+
+8. After the while loop, if the target has not been found, return -1.
+
+```typescript
+return -1;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(log n), where n is the number of elements in the input array. The modified binary search algorithm allows us to eliminate half of the remaining elements with each iteration, leading to logarithmic time complexity.
+
+### Space Complexity
+
+The space complexity of this solution is O(1), as we only need a constant amount of additional space to store the left, right, and mid pointers.
