@@ -2,5 +2,6 @@
 	"maximum-subarray": "1. Maximum Subarray",
 	"coin-change": "2. Coin Change",
 	"climbing-stairs": "3. Climbing Stairs",
-	"partition-equal-subset-sum": "4. Partition Equal Subset Sum"
+	"partition-equal-subset-sum": "4. Partition Equal Subset Sum",
+	"unique-paths": "5. Unique Paths"
 }
