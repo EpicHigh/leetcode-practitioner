@@ -1,0 +1,124 @@
+---
+title: Coin Change
+description: You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money. Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1. You may assume that you have an infinite number of each kind of coin.
+keywords: coin change, dynamic programming, leetcode, algorithm, interview, javascript, typescript, python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Coin Change](https://leetcode.com/problems/coin-change/) <DifficultyChip difficulty="" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/H9bfqozjoqs"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money. Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1. You may assume that you have an infinite number of each kind of coin.
+
+## Example
+
+Input: coins = [1, 2, 5], amount = 11
+
+Output: 3
+
+Explanation: 11 = 5 + 5 + 1
+
+## Summary
+
+To solve this problem, we can use dynamic programming. The idea is to create an array dp with length amount + 1, where dp[i] represents the minimum number of coins needed to make up the amount i. We initialize dp with a large value, and then iterate through the coins and update the dp array accordingly.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function coinChange(coins: number[], amount: number): number {
+    const MAX = amount + 1;
+    const dp: number[] = new Array(MAX).fill(MAX);
+    dp[0] = 0;
+
+    for (let coin of coins) {
+        for (let i = coin; i <= amount; i++) {
+            dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+        }
+    }
+
+    return dp[amount] !== MAX ? dp[amount] : -1;
+}
+```
+
+### In Python
+
+```python
+def coinChange(self, coins: List[int], amount: int) -> int:
+		MAX = amount + 1
+		dp = [MAX] * MAX
+		dp[0] = 0
+
+		for coin in coins:
+				for i in range(coin, amount + 1):
+						dp[i] = min(dp[i], dp[i - coin] + 1)
+
+		return dp[amount] if dp[amount] != MAX else -1
+```
+
+## Step-by-step explanation
+
+1. Initialize the function `coinChange` that takes `coins` (the array of coin denominations) and `amount` (the target amount) as input parameters.
+
+```typescript
+function coinChange(coins: number[], amount: number): number {
+    // ...
+}
+```
+
+2. Define a constant `MAX`, which is set to `amount + 1`. This constant will be used to initialize our dynamic programming array `dp`. We set it to `amount + 1` because we will never need more than `amount` coins to make up the target amount.
+
+```typescript
+const MAX = amount + 1;
+```
+
+3. Create the dynamic programming array `dp` of length `MAX` and initialize it with the value `MAX`. `dp[i]` represents the minimum number of coins needed to make up the amount `i`. Set `dp[0]` to 0 since we don't need any coins to make up the amount 0.
+
+```typescript
+const dp: number[] = new Array(MAX).fill(MAX);
+dp[0] = 0;
+```
+
+4. Iterate through the `coins` array using a `for` loop. For each coin, we will update the `dp` array accordingly.
+
+```typescript
+for (let coin of coins) {
+		// ...
+}
+```
+
+5. Create an inner loop that iterates from `coin` to `amount`. For each value `i`, update `dp[i]` by taking the minimum between its current value and `dp[i - coin] + 1`. This step effectively compares the current minimum number of coins needed for `i` and the number of coins needed if we use the current `coin`.
+
+```typescript
+for (let i = coin; i <= amount; i++) {
+		dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+}
+```
+
+6. Finally, if `dp[amount]` is not equal to `MAX`, return `dp[amount]` as the minimum number of coins needed to make up the target amount. Otherwise, return `-1` to indicate that it's not possible to make up the target amount using the given coins.
+
+```typescript
+return dp[amount] !== MAX ? dp[amount] : -1;
+```
+
+The dynamic programming approach allows us to efficiently find the minimum number of coins needed to make up the target amount.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(amount * n), where n is the length of the coins array. We iterate through each coin, and for each coin, we iterate from the coin value to the target amount.
+
+### Space Complexity
+
+The space complexity of this solution is O(amount) due to the dp array.
