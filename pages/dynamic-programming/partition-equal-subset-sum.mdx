@@ -1,0 +1,136 @@
+---
+title: Partition Equal Subset Sum
+description: Given a non-empty array nums containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
+keywords: leetcode, leetcode algorithm, leetcode problem, leetcode solution, leetcode explanation, leetcode algorithm explanation, leetcode problem explanation, leetcode solution explanation, leetcode explanation video, leetcode algorithm explanation video, leetcode problem explanation video, leetcode solution explanation video, leetcode explanation video tutorial, leetcode algorithm explanation video tutorial, leetcode problem explanation video tutorial, leetcode solution explanation video tutorial, leetcode explanation video walkthrough, leetcode algorithm explanation video walkthrough, leetcode problem explanation video walkthrough, leetcode solution explanation video walkthrough, leetcode explanation video guide, leetcode algorithm explanation video guide, leetcode problem explanation video guide, leetcode solution explanation video guide, leetcode explanation video explanation, leetcode algorithm explanation video explanation, leetcode problem explanation video explanation, leetcode solution explanation video explanation, leetcode explanation video algorithm, leetcode algorithm explanation video algorithm, leetcode problem explanation video algorithm, leetcode solution explanation video algorithm, leetcode explanation video problem, leetcode algorithm explanation video problem, leetcode problem explanation video problem, leetcode solution explanation video problem, leetcode explanation video solution, leetcode algorithm explanation video solution, leetcode problem explanation video solution, leetcode solution explanation video solution, leetcode explanation video code, leetcode algorithm explanation video code, leetcode problem explanation video code, leetcode solution explanation video code, leetcode explanation video code explanation, leetcode algorithm explanation video code explanation, leetcode problem explanation video code explanation, leetcode solution explanation video code explanation, leetcode explanation video code walkthrough, leetcode algorithm explanation video code walkthrough, leetcode problem explanation video code walkthrough, leetcode solution explanation video code walkthrough, leetcode explanation video code guide, leetcode algorithm explanation video code guide, leetcode problem explanation video code guide, leetcode solution explanation video code guide, leetcode explanation video code algorithm, leetcode algorithm explanation video code algorithm, leetcode problem explanation video code algorithm, leetcode solution explanation video code algorithm, leetcode explanation video code problem, leetcode algorithm explanation video code problem, leetcode problem explanation video code problem, leetcode solution explanation video code problem, leetcode explanation video code solution, leetcode algorithm explanation video code solution, leetcode problem explanation video code solution, leetcode solution explanation video code solution, leetcode explanation video code code, leetcode algorithm explanation video code code, leetcode problem explanation video code code, leetcode solution explanation video code code, leetcode explanation video code code explanation, leetcode
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/IsvocB5BJhw"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a non-empty array nums containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
+
+## Example
+
+Input: nums = [1, 5, 11, 5]
+
+Output: true
+
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+
+Input: nums = [1, 2, 3, 5]
+
+Output: false
+
+Explanation: The array cannot be partitioned into equal sum subsets.
+
+## Summary
+
+To solve this problem, we first calculate the total sum of the array elements. If the total sum is odd, we return false because it is not possible to divide an odd number equally between two subsets. If the total sum is even, we can continue with our solution.
+
+We create a 1-dimensional boolean array dp of length target + 1, where target is half of the total sum. We initialize dp[0] to true. This DP array will help us keep track of whether it's possible to form a subset with a given sum.
+
+We iterate through each element in nums. For each number, we update our DP array by iterating from target down to the current number. In each iteration, we update the DP value at index j by using the logical OR operation on the current DP value at index j and the DP value at index j - num. This update step helps us determine if it's possible to form a subset with a sum of j including the current number.
+
+After processing all elements, we return the boolean value at dp[target], which indicates if it's possible to form a subset with a sum equal to the target.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function canPartition(nums: number[]): boolean {
+    const total = nums.reduce((sum, num) => sum + num, 0);
+    if (total % 2 !== 0) return false;
+
+    const target = total / 2;
+    const dp: boolean[] = Array(target + 1).fill(false);
+
+    dp[0] = true;
+
+    for (const num of nums) {
+        for (let j = target; j >= num; j--) {
+            dp[j] = dp[j] || dp[j - num];
+        }
+    }
+
+    return dp[target];
+}
+```
+
+### In Python
+
+```python
+def canPartition(self, nums: List[int]) -> bool:
+		total = sum(nums)
+		if total % 2 != 0:
+				return False
+
+		target = total // 2
+		dp = [False] * (target + 1)
+		dp[0] = True
+
+		for num in nums:
+				for j in range(target, num - 1, -1):
+						dp[j] = dp[j] or dp[j - num]
+
+		return dp[target]
+```
+
+## Step-by-step explanation
+
+1. Calculate the total sum of the elements in the input array `nums` using the `reduce()` method. If the total sum is odd, return `false`, because it's impossible to divide an odd number equally between two subsets.
+
+```typescript
+const total = nums.reduce((sum, num) => sum + num, 0);
+if (total % 2 !== 0) return false;
+```
+
+2. Calculate the target sum, which is half of the total sum. Create a boolean DP (dynamic programming) array `dp` of length `target + 1`. Initialize the first element `dp[0]` to `true`, as it's always possible to form a subset with a sum of 0.
+
+```typescript
+const target = total / 2;
+const dp: boolean[] = Array(target + 1).fill(false);
+dp[0] = true;
+```
+
+3. Iterate through each element in the input array `nums`.
+
+```typescript
+for (const num of nums) {
+		// ...
+}
+```
+
+4. For each number in `nums`, update the DP array by iterating from `target` down to the current number. In each iteration, update the DP value at index `j` by using the logical OR operation on the current DP value at index `j` and the DP value at index `j - num`. This step helps determine if it's possible to form a subset with a sum of `j` including the current number.
+
+```typescript
+for (let j = target; j >= num; j--) {
+		dp[j] = dp[j] || dp[j - num];
+}
+```
+
+5. After processing all elements, return the boolean value at `dp[target]`, which indicates if it's possible to form a subset with a sum equal to the target.
+
+```typescript
+return dp[target];
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n * target), where n is the length of the input array and target is half of the total sum of the array elements. This remains the same as the previous solution.
+
+### Space Complexity
+
+The space complexity of this solution is now reduced to O(target) due to the 1D DP array, making it more space-efficient compared to the previous solution.
