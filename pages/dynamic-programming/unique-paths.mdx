@@ -1,0 +1,118 @@
+---
+title: Unique Paths
+description: A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below). The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below). How many possible unique paths are there?
+keywords: dynamic programming, unique paths, robot, grid, bottom-right corner, top-left corner, right, down, time complexity, space complexity, time, complexity, space, bottom, right, corner, top, left, bottom-right, top-left, bottom left, top right, bottom-right corner, top-left corner, bottom left corner
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Unique Paths](https://leetcode.com/problems/unique-paths/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/IlEsdxuD4lY"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+How many possible unique paths are there?
+
+## Example
+
+Input: m = 3, n = 7
+
+Output: 28
+
+## Summary
+
+To solve the "Unique Paths" problem, we use dynamic programming. We initialize a 1D array dp with the length n and set all elements to 1, representing the number of unique paths to each cell in the first row of the grid. We then iterate through the remaining rows and columns of the grid (skipping the first row), updating the dp[j] value by adding the value of dp[j - 1] at each step. This way, we can calculate the number of unique paths for each cell while using only a 1D array. Finally, we return the value at dp[n - 1], which represents the number of unique paths to reach the bottom-right corner of the grid.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function uniquePaths(m: number, n: number): number {
+    const dp: number[] = Array(n).fill(1);
+
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            dp[j] += dp[j - 1];
+        }
+    }
+
+    return dp[n - 1];
+}
+```
+
+### In Python
+
+```python
+def uniquePaths(m: int, n: int) -> int:
+		dp = [1] * n
+
+		for i in range(1, m):
+				for j in range(1, n):
+						dp[j] += dp[j - 1]
+
+		return dp[n - 1]
+```
+
+## Step-by-step explanation
+
+1. Define the function `uniquePaths` that takes two integer inputs, `m` and `n`, representing the number of rows and columns of the grid, respectively.
+
+```typescript
+function uniquePaths(m: number, n: number): number {
+    // ...
+}
+```
+
+2. Create an array `dp` of length `n` and fill it with 1's. This array is used to store the number of unique paths to reach each cell in the current row. Initially, we set it to 1 for all cells in the first row since there is only one way to reach each cell in the first row (by moving right).
+
+```typescript
+const dp: number[] = Array(n).fill(1);
+```
+
+3. Start iterating through the grid with two nested loops:
+
+	- The outer loop iterates through rows, starting from the second row (index 1), up to the last row (index `m - 1`).
+	- The inner loop iterates through columns, starting from the second column (index 1), up to the last column (index `n - 1`).
+
+	We start both loops from index 1 because we've already initialized the first row in the dp array.
+```typescript
+for (let i = 1; i < m; i++) {
+		for (let j = 1; j < n; j++) {
+				// ...
+		}
+}
+```
+
+4. Inside the inner loop, update the value of `dp[j]` by adding the value of `dp[j - 1]` to it. This is the key step in the dynamic programming approach. By doing this, we calculate the number of unique paths to reach the current cell (`i`, `j`) by summing the number of paths from the cell above it (`i - 1`, `j`) and the cell to the left of it (`i`,` j - 1`).
+
+```typescript
+dp[j] += dp[j - 1];
+```
+
+5. After completing the iteration through the grid, the last element in the `dp` array, `dp[n - 1]`, will contain the number of unique paths to reach the bottom-right corner of the grid. Return this value as the final result.
+
+
+```typescript
+return dp[n - 1];
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The function has two nested loops. The outer loop iterates m - 1 times, and the inner loop iterates n - 1 times. Therefore, the total number of iterations is (m - 1) * (n - 1), which results in a time complexity of O(m * n).
+
+### Space Complexity
+
+The space complexity is determined by the dp array, which has a length of n. Therefore, the space complexity of this function is O(n).

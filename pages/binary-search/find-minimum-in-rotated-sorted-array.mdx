@@ -1,0 +1,122 @@
+---
+title: Find Minimum in Rotated Sorted Array
+description: This article explains how to solve the Find Minimum in Rotated Sorted Array problem from LeetCode using TypeScript and Python.
+keywords: leetcode, typescript, python, javascript, algorithm, data structure, binary search, array, medium
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/nIVW4P8b1VA"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand (i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]). You are given a rotated sorted array. Find the minimum element in the array. You may assume no duplicate exists in the array.
+
+## Example
+
+Input: nums = [3, 4, 5, 1, 2]
+
+Output: 1
+
+## Summary
+
+To solve this problem, we can use binary search to find the minimum element in the rotated sorted array. The key observation here is that one of the two halves of the array will always be sorted. By comparing the middle element with the first element and the last element, we can decide which half to search further. We can continue this process until we find the minimum element.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function findMin(nums: number[]): number {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+
+        if (nums[mid] > nums[right]) {
+            left = mid + 1;
+        } else {
+            right = mid;
+        }
+    }
+
+    return nums[left];
+}
+```
+
+### In Python
+
+```python
+def findMin(nums: List[int]) -> int:
+		left = 0
+		right = len(nums) - 1
+
+		while left < right:
+				mid = (left + right) // 2
+
+				if nums[mid] > nums[right]:
+						left = mid + 1
+				else:
+						right = mid
+
+		return nums[left]
+```
+
+## Step-by-step explanation
+
+1. Initialize `left` to 0 and `right` to the last index of the array `nums`.
+
+```typescript
+let left = 0;
+let right = nums.length - 1;
+```
+
+2. While `left` is less than `right`, perform the following steps:
+
+```typescript
+while (left < right) {
+    // ...
+}
+```
+
+3. Calculate the middle index `mid` by taking the average of `left` and `right` and flooring the result.
+
+```typescript
+const mid = Math.floor((left + right) / 2);
+```
+
+4. Check if the value at the middle index `mid` is greater than the value at the `right` index. If it is, it means the minimum value is in the right half of the array (since it's a rotated sorted array), so update `left` to `mid + 1`. Otherwise, update `right` to `mid`.
+
+```typescript
+if (nums[mid] > nums[right]) {
+    left = mid + 1;
+} else {
+    right = mid;
+}
+```
+
+5. After the loop, `left` will be pointing at the index of the minimum element in the array. Return the value at that index.
+
+```typescript
+return nums[left];
+```
+
+The binary search algorithm reduces the search space by half in each iteration. By comparing the middle element with the right element, we can decide which half of the array to search for the minimum value. This process continues until `left` is equal to or greater than `right`, at which point we have found the minimum element in the rotated sorted array.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(log n), where n is the length of the input array. The binary search algorithm divides the search space in half with each iteration, which results in logarithmic time complexity.
+
+### Space Complexity
+
+The space complexity of this solution is O(1) because we only use a constant amount of additional space to store variables like `left`, `right`, and `mid`.

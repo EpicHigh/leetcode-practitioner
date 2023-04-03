@@ -1,4 +1,6 @@
 {
   "index": "Welcome",
-	"array": "Array"
+	"array": "Array",
+	"binary-search": "Binary Search",
+	"dynamic-programming": "Dynamic Programming"
 }

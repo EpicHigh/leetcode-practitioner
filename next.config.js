@@ -4,7 +4,6 @@ const withNextra = require('nextra')({
 });
 
 module.exports = withNextra({
-	runtime: 'edge',
 	experimental: {
 		fontLoaders: [
 			{ loader: 'next/font/google', options: { subsets: ['latin'] } },

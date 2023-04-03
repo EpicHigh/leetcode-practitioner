@@ -1,0 +1,179 @@
+---
+title: Capacity To Ship Packages Within D Days
+description: A conveyor belt has packages that must be shipped from one port to another within D days. The ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship. Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within D days.
+keywords: binary search, leetcode, algorithm, interview, javascript, typescript, python, java, c#, c++, go, rust, swift, kotlin, dart, scala, ruby, php, elixir, haskell, clojure, f#, nim, julia, crystal, pascal, lua, perl, r, bash, powershell, c, cpp, objective-c, sql, mysql, postgresql, sqlite, mongodb, oracle, sql-server, nosql, redis, cassandra, elasticsearch, memcached, graphql, apollo, hasura, firebase, aws, google-cloud, azure, heroku, netlify, vercel, zeit, docker, kubernetes, github-actions, gitlab-ci, travis-ci, circle-ci, jenkins, bitbucket-pipelines, codesandbox, codepen,
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/ER_oLmdc-nw"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+A conveyor belt has packages that must be shipped from one port to another within D days.
+
+The ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.
+
+Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within D days.
+
+## Example
+
+Input: weights = [1,2,3,4,5,6,7,8,9,10], D = 5
+
+Output: 15
+
+## Summary
+
+The problem can be solved using binary search. We can find the minimum and maximum possible capacities of the ship and perform a binary search within that range to find the minimum capacity that can ship all packages within D days.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function shipWithinDays(weights: number[], days: number): number {
+    let minCapacity = Math.max(...weights);
+    let maxCapacity = weights.reduce((a, b) => a + b);
+
+    while (minCapacity < maxCapacity) {
+        const midCapacity = Math.floor((minCapacity + maxCapacity) / 2);
+
+        if (isValidCapacity(weights, days, midCapacity)) {
+            maxCapacity = midCapacity;
+        } else {
+            minCapacity = midCapacity + 1;
+        }
+    }
+
+    return minCapacity;
+}
+
+function isValidCapacity(weights: number[], days: number, capacity: number): boolean {
+    let currentDay = 1;
+    let currentWeight = 0;
+
+    for (const weight of weights) {
+        if (currentWeight + weight > capacity) {
+            currentDay++;
+            currentWeight = 0;
+        }
+
+        currentWeight += weight;
+    }
+
+    return currentDay <= days;
+}
+```
+
+### In Python
+
+```python
+def shipWithinDays(weights: List[int], days: int) -> int:
+		minCapacity = max(weights)
+		maxCapacity = sum(weights)
+
+		while minCapacity < maxCapacity:
+				midCapacity = (minCapacity + maxCapacity) // 2
+
+				if isValidCapacity(weights, days, midCapacity):
+						maxCapacity = midCapacity
+				else:
+						minCapacity = midCapacity + 1
+
+		return minCapacity
+
+def isValidCapacity(weights: List[int], days: int, capacity: int) -> bool:
+		currentDay = 1
+		currentWeight = 0
+
+		for weight in weights:
+				if currentWeight + weight > capacity:
+						currentDay += 1
+						currentWeight = 0
+
+				currentWeight += weight
+
+		return currentDay <= days
+```
+
+## Step-by-step explanation
+
+Example Input:
+
+weights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+days: 5
+
+1. **Function** `shipWithinDays(weights: number[], days: number): number`:
+	This is the main function that takes an array `weights` and an integer `days` as input and returns the minimum capacity required to ship all packages within `days` days.
+	a. Calculate the minimum and maximum capacity:
+		- The minimum capacity is the maximum weight of a single package.
+		- The maximum capacity is the sum of all weights.
+	b. Perform a binary search between `minCapacity` and `maxCapacity` to find the minimum required capacity.
+		- Initialize a `while` loop that runs until `minCapacity` is less than `maxCapacity`.
+		- Calculate `midCapacity` as the average of `minCapacity` and `maxCapacity` rounded down. In the first iteration, it's (10+55)//2 = 32.
+		- Check if `midCapacity` is a valid capacity using the `isValidCapacity()` function. If it's valid, set `maxCapacity` to `midCapacity`; otherwise, set `minCapacity` to `midCapacity + 1`.
+		- The loop continues until `minCapacity` and `maxCapacity` converge, and the optimal capacity is found.
+	c. Return `minCapacity` as the minimum required capacity.
+
+```typescript
+function shipWithinDays(weights: number[], days: number): number {
+    let minCapacity = Math.max(...weights);
+    let maxCapacity = weights.reduce((a, b) => a + b);
+
+    while (minCapacity < maxCapacity) {
+        const midCapacity = Math.floor((minCapacity + maxCapacity) / 2);
+
+        if (isValidCapacity(weights, days, midCapacity)) {
+            maxCapacity = midCapacity;
+        } else {
+            minCapacity = midCapacity + 1;
+        }
+    }
+
+    return minCapacity;
+}
+```
+
+2. **Function** `isValidCapacity(weights: number[], days: number, capacity: number): boolean`:
+	This function takes an array `weights`, an integer `days`, and an integer `capacity` as input and returns `true` if `capacity` is a valid capacity and `false` otherwise.
+	a. Initialize `currentDay` to 1 and `currentWeight` to 0.
+	b. Iterate through the array `weights`:
+		- If `currentWeight` + the current weight is greater than `capacity`, increment `currentDay` and set `currentWeight` to 0.
+		- Add the current weight to `currentWeight`.
+	c. Return `true` if `currentDay` is less than or equal to `days`; otherwise, return `false`.
+
+```typescript
+function isValidCapacity(weights: number[], days: number, capacity: number): boolean {
+		let currentDay = 1;
+		let currentWeight = 0;
+
+		for (const weight of weights) {
+				if (currentWeight + weight > capacity) {
+						currentDay++;
+						currentWeight = 0;
+				}
+
+				currentWeight += weight;
+		}
+
+		return currentDay <= days;
+}
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n * log(sum(weights))), where n is the length of the input array. The binary search step takes O(log(sum(weights))) time, and each iteration of the binary search requires iterating through the array which takes O(n) time.
+
+### Space Complexity
+
+The space complexity of this solution is O(1) because we only use a constant amount of additional space to store the minimum and maximum capacities, the mid capacity, and the current day and weight during the search.

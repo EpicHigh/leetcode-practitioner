@@ -1,0 +1,84 @@
+---
+title: Climbing Stairs
+description: You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+keywords: leetcode, leetcode easy, leetcode easy climbing stairs, climbing stairs, climbing stairs leetcode, climbing stairs leetcode easy, climbing stairs leetcode easy problem, climbing stairs leetcode easy problem solution, climbing stairs leetcode easy problem solution typescript, climbing stairs leetcode easy problem solution python, climbing stairs leetcode easy problem solution javascript, climbing stairs leetcode easy problem solution java, climbing stairs leetcode easy problem solution c#, climbing stairs leetcode easy problem solution c++, climbing stairs leetcode easy problem solution go, climbing stairs leetcode easy problem solution ruby, climbing stairs leetcode easy problem solution swift, climbing stairs leetcode easy problem solution kotlin, climbing stairs leetcode easy problem solution scala, climbing stairs leetcode easy problem solution rust, climbing stairs leetcode easy problem solution php, climbing stairs leetcode easy problem solution dart, climbing stairs leetcode easy problem solution sql, climbing stairs leetcode easy problem solution bash, climbing stairs leetcode easy problem solution perl, climbing stairs leetcode easy problem solution r, climbing stairs leetcode easy problem solution lua, climbing stairs leetcode easy problem solution objective-c, climbing stairs leetcode easy
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/Y0lT9Fck7qI"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+## Example
+
+Input: n = 2
+
+Output: 2
+
+Explanation: There are two ways to climb to the top.
+
+1. 1 step + 1 step
+2. 2 steps
+
+Input: n = 3
+
+Output: 3
+
+Explanation: There are three ways to climb to the top.
+
+1. 1 step + 1 step + 1 step
+2. 1 step + 2 steps
+3. 2 steps + 1 step
+
+## Summary
+
+To solve this problem, we can use dynamic programming to store the number of ways to reach each step. The number of ways to reach the ith step is the sum of the ways to reach the (i-1)th step and the (i-2)th step.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function climbStairs(n: number): number {
+    if (n <= 2) return n;
+    let dp = [0, 1, 2];
+    for (let i = 3; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+```
+
+### In Python
+
+```python
+def climbStairs(self, n: int) -> int:
+		if n <= 2:
+				return n
+		dp = [0, 1, 2]
+		for i in range(3, n + 1):
+				dp.append(dp[i - 1] + dp[i - 2])
+		return dp[n]
+```
+
+## Step-by-step explanation
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), as we iterate through the dynamic programming array once.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we store the number of ways to reach each step in an array.
