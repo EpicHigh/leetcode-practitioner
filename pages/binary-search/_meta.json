@@ -2,5 +2,6 @@
 	"binary-search": "1. Binary Search",
 	"first-bad-version": "2. First Bad Version",
 	"search-in-rotated-sorted-array": "3. Search in Rotated Sorted Array",
-	"time-based-key-value-store": "4. Time Based Key-Value Store"
+	"time-based-key-value-store": "4. Time Based Key-Value Store",
+	"capacity-to-ship-packages-within-d-days": "7. Capacity To Ship Packages Within D Days"
 }
