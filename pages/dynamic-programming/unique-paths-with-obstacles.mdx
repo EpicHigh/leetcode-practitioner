@@ -1,0 +1,157 @@
+---
+title: Unique Paths With Obstacles
+description: A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below). The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below). Now consider if some obstacles are added to the grids. How many unique paths would there be? An obstacle and space are marked as 1 and 0, respectively, in the grid.
+keywords: leetcode, unique paths with obstacles, dynamic programming, typescript, python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Unique Paths With Obstacles](https://leetcode.com/problems/unique-paths-ii/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/z6kelCB0ww4"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+A robot is located at the top-left corner of a m x n grid.
+
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+Now consider if some obstacles are added to the grids. How many unique paths would there be?
+
+An obstacle and space are marked as 1 and 0, respectively, in the grid.
+
+## Example
+
+Input: obstacleGrid = [
+[0, 0, 0],
+[0, 1, 0],
+[0, 0, 0],
+[0, 0, 0]
+]
+
+Output: 4
+
+## Summary
+
+To solve this problem, we can use dynamic programming approach with a 1D DP array to store the number of unique paths from the top-left corner to each cell in the grid.
+
+The algorithm iterates through each cell in the obstacle grid. If a cell has an obstacle (indicated by a value of 1), it sets the corresponding element in the DP array to 0, as there is no valid path through the obstacle. If a cell is free (indicated by a value of 0), it updates the corresponding element in the DP array by adding the value of the previous element (left cell) to the current element's value. This step accumulates the number of unique paths from the left cells to the current cell.
+
+Finally, the function returns the last element of the DP array, which represents the number of unique paths from the top-left corner to the bottom-right corner of the grid.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function uniquePathsWithObstacles(obstacleGrid: number[][]): number {
+    const m = obstacleGrid.length;
+    const n = obstacleGrid[0].length;
+    const dp: number[] = Array(n).fill(0);
+
+    dp[0] = 1;
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (obstacleGrid[i][j] === 1) {
+                dp[j] = 0;
+            } else if (j > 0) {
+                dp[j] += dp[j - 1];
+            }
+        }
+    }
+
+    return dp[n - 1];
+}
+```
+
+### In Python
+
+```python
+def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+		m = len(obstacleGrid)
+		n = len(obstacleGrid[0])
+		dp = [0] * n
+
+		dp[0] = 1
+
+		for i in range(m):
+				for j in range(n):
+						if obstacleGrid[i][j] == 1:
+								dp[j] = 0
+						elif j > 0:
+								dp[j] += dp[j - 1]
+
+		return dp[n - 1]
+```
+
+## Step-by-step explanation
+
+1. Get the dimensions of the obstacle grid, `m` and `n`, which represent the number of rows and columns, respectively.
+
+```typescript
+const m = obstacleGrid.length;
+const n = obstacleGrid[0].length;
+```
+
+2. Create a 1D array `dp` of length `n` and initialize all elements to 0.
+
+```typescript
+const dp: number[] = Array(n).fill(0);
+```
+
+3. Set the first element of the `dp` array to 1. This initializes the number of unique paths at the top-left corner of the grid.
+
+```typescript
+dp[0] = 1;
+```
+
+4. Iterate through each cell in the obstacle grid using nested loops with indices `i` and `j`. The outer loop iterates over the rows (0 to `m - 1`), and the inner loop iterates over the columns (0 to `n - 1`).
+
+```typescript
+for (let i = 0; i < m; i++) {
+		for (let j = 0; j < n; j++) {
+				// ...
+		}
+}
+```
+
+5. For each cell, check if the cell contains an obstacle (value of 1):
+
+	a. If it does, set the corresponding element in the dp array to 0, as there is no valid path through the obstacle.
+
+```typescript
+if (obstacleGrid[i][j] === 1) {
+		dp[j] = 0;
+}
+```
+
+6. If the cell is free (value of 0) and the column index `j` is greater than 0 (to avoid accessing negative indices), update the corresponding element in the `dp` array by adding the value of the previous element (left cell) to the current element's value. This step accumulates the number of unique paths from the left cells to the current cell.
+
+
+```typescript
+} else if (j > 0) {
+		dp[j] += dp[j - 1];
+}
+```
+
+7. After iterating through all cells in the obstacle grid, return the last element of the `dp` array (`dp[n - 1]`). This value represents the number of unique paths from the top-left corner to the bottom-right corner of the grid, taking obstacles into account.
+
+```typescript
+return dp[n - 1];
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is determined by the nested loops that iterate through each cell in the obstacle grid. Since there are `m` rows and `n` columns in the grid, the total number of iterations is `m * n`. Therefore, the time complexity of the algorithm is O(m * n).
+
+### Space Complexity
+
+The space complexity of this solution is determined by the 1D array `dp`, which has a length of `n`. Since no other data structure is used to store intermediate results, the space complexity of the algorithm is O(n).
