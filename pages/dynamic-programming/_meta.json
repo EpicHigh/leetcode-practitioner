@@ -7,5 +7,6 @@
 	"unique-paths-with-obstacles": "6. Unique Paths With Obstacles",
 	"house-robber": "7. House Robber",
 	"maximum-product-subarray": "8. Maximum Product Subarray",
-	"longest-increasing-subsequence": "9. Longest Increasing Subsequence"
+	"longest-increasing-subsequence": "9. Longest Increasing Subsequence",
+	"jump-game": "10. Jump Game"
 }

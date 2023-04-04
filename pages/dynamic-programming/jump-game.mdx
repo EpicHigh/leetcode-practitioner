@@ -1,0 +1,110 @@
+---
+title: Jump Game
+description: Given an array of non-negative integers nums, you are initially positioned at the first index of the array. Each element in the array represents your maximum jump length at that position. Determine if you are able to reach the last index.
+keywords: jump game, leetcode, leetcode problem, leetcode problem solution, leetcode problem solution in typescript, leetcode problem solution in python, leetcode problem solution in javascript, leetcode problem solution in java, leetcode problem solution in c#, leetcode problem solution in c++, leetcode problem solution in go, leetcode problem solution in ruby, leetcode problem solution in swift, leetcode problem solution in kotlin, leetcode problem solution in dart, leetcode problem solution in php, leetcode problem solution in scala, leetcode problem solution in rust, leetcode problem solution in elixir, leetcode problem solution in clojure, leetcode problem solution in haskell, leetcode problem solution in lua, leetcode problem solution in perl, leetcode problem solution in r, leetcode problem solution in sql, leetcode problem solution in crystal, leetcode problem solution in julia, leetcode problem solution in nim, leetcode problem solution in pascal, leetcode problem solution in d, leetcode problem solution in f#, leetcode problem solution in groovy, leetcode problem solution in julia, leetcode problem solution in objective-c, leetcode problem solution in powershell, leetcode problem solution in raku, leetcode problem solution in racket, leetcode problem solution in typescript, leetcode problem solution in python, leetcode problem solution in javascript, leetcode problem solution in java, leetcode problem solution in c#, leetcode problem solution in c++, leetcode problem solution in go, leetcode problem solution in ruby, leetcode problem solution in swift, leetcode problem solution in kotlin, leetcode problem solution in dart, leetcode problem solution in php, leetcode problem solution in scala, leetcode problem solution in rust, leetcode problem solution in elixir, leetcode problem solution in clojure, leetcode problem solution in haskell, leetcode problem solution in lua, leetcode problem solution in perl, leetcode problem solution in r, leetcode problem solution in sql, leetcode problem solution in crystal, leetcode problem solution in julia, leetcode problem solution in nim, leetcode problem solution in pascal, leetcode problem solution in d, leetcode problem solution in f#, leetcode problem solution in groovy, leetcode problem solution in julia, leetcode problem solution in objective-c, leetcode problem solution in powershell, leetcode problem solution in raku, leetcode problem solution in racket
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Jump Game](https://leetcode.com/problems/jump-game/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/Yan0cv2cLy8"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of non-negative integers nums, you are initially positioned at the first index of the array. Each element in the array represents your maximum jump length at that position. Determine if you are able to reach the last index.
+
+## Example
+
+Input: nums = [2, 3, 1, 1, 4]
+
+Output: true
+
+## Summary
+
+To solve this problem, we can iterate through the array and maintain a variable `maxReach` that stores the maximum index we can reach so far. If we reach an index greater than `maxReach`, it means we can't move forward, and we return false. If we reach the last index or beyond, we return true, indicating we can reach the last index.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function canJump(nums: number[]): boolean {
+    let maxReach = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        if (i > maxReach) return false;
+        maxReach = Math.max(maxReach, i + nums[i]);
+        if (maxReach >= nums.length - 1) return true;
+    }
+
+    return false;
+}
+```
+
+### In Python
+
+```python
+def canJump(nums: List[int]) -> bool:
+		maxReach = 0
+
+		for i in range(len(nums)):
+				if i > maxReach: return False
+				maxReach = max(maxReach, i + nums[i])
+				if maxReach >= len(nums) - 1: return True
+
+		return False
+```
+
+## Step-by-step explanation
+
+1. Initialize a variable called `maxReach` and set it to 0. This variable will be used to keep track of the maximum index we can reach so far while iterating through the array.
+
+```typescript
+let maxReach = 0;
+```
+
+2. Iterate through the `nums` array using a for loop with an index variable `i`.
+
+```typescript
+for (let i = 0; i < nums.length; i++) {
+    // ...
+}
+```
+
+3. Inside the for loop, check if the current index `i` is greater than `maxReach`. If it is, it means we can't move forward and reach the last index, so we return `false`.
+
+```typescript
+if (i > maxReach) return false;
+```
+
+4. Update the `maxReach` variable by taking the maximum of the current `maxReach` value and the sum of the current index `i` and the value at the current index `nums[i]`.
+
+```typescript
+maxReach = Math.max(maxReach, i + nums[i]);
+```
+
+5. Check if `maxReach` is greater than or equal to the last index of the array (`nums.length - 1`). If it is, it means we can reach the last index, so we return true.
+
+```typescript
+if (maxReach >= nums.length - 1) return true;
+```
+
+6. If the for loop completes without returning, we return `false`. This means we were unable to reach the last index of the array.
+
+In summary, the `canJump` function iterates through the input array while maintaining a variable `maxReach` to keep track of the maximum index we can reach so far. If we reach an index greater than `maxReach`, we know we can't reach the last index and return `false`. If we reach the last index or beyond, we return `true`.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We iterate through the entire array once.
+
+### Space Complexity
+
+The space complexity of this solution is O(1) since we only use a constant amount of additional space to store the maxReach variable.
