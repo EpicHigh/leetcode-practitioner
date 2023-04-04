@@ -4,5 +4,6 @@
 	"climbing-stairs": "3. Climbing Stairs",
 	"partition-equal-subset-sum": "4. Partition Equal Subset Sum",
 	"unique-paths": "5. Unique Paths",
-	"unique-paths-with-obstacles": "6. Unique Paths With Obstacles"
+	"unique-paths-with-obstacles": "6. Unique Paths With Obstacles",
+	"house-robber": "7. House Robber"
 }

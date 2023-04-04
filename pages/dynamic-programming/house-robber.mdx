@@ -1,0 +1,119 @@
+---
+title: House Robber
+description: You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.
+keywords: leetcode, javascript, typescript, python, dynamic programming, house robber, rob, maximum amount of money, adjacent houses, security systems, police, contact, automatic, constraint, professional, street, stashed, certain, amount, money, houses, along, planning, robber
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [House Robber](https://leetcode.com/problems/house-robber/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/73r3KWiEvyk"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.
+
+Given an integer array `nums` representing the amount of money in each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+## Example
+
+Input: nums = [1,2,3,1]
+
+Output: 4
+
+## Summary
+
+To solve this problem, we can use dynamic programming. The key observation is that the maximum amount of money we can rob up to a certain house depends on the maximum amount of money we can rob up to the previous two houses. We can iterate over each house and update the maximum amount of money we can rob up to that house.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function rob(nums: number[]): number {
+    let prevMax = 0;
+    let currentMax = 0;
+
+    for (const num of nums) {
+        const temp = currentMax;
+        currentMax = Math.max(prevMax + num, currentMax);
+        prevMax = temp;
+    }
+
+    return currentMax;
+}
+```
+
+### In Python
+
+```python
+def rob(nums: List[int]) -> int:
+		prevMax = 0
+		currentMax = 0
+
+		for num in nums:
+				temp = currentMax
+				currentMax = max(prevMax + num, currentMax)
+				prevMax = temp
+
+		return currentMax
+```
+
+## Step-by-step explanation
+
+1. Initialize two variables `prevMax` and `currentMax` to store the maximum amount of money we can rob up to the previous two houses and the current house, respectively. Both are initially set to 0.
+
+```typescript
+let prevMax = 0;
+let currentMax = 0;
+```
+
+2. Iterate over each house in the input array `nums` using a for-of loop.
+
+```typescript
+for (const num of nums) {
+    // ...
+}
+```
+
+3. Inside the loop, store the current value of `currentMax` in a temporary variable `temp` before updating it. This allows us to keep track of the maximum amount of money we could rob up to the previous house (i.e., without robbing the current house).
+
+```typescript
+const temp = currentMax;
+```
+
+4. Update `currentMax` to the maximum of two values: the maximum amount we could rob by including the current house (which is `prevMax + num`) and the maximum amount we could rob by not including the current house (which is the previous value of `currentMax`).
+
+```typescript
+currentMax = Math.max(prevMax + num, currentMax);
+```
+
+5. Set `prevMax` to the value stored in `temp`. This effectively shifts our window of focus by one house, so that `prevMax` now represents the maximum amount of money we can rob up to the house before the current one, and `currentMax` represents the maximum amount of money we can rob up to the current house.
+
+```typescript
+prevMax = temp;
+```
+
+6. Return the value of `currentMax`, which represents the maximum amount of money we can rob without alerting the police.
+
+```typescript
+return currentMax;
+```
+
+By following this dynamic programming approach, we efficiently calculate the maximum amount of money that can be robbed without triggering the alarm of adjacent houses.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We iterate through the array once, updating the maximum amount of money we can rob at each step.
+
+### Space Complexity
+
+The space complexity of this solution is O(1), as we only need to store the maximum amount of money we can rob up to the previous two houses.
