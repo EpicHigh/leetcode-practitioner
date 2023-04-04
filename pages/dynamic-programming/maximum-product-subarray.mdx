@@ -1,0 +1,139 @@
+---
+title: Maximum Product Subarray
+description: This article explains the LeetCode problem Maximum Product Subarray and provides a walkthrough of the solution with explanation of the time and space complexity.
+keywords: LeetCode, Maximum Product Subarray, Dynamic Programming, Kadane's Algorithm
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/lXVy6YWFcRM"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an integer array nums, find the contiguous subarray within the array (containing at least one number) which has the largest product.
+
+## Example
+
+Input: nums = [2, 3, -2, 4]
+
+Output: 6
+
+## Summary
+
+To solve this problem, we can iterate over the input array and keep track of the maximum and minimum product subarrays at each position. The maximum product can be obtained by multiplying the current element with the previous maximum product or the previous minimum product since a negative number multiplied by a negative number becomes positive.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function maxProduct(nums: number[]): number {
+    let maxProductSoFar = nums[0];
+    let minProductSoFar = nums[0];
+    let result = nums[0];
+
+    for (let i = 1; i < nums.length; i++) {
+        const currentNum = nums[i];
+        const tempMax = maxProductSoFar;
+        maxProductSoFar = Math.max(currentNum, Math.max(currentNum * tempMax, currentNum * minProductSoFar));
+        minProductSoFar = Math.min(currentNum, Math.min(currentNum * tempMax, currentNum * minProductSoFar));
+
+        result = Math.max(result, maxProductSoFar);
+    }
+
+    return result;
+}
+```
+
+### In Python
+
+```python
+def maxProduct(self, nums: List[int]) -> int:
+		maxProductSoFar = nums[0]
+		minProductSoFar = nums[0]
+		result = nums[0]
+
+		for i in range(1, len(nums)):
+				currentNum = nums[i]
+				tempMax = maxProductSoFar
+				maxProductSoFar = max(currentNum, max(currentNum * tempMax, currentNum * minProductSoFar))
+				minProductSoFar = min(currentNum, min(currentNum * tempMax, currentNum * minProductSoFar))
+
+				result = max(result, maxProductSoFar)
+
+		return result
+```
+
+## Step-by-step explanation
+
+1. Initialize three variables:
+	- `maxProductSoFar` to store the maximum product ending at the current position.
+	- `minProductSoFar` to store the minimum product ending at the current position.
+	- `result` to store the maximum product subarray found so far.
+
+2. Set all three variables to the value of the first element in the input array nums.
+
+```typescript
+let maxProductSoFar = nums[0];
+let minProductSoFar = nums[0];
+let result = nums[0];
+```
+
+3. Iterate through the input array starting from the second element (index 1) until the end of the array.
+
+```typescript
+for (let i = 1; i < nums.length; i++) {
+		// ...
+}
+```
+
+4. For each element in the array, do the following:
+	- Store the current element in a variable called `currentNum`.
+	- Store the value of `maxProductSoFar` in a temporary variable called `tempMax`. This is necessary because we'll be updating the value of `maxProductSoFar` and will need the original value for further calculations.
+	- Update `maxProductSoFar` with the maximum value among:
+		- `currentNum`
+		- `currentNum * tempMax`
+		- `currentNum * minProductSoFar`
+
+		The reason we use both `tempMax` and `minProductSoFar` is that if the current number is negative, multiplying it by the minimum product subarray ending at the previous position could yield the largest product.
+
+	- Update `minProductSoFar` with the minimum value among:
+		- `currentNum`
+		- `currentNum * tempMax`
+		- `currentNum * minProductSoFar`
+	- Update the `result` variable with the maximum value between `result` and `maxProductSoFar`.
+
+```typescript
+for (let i = 1; i < nums.length; i++) {
+		const currentNum = nums[i];
+		const tempMax = maxProductSoFar;
+		maxProductSoFar = Math.max(currentNum, Math.max(currentNum * tempMax, currentNum * minProductSoFar));
+		minProductSoFar = Math.min(currentNum, Math.min(currentNum * tempMax, currentNum * minProductSoFar));
+		result = Math.max(result, maxProductSoFar);
+}
+```
+
+5. After iterating through the input array, return the result variable, which contains the maximum product subarray.
+
+```typescript
+return result;
+```
+
+This algorithm efficiently calculates the maximum product subarray by considering both the maximum and minimum product subarrays ending at each position in the input array.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We iterate through the array once, performing constant-time operations for each element.
+
+### Space Complexity
+
+The space complexity of this solution is O(1), as we only use a constant amount of additional space to store our variables.
