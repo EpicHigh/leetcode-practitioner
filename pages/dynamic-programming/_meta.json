@@ -10,5 +10,6 @@
 	"longest-increasing-subsequence": "9. Longest Increasing Subsequence",
 	"jump-game": "10. Jump Game",
 	"maximal-square": "11. Maximal Square",
-	"decode-ways": "12. Decode Ways"
+	"decode-ways": "12. Decode Ways",
+	"combination-sum-iv": "13. Combination Sum IV"
 }
