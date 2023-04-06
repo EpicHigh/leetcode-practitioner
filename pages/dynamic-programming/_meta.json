@@ -9,5 +9,6 @@
 	"maximum-product-subarray": "8. Maximum Product Subarray",
 	"longest-increasing-subsequence": "9. Longest Increasing Subsequence",
 	"jump-game": "10. Jump Game",
-	"maximal-square": "11. Maximal Square"
+	"maximal-square": "11. Maximal Square",
+	"decode-ways": "12. Decode Ways"
 }

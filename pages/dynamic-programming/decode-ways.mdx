@@ -1,0 +1,165 @@
+---
+title: Decode Ways
+description: A message containing letters from A-Z is being encoded to numbers using the following mapping 'A' -> 1 'B' -> 2 ... 'Z' -> 26 Given a non-empty string num containing only digits, determine the total number of ways to decode it.
+keywords: decode ways, decode, ways, decode ways leetcode, decode ways leetcode solution, decode ways leetcode typescript, decode ways leetcode python, decode ways leetcode javascript, decode ways leetcode java, decode ways leetcode c++, decode ways leetcode c#, decode ways leetcode go, decode ways leetcode kotlin, decode ways leetcode ruby, decode ways leetcode swift, decode ways leetcode scala, decode ways leetcode rust, decode ways leetcode php, decode ways leetcode dart, decode ways leetcode python3, decode ways leetcode typescript, decode ways leetcode javascript, decode ways leetcode java, decode ways leetcode c++, decode ways leetcode c#, decode ways leetcode go, decode ways leetcode kotlin, decode ways leetcode ruby, decode ways leetcode swift, decode ways leetcode scala, decode ways leetcode rust, decode ways leetcode php, decode ways leetcode dart, decode ways leetcode python3, decode ways leetcode typescript, decode ways leetcode javascript, decode ways leetcode java, decode ways leetcode c++, decode ways leetcode c#, decode ways leetcode go, decode ways leetcode kotlin, decode ways leetcode ruby, decode ways leetcode swift, decode ways leetcode scala, decode ways leetcode rust, decode ways leetcode php, decode ways leetcode dart, decode ways leetcode python3, decode ways leetcode typescript, decode ways leetcode javascript, decode ways leetcode java, decode ways leetcode c++, decode ways leetcode c#, decode ways leetcode go, decode ways leetcode kotlin, decode ways leetcode ruby, decode ways leetcode swift, decode ways leetcode scala, decode ways leetcode rust, decode ways leetcode php, decode ways leetcode dart, decode ways leetcode python3, decode ways leetcode typescript, decode ways leetcode javascript, decode ways leetcode java, decode ways leetcode c++, decode ways leetcode c#, decode ways leetcode go, decode ways leetcode kotlin, decode ways leetcode ruby, decode ways leetcode swift, decode ways leetcode scala, decode ways leetcode rust, decode ways leetcode php, decode ways leetcode dart, decode ways leetcode python3, decode ways leetcode typescript, decode ways leetcode javascript, decode ways leetcode java, decode ways leetcode c++, decode ways leetcode c#, decode ways leetcode go, decode ways leetcode kotlin
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Decode Ways](https://leetcode.com/problems/decode-ways/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/6aEyTjOwlJU"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+```plaintext
+'A' -> 1
+'B' -> 2
+...
+'Z' -> 26
+```
+
+Given a non-empty string num containing only digits, determine the total number of ways to decode it.
+
+## Example
+
+Input: s = "226"
+
+Output: 3
+
+Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
+
+## Summary
+
+To solve this problem, we can use dynamic programming to keep track of the number of ways to decode the given input string up to the current index. We can handle single-digit and double-digit decoding possibilities separately.
+
+## Solution
+
+### In TypeScript
+
+
+```typescript
+function numDecodings(s: string): number {
+  if (s.length === 0 || s[0] === "0") {
+    return 0;
+  }
+
+  const dp: number[] = new Array(s.length + 1).fill(0);
+  dp[0] = 1;
+  dp[1] = 1;
+
+  for (let i = 2; i <= s.length; i++) {
+    const oneDigit = parseInt(s.slice(i - 1, i), 10);
+    const twoDigits = parseInt(s.slice(i - 2, i), 10);
+
+    if (oneDigit >= 1 && oneDigit <= 9) {
+      dp[i] += dp[i - 1];
+    }
+    if (twoDigits >= 10 && twoDigits <= 26) {
+      dp[i] += dp[i - 2];
+    }
+  }
+
+  return dp[s.length];
+}
+```
+
+### In Python
+
+
+```python
+def numDecodings(self, s: str) -> int:
+	if len(s) == 0 or s[0] == "0":
+		return 0
+
+	dp = [0] * (len(s) + 1)
+	dp[0] = 1
+	dp[1] = 1
+
+	for i in range(2, len(s) + 1):
+		oneDigit = int(s[i - 1:i])
+		twoDigits = int(s[i - 2:i])
+
+		if oneDigit >= 1 and oneDigit <= 9:
+			dp[i] += dp[i - 1]
+		if twoDigits >= 10 and twoDigits <= 26:
+			dp[i] += dp[i - 2]
+
+	return dp[len(s)]
+```
+
+## Step-by-step explanation
+
+1. First, we check if the input string `s` is empty or starts with a "0". If either of these conditions is true, we return 0 since there are no valid ways to decode the given string.
+
+```typescript
+if (s.length === 0 || s[0] === "0") {
+  return 0;
+}
+```
+
+2. Next, we create a dynamic programming (DP) array, `dp`, with a length equal to the length of the input string + 1. We initialize all its elements to 0. The `dp` array is used to store the number of ways to decode the string up to the corresponding index.
+
+```typescript
+const dp: number[] = new Array(s.length + 1).fill(0);
+```
+
+3. We set the first two elements of the `dp` array to 1, as there's one way to decode an empty string (base case), and one way to decode a single-character string (assuming it's not "0").
+
+```typescript
+dp[0] = 1;
+dp[1] = 1;
+```
+
+4. We use a loop to iterate through the string from the second character (index 1) to the end. For each character in the string, we check two possibilities: decoding the single character and decoding the previous character together with the current one. The index `i` in the loop corresponds to the position in the `dp` array.
+
+```typescript
+for (let i = 2; i <= s.length; i++) {
+	// ...
+}
+```
+
+5. Inside the loop, we first check the possibility of decoding the single character. We extract the digit at the current index (i - 1) using `s.slice(i - 1, i)` and convert it to an integer. If the digit is between 1 and 9 (inclusive), we update the `dp` array by adding the number of ways to decode the string up to the previous character (i - 1) to the current index.
+
+```typescript
+const oneDigit = parseInt(s.slice(i - 1, i), 10);
+
+if (oneDigit >= 1 && oneDigit <= 9) {
+	dp[i] += dp[i - 1];
+}
+```
+
+6. Next, we check the possibility of decoding the previous character together with the current one. We extract the two digits (i - 2 and i - 1) using `s.slice(i - 2, i)` and convert it to an integer. If the two-digit number is between 10 and 26 (inclusive), we update the `dp` array by adding the number of ways to decode the string up to two characters before the current character (i - 2) to the current index.
+
+```typescript
+const twoDigits = parseInt(s.slice(i - 2, i), 10);
+
+if (twoDigits >= 10 && twoDigits <= 26) {
+	dp[i] += dp[i - 2];
+}
+```
+
+7. After iterating through the entire string, the last element of the `dp` array, `dp[s.length]`, will store the total number of ways to decode the entire input string. We return this value as the final result.
+
+```typescript
+return dp[s.length];
+```
+
+By following these steps, we can efficiently solve the "Decode Ways" problem using dynamic programming with a time complexity of O(n) and space complexity of O(n).
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string. We iterate through the input string once and perform constant-time operations at each step.
+
+### Space Complexity
+
+The space complexity of this solution is O(n) because we use an additional array to store the number of ways to decode the input string up to the current index.
