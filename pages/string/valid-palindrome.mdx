@@ -1,0 +1,154 @@
+---
+title: Valid Palindrome
+description: Given a string s, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+keywords: leetcode, javascript, typescript, python, algorithm, data structure, string, two-pointer, palindrome, regex, regular expression, alphanumeric, easy, valid palindrome, leetcode easy, leetcode valid palindrome, leetcode valid palindrome typescript, leetcode valid palindrome javascript, leetcode valid palindrome python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/jJXJ16kPFWg"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a string s, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+## Example
+
+Input: s = "A man, a plan, a canal: Panama"
+
+Output: true
+
+## Summary
+
+To solve this problem, we can iterate over the string with two pointers (one at the beginning and one at the end) checking if the characters are alphanumeric. If both characters are alphanumeric, we compare them (ignoring case) to see if they are the same. If they are not the same, we can return false immediately. If we successfully iterate through the entire string, we can return true, as the string is a valid palindrome.
+
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function isPalindrome(s: string): boolean {
+    const alphaNumeric = /[0-9a-zA-Z]/
+    let left = 0;
+    let right = s.length - 1;
+
+    while (left < right) {
+        if (!alphaNumeric.test(s[left])) {
+            left++
+        } else if (!alphaNumeric.test(s[right])) {
+            right--
+        } else if (s[left].toLowerCase() !== s[right].toLowerCase()) {
+            return false
+        } else {
+            left++
+            right--
+        }
+    }
+
+    return true
+}
+```
+
+### In Python
+
+```python
+def isPalindrome(s: str) -> bool:
+		left = 0
+		right = len(s) - 1
+
+		while left < right:
+				if not s[left].isalnum():
+						left += 1
+				elif not s[right].isalnum():
+						right -= 1
+				elif s[left].lower() != s[right].lower():
+						return False
+				else:
+						left += 1
+						right -= 1
+
+		return True
+```
+
+## Step-by-step explanation
+
+1. The function starts by defining a regular expression pattern alphaNumeric to match alphanumeric characters (both numbers and letters).
+
+```typescript
+const alphaNumeric = /[0-9a-zA-Z]/
+```
+
+2. The `left` pointer is initialized to 0, representing the beginning of the string.
+
+```typescript
+let left = 0;
+```
+
+3. The `right` pointer is initialized to the length of the string minus 1, representing the end of the string.
+
+```typescript
+let right = s.length - 1;
+```
+
+4. A `while` loop begins with the condition `left < right`, which ensures the loop continues until the pointers cross each other.
+
+```typescript
+while (left < right) {
+		// ...
+}
+```
+
+5. Inside the loop, the function first checks if the character at the `left` pointer is not an alphanumeric character using the `alphaNumeric.test(s[left])` method. If it is not alphanumeric, the `left` pointer is incremented by 1, and the loop continues to the next iteration.
+
+```typescript
+if (!alphaNumeric.test(s[left])) {
+		left++
+}
+```
+
+6. Similarly, if the character at the `right` pointer is not an alphanumeric character, the `right` pointer is decremented by 1, and the loop continues to the next iteration.
+
+```typescript
+if (!alphaNumeric.test(s[right])) {
+		right--
+}
+```
+
+7. If both characters at the `left` and `right` pointers are alphanumeric, they are compared while ignoring the case (using `s[left].toLowerCase()` and `s[right].toLowerCase()`). If they are not equal, the function immediately returns `false`, as the input string is not a palindrome.
+
+```typescript
+if (s[left].toLowerCase() !== s[right].toLowerCase()) {
+		return false
+}
+```
+
+8. If both characters at the `left` and `right` pointers are equal, the `left` pointer is incremented, and the `right` pointer is decremented. The loop continues to the next iteration.
+
+```typescript
+left++
+right--
+```
+
+9. If the loop completes without returning `false`, it means that the input string is a valid palindrome. In this case, the function returns `true`.
+
+```typescript
+return true
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string. The two-pointer method traverses the string once, with each pointer taking at most O(n) steps.
+
+### Space Complexity
+
+The space complexity of this solution is O(1), as we only use constant extra space for regex and pointers.
