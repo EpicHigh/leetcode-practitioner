@@ -1,0 +1,156 @@
+---
+title: Valid Anagram
+description: Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+keywords: anagram, string, hashmap, map, array, javascript, typescript, python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Valid Anagram](https://leetcode.com/problems/valid-anagram/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/9UtInBqnCgA"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+## Example
+
+Input: s = "anagram", t = "nagaram"
+
+Output: true
+
+## Summary
+
+To solve this problem, we can count the occurrences of each character in both strings and then compare the counts. If the counts match for all characters, the strings are anagrams of each other. One way to implement this is by using a hashmap or an array to store the character counts.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function isAnagram(s: string, t: string): boolean {
+	if (s.length !== t.length) {
+		return false;
+	}
+
+	const charCountS: Map<string, number> = new Map();
+	const charCountT: Map<string, number> = new Map();
+
+	for (let i = 0; i < s.length; i++) {
+		const charS = s[i];
+		const charT = t[i];
+		charCountS.set(charS, (charCountS.get(charS) || 0) + 1);
+		charCountT.set(charT, (charCountT.get(charT) || 0) + 1);
+	}
+
+	if (charCountS.size !== charCountT.size) {
+			return false;
+	}
+
+	for (const [char, count] of charCountS) {
+		if (charCountT.get(char) !== count) {
+			return false;
+		}
+	}
+
+	return true;
+}
+```
+
+### In Python
+
+```python
+def isAnagram(s: str, t: str) -> bool:
+	if len(s) != len(t):
+		return False
+
+	charCountS = {}
+	charCountT = {}
+
+	for i in range(len(s)):
+		charS = s[i]
+		charT = t[i]
+		charCountS[charS] = charCountS.get(charS, 0) + 1
+		charCountT[charT] = charCountT.get(charT, 0) + 1
+
+	if len(charCountS) != len(charCountT):
+		return False
+
+	for char, count in charCountS.items():
+		if charCountT.get(char) != count:
+			return False
+
+	return True
+```
+
+## Step-by-step explanation
+
+1. The function starts by checking if the lengths of the input strings `s` and `t` are not equal. If they are not equal, it immediately returns `false`, as anagrams must have the same length.
+
+```typescript
+if (s.length !== t.length) {
+	return false;
+}
+```
+
+2. Two Maps `charCountS` and `charCountT` are created to store the character counts for strings `s` and `t`, respectively.
+
+```typescript
+const charCountS: Map<string, number> = new Map();
+const charCountT: Map<string, number> = new Map();
+```
+
+3. A single loop iterates over the indices of the strings `s` and `t` (since they have the same length). Inside the loop:
+	- The character at the current index `i` is retrieved for both `s` and `t` as `charS` and `charT`.
+	- The count of `charS` in `charCountS` is incremented by 1. If `charS` is not in `charCountS`, a default count of 0 is used.
+	- The count of `charT` in `charCountT` is incremented by 1. If `charT` is not in `charCountT`, a default count of 0 is used.
+
+```typescript
+for (let i = 0; i < s.length; i++) {
+	const charS = s[i];
+	const charT = t[i];
+	charCountS.set(charS, (charCountS.get(charS) || 0) + 1);
+	charCountT.set(charT, (charCountT.get(charT) || 0) + 1);
+}
+```
+
+4. After the loop, the function checks if the size of the Maps `charCountS` and `charCountT` are not equal. If the sizes are not equal, it returns `false`, as the character counts in both Maps must match for the strings to be anagrams.
+
+```typescript
+if (charCountS.size !== charCountT.size) {
+		return false;
+}
+```
+
+5. Another loop iterates over the entries (key-value pairs) of `charCountS`. Inside the loop:
+	- The character count of the current character in `charCountT` is checked. If it's not equal to the count of the same character in `charCountS`, the function returns `false`, as the character counts must match for the strings to be anagrams.
+
+```typescript
+for (const [char, count] of charCountS) {
+	if (charCountT.get(char) !== count) {
+		return false;
+	}
+}
+```
+
+6. If the function hasn't returned `false` during the previous steps, it means that the input strings `s` and `t` are anagrams. In this case, the function returns `true`.
+
+```typescript
+return true;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input strings. We have two loops that iterate over the strings (or the Maps), but since the length of `s` and `t` must be the same for them to be anagrams, this gives us a linear time complexity.
+
+### Space Complexity
+
+The space complexity of this solution is O(n) in the worst case, where n is the length of the input strings. In the worst case, each character of the strings `s` and `t` is unique, which would lead to both Maps having n unique entries. However, if the input strings only contain a small number of unique characters, the space complexity would be closer to O(1).
