@@ -1,0 +1,141 @@
+---
+title: Maximal Square
+description: Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+keywords: maximal square, dynamic programming, leetcode, leetcode solution, leetcode problem, leetcode solution in typescript, leetcode solution in python, leetcode solution in javascript
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Maximal Square](https://leetcode.com/problems/maximal-square/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/6X7Ha2PrDmM"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+
+## Example
+
+Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","0"],["1","0","0","1","0"]]
+
+Output: 4
+
+## Summary
+
+To solve this problem, we can use dynamic programming with a 1D array `dp` to store the side length of the largest square ending at the current position. It iterates through the matrix and updates the `dp` array while maintaining the largest square size found so far. The final result is the area of the largest square, calculated by squaring the `maxSquareSize`.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function maximalSquare(matrix: string[][]): number {
+    const m = matrix.length;
+    const n = matrix[0].length;
+    const dp: number[] = Array(n + 1).fill(0);
+    let maxSquareSize = 0;
+    let prev = 0;
+
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            const temp = dp[j];
+            if (matrix[i - 1][j - 1] === "1") {
+                dp[j] = Math.min(dp[j - 1], dp[j], prev) + 1;
+                maxSquareSize = Math.max(maxSquareSize, dp[j]);
+            } else {
+                dp[j] = 0;
+            }
+            prev = temp;
+        }
+    }
+
+    return maxSquareSize * maxSquareSize;
+}
+```
+
+### In Python
+
+```python
+def maximalSquare(self, matrix: List[List[str]]) -> int:
+		m = len(matrix)
+		n = len(matrix[0])
+		dp = [0] * (n + 1)
+		maxSquareSize = 0
+		prev = 0
+
+		for i in range(1, m + 1):
+				for j in range(1, n + 1):
+						temp = dp[j]
+						if matrix[i - 1][j - 1] == "1":
+								dp[j] = min(dp[j - 1], dp[j], prev) + 1
+								maxSquareSize = max(maxSquareSize, dp[j])
+						else:
+								dp[j] = 0
+						prev = temp
+
+		return maxSquareSize * maxSquareSize
+```
+
+## Step-by-step explanation
+
+1. Initialize variables:
+	- `m` is the number of rows in the input matrix.
+	- `n` is the number of columns in the input matrix.
+	- `dp` is a 1D array of size `n + 1`, filled with zeros, used for dynamic programming.
+	- `maxSquareSize` is a variable to keep track of the maximum square size found so far, initialized to 0.
+
+```typescript
+const m = matrix.length;
+const n = matrix[0].length;
+const dp: number[] = Array(n + 1).fill(0);
+let maxSquareSize = 0;
+```
+
+2. Iterate over the matrix using two nested loops. The outer loop iterates over the rows (1 to m, inclusive), while the inner loop iterates over the columns (1 to n, inclusive).
+
+```typescript
+for (let i = 1; i <= m; i++) {
+		for (let j = 1; j <= n; j++) {
+				// ...
+		}
+}
+```
+
+3. For each cell in the matrix, do the following:
+
+	a. Save the current dp[j] value in the temp variable. <br />
+	b. Check if the current cell contains a "1". If so, update the `dp[j]` value as the minimum of `dp[j - 1]`, `dp[j]`, and prev (diagonally above) plus 1. This is because we want to find the smallest square that can be formed by extending the current square at this cell. <br />
+	c. Update `maxSquareSize` with the maximum value between its current value and the updated `dp[j]` value. <br />
+	d. If the current cell contains a "0", set `dp[j]` to 0, as no square can be formed with this cell. <br />
+	e. Update the `prev` variable with the `temp` value, so it can be used for the next iteration.
+
+```typescript
+const temp = dp[j];
+if (matrix[i - 1][j - 1] === "1") {
+		dp[j] = Math.min(dp[j - 1], dp[j], prev) + 1;
+		maxSquareSize = Math.max(maxSquareSize, dp[j]);
+} else {
+		dp[j] = 0;
+}
+```
+
+4. After iterating over the entire matrix, return the area of the maximal square, which is `maxSquareSize * maxSquareSize`.
+
+```typescript
+return maxSquareSize * maxSquareSize;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(m * n), where m is the number of rows and n is the number of columns in the input matrix. We iterate through each element in the matrix once.
+
+### Space Complexity
+
+The space complexity of this solution is O(n) because we only use a 1D 'dp' array of size n + 1 to store the square sizes for the current row in the matrix. We continuously update the same array as we iterate through the matrix, keeping the space requirement minimal.

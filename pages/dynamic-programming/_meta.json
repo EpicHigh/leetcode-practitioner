@@ -8,5 +8,6 @@
 	"house-robber": "7. House Robber",
 	"maximum-product-subarray": "8. Maximum Product Subarray",
 	"longest-increasing-subsequence": "9. Longest Increasing Subsequence",
-	"jump-game": "10. Jump Game"
+	"jump-game": "10. Jump Game",
+	"maximal-square": "11. Maximal Square"
 }
