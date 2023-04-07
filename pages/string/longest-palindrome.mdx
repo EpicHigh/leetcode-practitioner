@@ -1,0 +1,135 @@
+---
+title: Longest Palindrome
+description: Given a string s that consists of lower case English letters and digits, find the length of the longest palindrome that can be built with those letters.
+keywords: leetcode, leetcode algorithm, leetcode easy, leetcode longest palindrome, leetcode longest palindrome typescript, leetcode longest palindrome python, leetcode longest palindrome javascript, leetcode longest palindrome java, leetcode longest palindrome c#, leetcode longest palindrome c++, leetcode longest palindrome go, leetcode longest palindrome ruby, leetcode longest palindrome swift, leetcode longest palindrome kotlin, leetcode longest palindrome dart, leetcode longest palindrome rust, leetcode longest palindrome scala, leetcode longest palindrome php, leetcode longest palindrome sql, leetcode longest palindrome haskell, leetcode longest palindrome rust, leetcode longest palindrome typescript, leetcode longest palindrome python, leetcode longest palindrome javascript, leetcode longest palindrome java, leetcode longest palindrome c#, leetcode longest palindrome c++, leetcode longest palindrome go, leetcode longest palindrome ruby, leetcode longest palindrome swift, leetcode longest palindrome kotlin, leetcode longest palindrome dart, leetcode longest palindrome rust, leetcode longest palindrome scala, leetcode longest palindrome php, leetcode longest palindrome sql, leetcode longest palindrome haskell, leetcode longest palindrome rust, leetcode longest palindrome typescript, leetcode longest palindrome python, leetcode longest palindrome javascript, leetcode longest palindrome java, leetcode longest palindrome c#, leetcode longest palindrome c++, leetcode longest palindrome go, leetcode longest palindrome ruby, leetcode longest palindrome swift, leetcode longest palindrome kotlin, leetcode longest palindrome dart, leetcode longest palindrome rust, leetcode longest palindrome scala, leetcode longest palindrome php, leetcode longest palindrome sql, leetcode longest palindrome haskell, leetcode longest palindrome rust, leetcode longest palindrome typescript, leetcode longest palindrome python, leetcode longest palindrome javascript, leetcode longest palindrome java, leetcode longest palindrome c#, leetcode longest palindrome c++, leetcode longest palindrome go, leetcode longest palindrome ruby, leetcode longest palindrome swift, leetcode longest palindrome kotlin, leetcode longest palindrome dart, leetcode longest palindrome rust, leetcode longest palindrome scala, leetcode longest palindrome php, leetcode longest palindrome sql, leetcode longest palindrome haskell, leetcode longest palindrome rust, leetcode longest palindrome typescript, leetcode longest palindrome python, leetcode longest palindrome javascript, leetcode longest palindrome java, leetcode longest palindrome c#, leetcode longest palindrome c++, leetcode longest palindrome go, leetcode longest palindrome ruby, leetcode longest palindrome swift, leetcode longest palindrome kotlin, leetcode longest
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Longest Palindrome](https://leetcode.com/problems/longest-palindrome/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/XYQecbcd6_c"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a string `s` that consists of lower case English letters and digits, find the length of the longest palindrome that can be built with those letters.
+
+## Example
+
+Input: s = "abccccdd"
+
+Output: 7
+
+Explanation: One possible palindrome is "dccaccd", with length 7.
+
+## Summary
+
+To solve this problem, we can count the occurrences of each character in the input string. For each character, we can add an even number of occurrences to the palindrome. If we have encountered an odd number of occurrences, we can add one less to the palindrome and keep track that we have an odd number of occurrences. In the end, we can add 1 to the length of the palindrome if we have encountered an odd number of occurrences.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function longestPalindrome(s: string): number {
+	const charCount = new Map<string, number>();
+	let length = 0;
+	let hasOdd = false;
+
+	for (const char of s) {
+		charCount.set(char, (charCount.get(char) || 0) + 1);
+	}
+
+	for (const count of charCount.values()) {
+		length += Math.floor(count / 2) * 2;
+		if (!hasOdd && count % 2 === 1) {
+			hasOdd = true;
+		}
+	}
+
+	return hasOdd ? length + 1 : length;
+}
+```
+
+### In Python
+
+```python
+def longestPalindrome(self, s: str) -> int:
+		char_count = {}
+		length = 0
+		has_odd = False
+
+		for char in s:
+				char_count[char] = char_count.get(char, 0) + 1
+
+		for count in char_count.values():
+				length += count // 2 * 2
+				if not has_odd and count % 2 == 1:
+						has_odd = True
+
+		return length + 1 if has_odd else length
+```
+
+## Step-by-step explanation
+
+1. Create a `charCount` Map to store the count of each character in the input string `s`. Initialize the `length` variable to store the length of the longest palindrome, and a boolean `hasOdd` to track if we've encountered any odd occurrences.
+
+```typescript
+const charCount = new Map<string, number>();
+let length = 0;
+let hasOdd = false;
+```
+
+2. Loop through the input string `s` to count the occurrences of each character, and update the `charCount` Map.
+
+
+```typescript
+for (const char of s) {
+	charCount.set(char, (charCount.get(char) || 0) + 1);
+}
+```
+
+3. Loop through the values (occurrences count) in the `charCount` Map.
+
+```typescript
+for (const count of charCount.values()) {
+	// ...
+}
+```
+
+4. Add the count of even occurrences of each character to the `length`. This is achieved by dividing the count by 2, flooring the result, and multiplying it by 2.
+
+```typescript
+length += Math.floor(count / 2) * 2;
+```
+
+5. Check if the `hasOdd` flag is false, and the count is odd (count % 2 === 1). If this condition is true, set the `hasOdd` flag to true. This tracks whether we've encountered any odd occurrences.
+
+```typescript
+if (!hasOdd && count % 2 === 1) {
+	hasOdd = true;
+}
+```
+
+6. If the `hasOdd` flag is true, we can add 1 to the `length` (for the center of the palindrome), otherwise, just return the `length`.
+
+```typescript
+return hasOdd ? length + 1 : length;
+```
+
+The solution counts the occurrences of each character in the input string and calculates the length of the longest palindrome using the counts. Even occurrences can always be included in the palindrome. If there are odd occurrences, we include all but one of them and add 1 to the length for the center of the palindrome.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string. We iterate through the input string once to count the occurrences of each character, and then we iterate through the values in the charCount Map to calculate the length of the longest palindrome. Both iterations have O(n) time complexity.
+
+### Space Complexity
+
+The space complexity of this solution is O(k), where k is the number of unique characters in the input string. In the worst case, if all characters are unique, the space complexity will be O(n), where n is the length of the input string. In practice, the space complexity will be limited by the size of the character set (lowercase English letters and digits).
