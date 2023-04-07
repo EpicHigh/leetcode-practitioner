@@ -1,0 +1,170 @@
+---
+title: String to Integer (atoi)
+description: Given a string s containing whitespace characters and digits, convert the initial substring of s that contains digits into an integer.
+keywords: leetcode, leetcode algorithm, leetcode string, leetcode string to integer, leetcode string to integer (atoi), leetcode string to integer (atoi) solution, leetcode string to integer (atoi) solution in typescript, leetcode string to integer (atoi) solution in python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/2I9XO8jwZCA"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a string `s` containing whitespace characters and digits, convert the initial substring of `s` that contains digits into an integer. The conversion should follow the following rules:
+
+1. Read and ignore any leading whitespaces.
+2. Check if the next character (if not already at the end of the string) is '-' or '+'. Read this character if it is either. This determines if the final result is negative or positive (assume the result is positive if neither is present).
+3. Read in the next characters until the next non-digit character or the end of the input is reached. The rest of the string is ignored.
+4. Convert these digits into an integer (i.e. "123" -> 123, "0032" -> 32). If no digits were read, then the integer is 0.
+5. If the integer is out of the 32-bit signed integer range [-2^31, 2^31 - 1], then clamp the integer within the range.
+
+
+## Example
+
+Input: s = " -42"
+
+Output: -42
+
+## Summary
+
+To solve this problem, we can iterate over the input string, ignoring leading whitespaces, and then process the sign and digits. Convert the digits into an integer and clamp the result to the 32-bit signed integer range.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function myAtoi(s: string): number {
+	let i = 0;
+	let sign = 1;
+	let num = 0;
+	const INT_MAX = 2 ** 31 - 1;
+	const INT_MIN = -(2 ** 31);
+
+	while (i < s.length && s[i] === ' ') {
+		i++;
+	}
+
+	if (i < s.length && (s[i] === '-' || s[i] === '+')) {
+		sign = s[i] === '-' ? -1 : 1;
+		i++;
+	}
+
+	while (i < s.length && s[i] >= '0' && s[i] <= '9') {
+		const digit = s[i].charCodeAt(0) - '0'.charCodeAt(0);
+		if (num > Math.floor(INT_MAX / 10) || (num === Math.floor(INT_MAX / 10) && digit > INT_MAX % 10)) {
+			return sign === 1 ? INT_MAX : INT_MIN;
+		}
+		num = num * 10 + digit;
+		i++;
+	}
+
+	return num * sign;
+}
+```
+
+### In Python
+
+```python
+def myAtoi(self, s: str) -> int:
+		i = 0
+		sign = 1
+		num = 0
+		INT_MAX = 2 ** 31 - 1
+		INT_MIN = -(2 ** 31)
+
+		while i < len(s) and s[i] == ' ':
+				i += 1
+
+		if i < len(s) and (s[i] == '-' or s[i] == '+'):
+				sign = -1 if s[i] == '-' else 1
+				i += 1
+
+		while i < len(s) and s[i] >= '0' and s[i] <= '9':
+				digit = ord(s[i]) - ord('0')
+				if num > INT_MAX // 10 or (num == INT_MAX // 10 and digit > INT_MAX % 10):
+						return INT_MAX if sign == 1 else INT_MIN
+				num = num * 10 + digit
+				i += 1
+
+		return num * sign
+```
+
+
+## Step-by-step explanation
+
+1. Initialize the following variables:
+	- `i`, the index of the current character, initially set to 0.
+	- `sign`, a flag indicating if the final result is negative or positive, initially set to 1.
+	- `num`, the final result, initially set to 0.
+	- `INT_MAX` and `INT_MIN`, constants representing the maximum and minimum 32-bit signed integer values.
+
+```typescript
+let i = 0;
+let sign = 1;
+let num = 0;
+const INT_MAX = 2 ** 31 - 1;
+const INT_MIN = -(2 ** 31);
+```
+
+2. Traverse the input string `s` using a while loop, incrementing `i` to ignore leading whitespaces.
+
+```typescript
+while (i < s.length && s[i] === ' ') {
+	i++;
+}
+```
+
+3. Check if the current character `s[i]` is '-' or '+':
+	- If it's '-', set `sign` to -1.
+	- If it's '+', set `sign` to 1.
+	- If a sign is found, increment `i` to move to the next character.
+
+```typescript
+if (i < s.length && (s[i] === '-' || s[i] === '+')) {
+	sign = s[i] === '-' ? -1 : 1;
+	i++;
+}
+```
+
+4. Traverse the remaining characters in the string, processing digits:
+	- If the current character `s[i]` is between '0' and '9' (inclusive), process the digit.
+	- Calculate the current digit value by subtracting the Unicode code point of '0' from the Unicode code point of `s[i]`.
+	- Check if adding the digit to the result would cause an integer overflow:
+		- If it would, return the clamped value depending on the sign (either `INT_MAX` or `INT_MIN`).
+	- If no overflow would occur, update `num` with the new digit by multiplying the current value of `num` by 10 and adding the digit.
+	- Increment `i` to move to the next character.
+
+```typescript
+while (i < s.length && s[i] >= '0' && s[i] <= '9') {
+	const digit = s[i].charCodeAt(0) - '0'.charCodeAt(0);
+	if (num > Math.floor(INT_MAX / 10) || (num === Math.floor(INT_MAX / 10) && digit > INT_MAX % 10)) {
+		return sign === 1 ? INT_MAX : INT_MIN;
+	}
+	num = num * 10 + digit;
+	i++;
+}
+```
+
+5. When the loop ends, multiply `num` by `sign` to get the final result, taking the sign into account.
+
+```typescript
+return num * sign;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string s. The string is traversed once, and each character is processed in constant time.
+
+### Space Complexity
+
+The space complexity of this solution is O(1), as only a few variables are used, and their memory requirements do not depend on the input size.

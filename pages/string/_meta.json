@@ -2,5 +2,6 @@
 	"valid-palindrome": "1. Valid Palindrome",
 	"valid-anagram": "2. Valid Anagram",
 	"longest-substring-without-repeating-characters": "3. Longest Substring Without Repeating Characters",
-	"longest-palindrome": "4. Longest Palindrome"
+	"longest-palindrome": "4. Longest Palindrome",
+	"string-to-integer-atoi": "5. String to Integer (atoi)"
 }
