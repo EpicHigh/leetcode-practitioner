@@ -1,4 +1,5 @@
 {
 	"valid-palindrome": "1. Valid Palindrome",
-	"valid-anagram": "2. Valid Anagram"
+	"valid-anagram": "2. Valid Anagram",
+	"longest-substring-without-repeating-characters": "3. Longest Substring Without Repeating Characters"
 }

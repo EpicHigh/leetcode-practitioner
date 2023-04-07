@@ -1,0 +1,138 @@
+---
+title: Longest Substring Without Repeating Characters
+description: Given a string s, find the length of the longest substring without repeating characters.
+keywords: leetcode, leetcode algorithm, leetcode problem, leetcode solution, leetcode interview, leetcode problem solution, leetcode problem solution in typescript, leetcode problem solution in python, leetcode problem solution in javascript, leetcode problem solution in java, leetcode problem solution in c++, leetcode problem solution in c#, leetcode problem solution in go, leetcode problem solution in ruby, leetcode problem solution in swift, leetcode problem solution in kotlin, leetcode problem solution in dart, leetcode problem solution in php, leetcode problem solution in scala, leetcode problem solution in rust, leetcode problem solution in elixir, leetcode problem solution in clojure, leetcode problem solution in haskell, leetcode problem solution in perl, leetcode problem solution in lua, leetcode problem solution in groovy, leetcode problem solution in crystal, leetcode problem solution in julia, leetcode problem solution in f#, leetcode problem solution in r, leetcode problem solution in bash, leetcode problem solution in powershell, leetcode problem solution in typescript, leetcode problem solution in python, leetcode problem solution in javascript, leetcode problem solution in java, leetcode problem solution in c++, leetcode problem solution in c#, leetcode problem solution in go, leetcode problem solution in ruby, leetcode problem solution in swift, leetcode problem solution in kotlin, leetcode problem solution in dart, leetcode problem solution in php, leetcode problem solution in scala, leetcode problem solution in rust, leetcode problem solution in elixir, leetcode problem solution in clojure, leetcode problem solution in haskell, leetcode problem solution in perl, leetcode problem solution in lua, leetcode problem solution in groovy, leetcode problem solution in crystal, leetcode problem solution in julia, leetcode problem solution in f#, leetcode problem solution in r, leetcode problem solution in bash, leetcode problem solution in powershell, leetcode problem solution in typescript, leetcode problem solution in python, leetcode problem solution in javascript, leetcode problem solution in java, leetcode problem solution in c++, leetcode problem solution in c#, leetcode problem solution in go, leetcode problem solution in ruby, leetcode problem solution in swift, leetcode problem solution in kotlin, leetcode problem solution in dart, leetcode problem solution in php, leetcode problem solution in scala, leetcode
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) <DifficultyChip difficulty="" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/wiGpQwVHdE0"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a string s, find the length of the longest substring without repeating characters.
+
+## Example
+
+Input: s = "abcabcbb"
+
+Output: 3
+
+Explanation: The answer is "abc", with the length of 3.
+
+## Summary
+
+To solve this problem, we can use the sliding window technique, keeping track of the characters in the current window using a Map or Set. We will slide the window by incrementing the start and end pointers while making sure that there are no duplicate characters in the current window. We can keep track of the maximum length of the substring without repeating characters.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function lengthOfLongestSubstring(s: string): number {
+	let start = 0;
+	let maxLength = 0;
+	const charSet = new Set<string>();
+
+	for (let end = 0; end < s.length; end++) {
+		const char = s[end];
+		while (charSet.has(char)) {
+				charSet.delete(s[start]);
+				start++;
+		}
+		charSet.add(char);
+		maxLength = Math.max(maxLength, charSet.size);
+	}
+
+	return maxLength;
+}
+```
+
+### In Python
+
+```python
+def lengthOfLongestSubstring(s: str) -> int:
+	start = 0
+	maxLength = 0
+	charSet = set()
+
+	for end in range(len(s)):
+		char = s[end]
+		while char in charSet:
+			charSet.remove(s[start])
+			start += 1
+		charSet.add(char)
+		maxLength = max(maxLength, len(charSet))
+
+	return maxLength
+```
+
+## Step-by-step explanation
+
+1. Initialize the `start` pointer to 0, `maxLength` to 0, and create a new Set called `charSet`.
+
+```typescript
+let start = 0;
+let maxLength = 0;
+const charSet = new Set<string>();
+```
+
+2. Loop through the string with a `for` loop, using the `end` index as the loop variable.
+
+```typescript
+for (let end = 0; end < s.length; end++) {
+	// ...
+}
+```
+
+3. Get the character at the current `end` index.
+
+```typescript
+const char = s[end];
+```
+
+4. Check if the character already exists in the `charSet`. If it does, we have a repeating character, and we need to remove the character at the `start` pointer from the `charSet`. Then, increment the `start` pointer. Keep doing this in a while loop until the current character is not in the `charSet`.
+
+```typescript
+while (charSet.has(char)) {
+		charSet.delete(s[start]);
+		start++;
+}
+```
+
+5. After the while loop, add the current character to the `charSet`.
+
+```typescript
+charSet.add(char);
+```
+
+6. Update the `maxLength` with the maximum value between the current `maxLength` and the size of the `charSet`. Since the `charSet` contains all unique characters in the current window, its size represents the length of the substring without repeating characters.
+
+```typescript
+maxLength = Math.max(maxLength, charSet.size);
+```
+
+7. Return the `maxLength`, which represents the length of the longest substring without repeating characters.
+
+```typescript
+return maxLength;
+```
+
+The solution uses a sliding window approach with a Set to track the unique characters in the current window. By updating the start pointer when a repeating character is found, the window slides through the string, making sure it always contains a substring without repeating characters. The maximum length of such substring is stored in the `maxLength` variable.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string. We use a single for loop to iterate through the string and slide the window, adjusting the start pointer and end index accordingly. The inner while loop is used to update the start pointer when a repeating character is found. Since each character is visited at most twice (once by the outer loop and once by the inner loop), the overall time complexity remains O(n).
+
+### Space Complexity
+
+The space complexity of this solution is O(min(n, m)), where n is the length of the input string, and m is the size of the character set. In the worst case, we will have to store all unique characters of the string in the Set. However, if the size of the character set is smaller than the length of the string, the space complexity will be limited by the size of the character set.
