@@ -1,0 +1,134 @@
+---
+title: Rotate Array
+description: Given an array, rotate the array to the right by k steps, where k is non-negative.
+keywords: rotate array, array, rotate, array rotation, array rotation in-place, array rotation in place, array rotation in-place in javascript, array rotation in place in javascript, array rotation in-place in typescript, array rotation in place in typescript, array rotation in-place in python, array rotation in place in python, array rotation in-place in java, array rotation in place in java, array rotation in-place in c++, array rotation in place in c++, array rotation in-place in c#, array rotation in place in c#, array rotation in-place in go, array rotation in place in go, array rotation in-place in ruby, array rotation in place in ruby, array rotation in-place in swift, array rotation in place in swift, array rotation in-place in kotlin, array rotation in place in kotlin, array rotation in-place in dart, array rotation in place in dart, array rotation in-place in rust, array rotation in place in rust, array rotation in-place in scala, array rotation in place in scala, array rotation in-place in php, array rotation in place in php, array rotation in-place in r, array rotation in place in r, array rotation in-place in julia, array rotation in place in julia, array rotation in-place in elixir, array rotation in place in elixir, array rotation in-place in haskell, array rotation in place in haskell, array rotation in-place in clojure, array rotation in place in clojure, array rotation in-place in perl, array rotation in place in perl, array rotation in-place in lua, array rotation in place in lua, array rotation in-place in crystal, array rotation in place in crystal, array rotation in-place in f#, array rotation in place in f#, array rotation in-place in nim, array rotation in place in nim, array rotation in-place in purescript, array rotation in place in purescript, array rotation in-place in racket, array rotation in place in racket, array rotation in-place in d, array rotation in place in d, array rotation in-place in bash, array rotation in place in bash, array rotation in-place in powershell, array rotation in place in powershell, array rotation in-place in typescript, array rotation in place in typescript, array rotation in-place in javascript, array rotation in place in javascript, array rotation in-place in python, array rotation in place in python, array rotation in-place in java
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Rotate Array](https://leetcode.com/problems/rotate-array/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/BHr381Guz3Y"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array, rotate the array to the right by k steps, where k is non-negative.
+
+## Example
+
+Input: nums = [1, 2, 3, 4, 5, 6, 7], k = 3
+
+Output: [5, 6, 7, 1, 2, 3, 4]
+
+## Summary
+
+To solve this problem, we can use an in-place approach to rotate the array. First, we reverse the whole array, then reverse the first k elements, and finally, reverse the remaining elements. This way, we obtain the rotated array.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function rotate(nums: number[], k: number): void {
+  k = k % nums.length;
+  reverse(nums, 0, nums.length - 1);
+  reverse(nums, 0, k - 1);
+  reverse(nums, k, nums.length - 1);
+}
+
+function reverse(nums: number[], start: number, end: number): void {
+  while (start < end) {
+    [nums[start], nums[end]] = [nums[end], nums[start]];
+    start++;
+    end--;
+  }
+}
+```
+
+### In Python
+
+```python
+def rotate(nums: List[int], k: int) -> None:
+	k = k % len(nums)
+	reverse(nums, 0, len(nums) - 1)
+	reverse(nums, 0, k - 1)
+	reverse(nums, k, len(nums) - 1)
+
+def reverse(nums: List[int], start: int, end: int) -> None:
+	while start < end:
+		nums[start], nums[end] = nums[end], nums[start]
+		start += 1
+		end -= 1
+```
+
+## Step-by-step explanation
+
+1. Calculate the remainder when `k` is divided by `nums.length`. This is necessary because if `k` is larger than the array length, the effective number of rotations will be the remainder of the division.
+
+```typescript
+k = k % nums.length;
+```
+
+2. Reverse the entire array by calling the `reverse` helper function with the start index as 0 and the end index as `nums.length - 1`.
+
+```typescript
+reverse(nums, 0, nums.length - 1);
+```
+
+3. Reverse the first `k` elements of the array by calling the `reverse` helper function with the start index as 0 and the end index as `k - 1`.
+
+```typescript
+reverse(nums, 0, k - 1);
+```
+
+4. Reverse the remaining elements in the array, which are from index `k` to `nums.length - 1`, by calling the `reverse` helper function with the start index as k and the end index as `nums.length - 1`.
+
+```typescript
+reverse(nums, k, nums.length - 1);
+```
+
+5. Define the `reverse` helper function, which takes the `nums` array, a start index, and an end index as its input parameters. The purpose of this function is to reverse the elements within the specified range of the input array.
+
+```typescript
+function reverse(nums: number[], start: number, end: number): void {
+	// ...
+}
+```
+
+6. Inside the `reverse` function, use a `while` loop to iterate through the elements within the specified range. The loop should continue as long as the start index is less than the end index.
+
+```typescript
+while (start < end) {
+	// ...
+}
+```
+
+7. In each iteration, use array destructuring to swap the elements at the start and end indices.
+
+```typescript
+[nums[start], nums[end]] = [nums[end], nums[start]];
+```
+
+8. Increment the start index and decrement the end index to move towards the middle of the specified range.
+
+```typescript
+start++;
+end--;
+```
+
+In summary, the solution provided rotates the array to the right by reversing the entire array, reversing the first k elements, and then reversing the remaining elements. The time complexity is O(n) as each element is reversed once, and the space complexity is O(1) since the operation is performed in-place.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. Each element in the array is reversed exactly once (in three different steps), which results in linear time complexity.
+
+### Space Complexity
+
+The space complexity of this solution is O(1) because we perform the rotation in-place, without using any additional data structures.
