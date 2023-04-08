@@ -1,0 +1,109 @@
+---
+title: Group Anagrams
+description: Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+keywords: group anagrams, anagram, anagrams, leetcode, leetcode problem, leetcode problem solution, leetcode problem solution in typescript, leetcode problem solution in python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Group Anagrams](https://leetcode.com/problems/group-anagrams/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/vzdNOK2oB2E"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+## Example
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+## Summary
+
+To solve this problem, we can use a hash map to store the sorted string as a key and the list of anagrams as the value. Iterate through each string in the input array `strs`, sort its characters, and use the sorted string as a key in the hash map. Append the original string to the corresponding list of anagrams. Finally, return the grouped anagrams as an array of arrays.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function groupAnagrams(strs: string[]): string[][] {
+	const map = new Map<string, string[]>()
+
+	for (const str of strs) {
+		const key = str.split('').sort().join('')
+		map.set(key, [...(map.get(key) || []), str])
+	}
+
+	return [...map.values()]
+};
+```
+
+### In Python
+
+
+```python
+def groupAnagrams(strs):
+		map = {}
+
+		for str in strs:
+				key = ''.join(sorted(str))
+				map[key] = map.get(key, []) + [str]
+
+		return list(map.values())
+```
+
+## Step-by-step explanation
+
+1. Initialize a new Map `map` that will store the sorted strings as keys and the corresponding anagrams as the values in the form of an array of strings.
+
+```typescript
+const map = new Map<string, string[]>()
+```
+
+2. Iterate through each string `str` in the input array `strs`.
+
+```typescript
+for (const str of strs) {
+	// ...
+}
+```
+
+3. For each string `str`, split it into characters, sort the characters alphabetically, and join them back together to form a key. This key represents the sorted version of the string.
+
+```typescript
+const key = str.split('').sort().join('')
+```
+
+4. Add the current string `str` to the list of anagrams corresponding to the key in the map. If there is no entry for the key in the `map`, create a new array with the current string `str`.
+
+```typescript
+map.set(key, [...(map.get(key) || []), str])
+```
+
+5. Return the grouped anagrams by converting the values (arrays of anagrams) of the `map` into an array of arrays.
+
+```typescript
+return [...map.values()]
+```
+
+The `groupAnagrams` function first sorts the characters of each input string and uses the sorted string as a key to group the anagrams together. By iterating through the input array and processing each string, the function efficiently groups the anagrams and returns the result as an array of arrays.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n * k * log k), where n is the length of the input array `strs` and `k` is the maximum length of a string in `strs`. For each string, we sort its characters, which takes O(k * log k) time. Since we perform this operation for all `n` strings, the overall time complexity is O(n * k * log k).
+
+### Space Complexity
+
+The space complexity of this solution is O(n * k), as we need to store all `n` strings in the map with each string having a maximum length of `k`.
