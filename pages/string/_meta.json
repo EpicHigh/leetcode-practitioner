@@ -4,5 +4,6 @@
 	"longest-substring-without-repeating-characters": "3. Longest Substring Without Repeating Characters",
 	"longest-palindrome": "4. Longest Palindrome",
 	"string-to-integer-atoi": "5. String to Integer (atoi)",
-	"longest-palindromic-substring": "6. Longest Palindromic Substring"
+	"longest-palindromic-substring": "6. Longest Palindromic Substring",
+	"find-all-anagrams-in-a-string": "7. Find All Anagrams in a String"
 }
