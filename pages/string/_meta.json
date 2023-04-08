@@ -6,5 +6,6 @@
 	"string-to-integer-atoi": "5. String to Integer (atoi)",
 	"longest-palindromic-substring": "6. Longest Palindromic Substring",
 	"find-all-anagrams-in-a-string": "7. Find All Anagrams in a String",
-	"group-anagrams": "8. Group Anagrams"
+	"group-anagrams": "8. Group Anagrams",
+	"longest-repeating-character-replacement": "9. Longest Repeating Character Replacement"
 }

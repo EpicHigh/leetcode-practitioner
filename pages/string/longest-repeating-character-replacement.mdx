@@ -1,0 +1,148 @@
+---
+title: Longest Repeating Character Replacement
+description: Given a string s that consists of only uppercase English letters, you can perform at most k operations on that string. In one operation, you can choose any character of the string and change it to any other uppercase English character. Find the length of the longest sub-string containing all repeating letters you can get after performing the mentioned operations.
+keywords: longest repeating character replacement, leetcode, leetcode problem, leetcode problem solution, leetcode problem solution in typescript, leetcode problem solution in python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/gqXU1UyA8pk"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a string `s` that consists of only uppercase English letters, you can perform at most `k` operations on that string.
+
+In one operation, you can choose any character of the string and change it to any other uppercase English character.
+
+Find the length of the longest sub-string containing all repeating letters you can get after performing the mentioned operations.
+
+## Example
+
+Input: s = "ABAB", k = 2
+
+Output: 4
+
+## Summary
+
+To solve this problem, we can use the sliding window technique. We will maintain a window that contains the longest substring with all repeating characters after performing at most k operations. We can keep track of the maximum frequency of a character in the window and expand the window if the size of the window minus the maximum frequency is less than or equal to k.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function characterReplacement(s: string, k: number): number {
+	const charCounts: Map<string, number> = new Map();
+	let maxLength = 0;
+	let maxCount = 0;
+	let left = 0;
+
+	for (let right = 0; right < s.length; right++) {
+		const char = s[right];
+		charCounts.set(char, (charCounts.get(char) || 0) + 1);
+		maxCount = Math.max(maxCount, charCounts.get(char) || 0);
+
+		if (right - left + 1 - maxCount > k) {
+			const leftChar = s[left];
+			charCounts.set(leftChar, (charCounts.get(leftChar) || 0) - 1);
+			left++;
+		}
+
+		maxLength = Math.max(maxLength, right - left + 1);
+	}
+
+	return maxLength;
+}
+```
+
+### In Python
+
+```python
+def characterReplacement(s: str, k: int) -> int:
+	char_counts = {}
+	max_length = 0
+	max_count = 0
+	left = 0
+
+	for right in range(len(s)):
+		char = s[right]
+		char_counts[char] = char_counts.get(char, 0) + 1
+		max_count = max(max_count, char_counts[char])
+
+		if right - left + 1 - max_count > k:
+			left_char = s[left]
+			char_counts[left_char] -= 1
+			left += 1
+
+		max_length = max(max_length, right - left + 1)
+
+	return max_length
+```
+
+## Step-by-step explanation
+
+1. Initialize the `charCounts` map, `maxLength` variable, `maxCount` variable, and `left` pointer.
+
+```typescript
+const charCounts: Map<string, number> = new Map();
+let maxLength = 0;
+let maxCount = 0;
+let left = 0;
+```
+
+2. Iterate through the string `s` with a `right` pointer.
+
+```typescript
+for (let right = 0; right < s.length; right++) {
+	// ...
+}
+```
+
+3. Get the current character `char` and increment its count in `charCounts`. Update the `maxCount` with the maximum frequency of any character in the current sliding window.
+
+```typescript
+const char = s[right];
+charCounts.set(char, (charCounts.get(char) || 0) + 1);
+maxCount = Math.max(maxCount, charCounts.get(char) || 0);
+```
+
+4. Check if the number of characters to be replaced in the current window is greater than `k`. If so, shrink the sliding window by moving the `left` pointer forward, and update the character count in `charCounts`.
+
+```typescript
+if (right - left + 1 - maxCount > k) {
+	const leftChar = s[left];
+	charCounts.set(leftChar, (charCounts.get(leftChar) || 0) - 1);
+	left++;
+}
+```
+
+5. Update `maxLength` with the maximum length of a substring with at most `k` character replacements, considering the current sliding window.
+
+```typescript
+maxLength = Math.max(maxLength, right - left + 1);
+```
+
+6. After the loop is finished, return the `maxLength`.
+
+```typescript
+return maxLength;
+```
+
+The function uses the sliding window technique to find the longest substring where at most `k` characters can be replaced to create a substring with repeating characters. The `maxCount` variable keeps track of the maximum frequency of any character in the current window, allowing the function to determine whether the window should be expanded or shrunk based on the value of `k`.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string s. The code iterates through the string once using a sliding window approach with two pointers, left and right. The right pointer moves in every iteration, while the left pointer only moves when the condition (right - left + 1 - maxCount > k) is met. Since both pointers only move forward and the entire string is traversed once, the time complexity is linear.
+
+### Space Complexity
+
+The space complexity of this solution is O(min(n, C)), where n is the length of the input string s, and C is the number of distinct characters in the string. The Map named charCounts stores the frequency of characters in the current sliding window. In the worst case, all characters in the string are distinct, so the Map will store all characters (i.e., n). However, when the alphabet is fixed, the number of distinct characters (C) is constant, so the space complexity can be considered O(C).
