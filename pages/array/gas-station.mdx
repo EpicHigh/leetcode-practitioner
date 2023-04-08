@@ -1,0 +1,144 @@
+---
+title: Gas Station
+description: There are N gas stations along a circular route, where the amount of gas at station i is gas[i]. You have a car with an unlimited gas tank, and it costs cost[i] of gas to travel from station i to its next station (i+1). You begin the journey with an empty tank at one of the gas stations.
+keywords: gas station, gas, station, gas station problem, gas station leetcode, gas station solution, gas station solution in python, gas station solution in typescript
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Gas Station](https://leetcode.com/problems/gas-station/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/lJwbPZGo05A"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+There are N gas stations along a circular route, where the amount of gas at station i is gas[i]. You have a car with an unlimited gas tank, and it costs cost[i] of gas to travel from station i to its next station (i+1). You begin the journey with an empty tank at one of the gas stations.
+
+Return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1.
+
+## Example
+
+Input: gas = [1,2,3,4], cost = [2,3,4,3]
+
+Output: 3
+
+## Summary
+
+To solve this problem, we can iterate through the gas stations and maintain two variables, `totalGas` and `totalCost`, to store the total gas and cost respectively. Additionally, we maintain a variable `start` to keep track of the potential starting gas station index, and a variable `currentGas` to store the remaining gas during the iteration. If at any point, `currentGas` becomes negative, we update the starting gas station index and reset `currentGas`. If the total gas is greater than or equal to the total cost, it means we can travel around the circuit; otherwise, we return -1.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function canCompleteCircuit(gas: number[], cost: number[]): number {
+  let totalGas = 0;
+  let totalCost = 0;
+  let currentGas = 0;
+  let start = 0;
+
+  for (let i = 0; i < gas.length; i++) {
+    totalGas += gas[i];
+    totalCost += cost[i];
+    currentGas += gas[i] - cost[i];
+
+    if (currentGas < 0) {
+      start = i + 1;
+      currentGas = 0;
+    }
+  }
+
+  return totalGas >= totalCost ? start : -1;
+}
+```
+
+### In Python
+
+```python
+def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+	totalGas = 0
+	totalCost = 0
+	currentGas = 0
+	start = 0
+
+	for i in range(len(gas)):
+		totalGas += gas[i]
+		totalCost += cost[i]
+		currentGas += gas[i] - cost[i]
+
+		if currentGas < 0:
+			start = i + 1
+			currentGas = 0
+
+	return start if totalGas >= totalCost else -1
+```
+
+## Step-by-step explanation
+
+1. We initialize four variables:
+
+	 - `totalGas`: to store the total amount of gas across all gas stations
+	 - `totalCost`: to store the total cost of gas to travel through all gas stations
+	 - `currentGas`: to store the remaining gas during the iteration
+	 - `start`: to store the index of the potential starting gas station
+
+```typescript
+let totalGas = 0;
+let totalCost = 0;
+let currentGas = 0;
+let start = 0;
+```
+
+2. We iterate through the gas stations using a loop:
+
+
+```typescript
+for (let i = 0; i < gas.length; i++) {
+	// ...
+}
+```
+
+3. Inside the loop, we update the `totalGas` and `totalCost` variables by adding the corresponding gas and cost values at index `i`.
+
+```typescript
+totalGas += gas[i];
+totalCost += cost[i];
+```
+
+4. We then update the `currentGas` variable by adding the difference between the gas at the current station and the cost to travel to the next station.
+
+```typescript
+currentGas += gas[i] - cost[i];
+```
+
+5. We check if `currentGas` becomes negative. If it does, it means we can't travel from the current starting gas station to the next station without running out of gas. In this case, we update the `start` variable to `i + 1` and reset `currentGas` to 0.
+
+```typescript
+if (currentGas < 0) {
+	start = i + 1;
+	currentGas = 0;
+}
+```
+
+6. After the loop, we check if `totalGas` is greater than or equal to `totalCost`. If it is, we can travel around the circuit, and we return the `start` variable, which holds the index of the starting gas station. If not, we return -1, indicating that it's not possible to travel around the circuit.
+
+```typescript
+return totalGas >= totalCost ? start : -1;
+```
+
+In summary, this solution iterates through the gas stations, calculating the total gas and cost while keeping track of the potential starting gas station index. If at any point, the remaining gas becomes negative, we update the starting gas station index and reset the remaining gas. At the end of the iteration, we check if the total gas is greater than or equal to the total cost, and if it is, we return the starting gas station index; otherwise, we return -1.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the number of gas stations. This is because we only iterate through the gas stations once.
+
+### Space Complexity
+
+The space complexity of this solution is O(1), as we only use a constant amount of extra space for the variables `totalGas`, `totalCost`, `currentGas`, and `start`.
