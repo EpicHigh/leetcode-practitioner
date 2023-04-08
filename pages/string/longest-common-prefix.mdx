@@ -1,0 +1,129 @@
+---
+title: Longest Common Prefix
+description: Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string "".
+keywords: longest common prefix, leetcode, leetcode problem, leetcode problem solution, leetcode problem solution in typescript, leetcode problem solution in python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/0sWShKIJoo4"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string "".
+
+## Example
+
+Input: strs = ["flower", "flow", "flight"]
+
+Output: "fl"
+
+## Summary
+
+To solve this problem, we can iterate through the characters of the first string and compare them with the characters at the same position in the other strings. If there's a mismatch or we reach the end of any string, we can return the common prefix found so far. If there's no common prefix, we return an empty string.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function longestCommonPrefix(strs: string[]): string {
+  if (strs.length === 0) {
+    return "";
+  }
+
+  for (let i = 0; i < strs[0].length; i++) {
+    const currentChar = strs[0][i];
+    for (let j = 1; j < strs.length; j++) {
+      if (i >= strs[j].length || strs[j][i] !== currentChar) {
+        return strs[0].slice(0, i);
+      }
+    }
+  }
+
+  return strs[0];
+}
+```
+
+### In Python
+
+```python
+def longestCommonPrefix(self, strs: List[str]) -> str:
+	if len(strs) == 0:
+		return ""
+
+	for i in range(len(strs[0])):
+		currentChar = strs[0][i]
+		for j in range(1, len(strs)):
+			if i >= len(strs[j]) or strs[j][i] != currentChar:
+				return strs[0][:i]
+
+	return strs[0]
+```
+
+## Step-by-step explanation
+
+1. First, we check if the input array is empty. If it is, we return an empty string, as there can't be a common prefix among zero strings.
+
+```typescript
+if (strs.length === 0) {
+	return "";
+}
+```
+
+2. We then start iterating through the characters of the first string in the array (strs[0]). We use variable `i` to keep track of the character index.
+
+```typescript
+for (let i = 0; i < strs[0].length; i++) {
+	// ...
+}
+```
+
+3. Inside the loop, we store the character at position `i` of the first string in the variable `currentChar`.
+
+```typescript
+const currentChar = strs[0][i];
+```
+
+4. Now, we start iterating through the rest of the strings in the array, starting from index 1. We use variable `j` to keep track of the string index.
+
+```typescript
+for (let j = 1; j < strs.length; j++) {
+	// ...
+}
+```
+
+5. Inside the inner loop, we check if the index `i` is greater than or equal to the length of the current string `strs[j]` or if the character at position `i` of the current string `strs[j]` is not equal to `currentChar`. If either of these conditions is true, it means there's no common prefix beyond this point, so we return the common prefix found so far by slicing the first string up to (but not including) index `i`.
+
+```typescript
+if (i >= strs[j].length || strs[j][i] !== currentChar) {
+  return strs[0].slice(0, i);
+}
+```
+
+6. If the inner loop completes without returning, it means all characters at the current index `i` are equal, and we move on to the next index by continuing the outer loop. This process is repeated until we find a mismatch or reach the end of the first string.
+
+7. If the outer loop completes without returning, it means that all strings have the first string as their common prefix. Therefore, we return the first string in the array:
+
+```typescript
+return strs[0];
+```
+
+In summary, this solution iterates through the characters of the first string and checks if all other strings in the array have the same character at the same position. If a mismatch is found or the end of any string is reached, the function returns the common prefix found up to that point. If no mismatch is found, the function returns the first string as the longest common prefix.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n * m), where n is the number of strings in the input array and m is the length of the shortest string. This is because we iterate over all the characters of each string in the array.
+
+### Space Complexity
+
+The space complexity of this solution is O(1) as we only use a constant amount of extra space for the temporary variable `currentChar`.
