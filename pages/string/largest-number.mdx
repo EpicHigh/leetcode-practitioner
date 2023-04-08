@@ -1,0 +1,110 @@
+---
+title: Largest Number
+description: Given a list of non-negative integers nums, arrange them such that they form the largest number.
+keywords: largest number, leetcode, leetcode solution, leetcode problem, leetcode solution in typescript, leetcode solution in python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Largest Number](https://leetcode.com/problems/largest-number/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/WDx6Y4i4xJ8"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a list of non-negative integers nums, arrange them such that they form the largest number.
+
+## Example
+
+Input: nums = [10, 2]
+
+Output: "210"
+
+## Summary
+
+To solve this problem, we can create a custom sorting function that compares pairs of numbers as concatenated strings, arranging them in the descending order such that they form the largest number. After sorting the numbers, we can concatenate them to obtain the largest number as a string. If the largest number is zero (i.e., all input numbers are zero), we return "0".
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function largestNumber(nums: number[]): string {
+  // Custom sort function
+  nums.sort((a, b) => {
+    const ab = a.toString() + b.toString();
+    const ba = b.toString() + a.toString();
+    return parseInt(ba) - parseInt(ab);
+  });
+
+  // Handle an edge case where all numbers are zero
+  if (nums[0] === 0) {
+    return "0";
+  }
+
+  // Concatenate the sorted numbers to form the largest number
+  return nums.join("");
+}
+```
+
+### In Python
+
+```python
+def largestNumber(nums: List[int]) -> str:
+	# Custom sort function
+	nums.sort(key=lambda x: str(x) * 3, reverse=True)
+
+	# Handle an edge case where all numbers are zero
+	if nums[0] == 0:
+		return "0"
+
+	# Concatenate the sorted numbers to form the largest number
+	return "".join(map(str, nums))
+```
+
+## Step-by-step explanation
+
+1. First, we create a custom sort function for the `nums` array. This custom sort function will compare pairs of numbers as concatenated strings and arrange them in descending order to maximize the resulting number when they are combined.
+
+```typescript
+nums.sort((a, b) => {
+	const ab = a.toString() + b.toString();
+	const ba = b.toString() + a.toString();
+	return parseInt(ba) - parseInt(ab);
+});
+```
+
+Inside the custom sort function:
+	- We convert the integers `a` and `b` to strings and concatenate them in two different orders: `ab` (a followed by b) and `ba` (b followed by a).
+	- We then convert these concatenated strings back to integers and calculate the difference between `ba` and `ab`. This difference will be used by the sort function to arrange the numbers in descending order according to the custom sort rule.
+
+2. After sorting the `nums` array with the custom sort function, we need to handle the edge case where all numbers in the input array are zeros. In this case, the output should be a single "0" instead of a string with multiple zeros (e.g., "00" or "000"). We can do this by checking if the first number in the sorted array is zero, and if it is, we return "0".
+
+```typescript
+if (nums[0] === 0) {
+	return "0";
+}
+```
+
+3. Finally, we concatenate the sorted numbers in the nums array to form the largest number as a string.
+
+```typescript
+return nums.join("");
+```
+
+In summary, this solution sorts the input numbers according to a custom sort rule that maximizes the resulting number when they are combined. After sorting, the numbers are concatenated to form the largest number as a string, handling the edge case where all input numbers are zeros.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n log n), where n is the length of the input array. This is because the sorting step takes O(n log n) time, and the other operations like concatenating the sorted numbers take O(n) time.
+
+### Space Complexity
+
+The space complexity of this solution is O(n) as we need additional space to store the concatenated strings during the comparison in the custom sort function. Additionally, the resulting largest number string will also require O(n) space.

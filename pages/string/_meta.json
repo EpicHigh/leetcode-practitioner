@@ -8,5 +8,6 @@
 	"find-all-anagrams-in-a-string": "7. Find All Anagrams in a String",
 	"group-anagrams": "8. Group Anagrams",
 	"longest-repeating-character-replacement": "9. Longest Repeating Character Replacement",
-	"longest-common-prefix": "10. Longest Common Prefix"
+	"longest-common-prefix": "10. Longest Common Prefix",
+	"largest-number": "11. Largest Number"
 }
