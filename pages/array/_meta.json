@@ -11,5 +11,6 @@
 	"contains-duplicate": "10. Contains Duplicate",
 	"container-with-most-water": "11. Container With Most Water",
 	"meeting-rooms": "12. Meeting Rooms",
-	"gas-station": "13. Gas Station"
+	"gas-station": "13. Gas Station",
+	"longest-consecutive-sequence": "14. Longest Consecutive Sequence"
 }
