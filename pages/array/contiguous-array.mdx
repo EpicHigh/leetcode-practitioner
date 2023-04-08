@@ -1,0 +1,135 @@
+---
+title: Contiguous Array
+description: Given a binary array nums, find the maximum length of a contiguous subarray with an equal number of 0s and 1s.
+keywords: contiguous array, binary array, equal number of 0s and 1s, maximum length of a contiguous subarray, leetcode, leetcode problem, leetcode problem solution, leetcode problem explanation, leetcode problem walkthrough, leetcode problem solution walkthrough, leetcode problem explanation walkthrough, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem solution explanation, leetcode problem explanation solution, leetcode problem walkthrough solution, leetcode problem walkthrough explanation, leetcode problem solution walkthrough explanation, leetcode problem solution explanation walkthrough, leetcode problem
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Contiguous Array](https://leetcode.com/problems/contiguous-array/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/9ZyLjjk536U"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a binary array `nums`, find the maximum length of a contiguous subarray with an equal number of 0s and 1s.
+
+## Example
+
+Input: nums = [0,1]
+
+Output: 2
+
+## Summary
+
+To solve this problem, we can use a hashmap to store the counts of 0s and 1s. As we iterate through the array, we can update the counts and check if we've seen the current count difference before. If we have, then we know we've found a contiguous subarray with an equal number of 0s and 1s. We can keep track of the maximum length of such a subarray and return it at the end.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function findMaxLength(nums: number[]): number {
+	const counts = new Map<number, number>();
+	counts.set(0, -1);
+	let maxLen = 0;
+	let count = 0;
+
+	for (let i = 0; i < nums.length; i++) {
+		count += nums[i] === 1 ? 1 : -1;
+
+		if (counts.has(count)) {
+			maxLen = Math.max(maxLen, i - (counts.get(count) as number));
+		} else {
+			counts.set(count, i);
+		}
+	}
+
+	return maxLen;
+}
+```
+
+### In Python
+
+```python
+def findMaxLength(self, nums: List[int]) -> int:
+	counts = {0: -1}
+	max_len = 0
+	count = 0
+
+	for i, num in enumerate(nums):
+		count += 1 if num == 1 else -1
+
+		if count in counts:
+			max_len = max(max_len, i - counts[count])
+		else:
+			counts[count] = i
+
+	return max_len
+```
+
+## Step-by-step explanation
+
+1. Initialize a Map named `counts` to store the count differences as keys and their corresponding indices as values. Set an initial entry with a key of `0` and a value of `-1`.
+
+```typescript
+counts = {0: -1}
+```
+
+2. Initialize two variables: `maxLen` to store the maximum length of a contiguous subarray with equal numbers of 0s and 1s, and `count` to store the current count difference. Set both to 0.
+
+```typescript
+maxLen = 0;
+count = 0;
+```
+
+3. Iterate through the input array using a for loop.
+
+```typescript
+for (let i = 0; i < nums.length; i++) {
+	// ...
+}
+```
+
+4. Update the `count` variable. If the current number is 1, add 1 to the count; otherwise, subtract 1.
+
+```typescript
+count += nums[i] === 1 ? 1 : -1;
+```
+
+5. Check if the `counts` Map already contains the current `count` value as a key. If it does, calculate the length of the contiguous subarray by subtracting the value corresponding to the current `count` key from the current index `i`, and update `maxLen` with the maximum of its current value and the calculated length.
+
+```typescript
+if (counts.has(count)) {
+	maxLen = Math.max(maxLen, i - (counts.get(count) as number));
+}
+```
+
+6. If the current `count` is not in the `counts` Map, add an entry with the current `count` as the key and the current index `i` as the value.
+
+```typescript
+else {
+	counts.set(count, i);
+}
+```
+
+7. Finally, return the maximum length of the contiguous subarray with equal numbers of 0s and 1s.
+
+```typescript
+return maxLen;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We iterate through the input array once, updating the counts and checking if we've seen the count difference before.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we are storing the counts of 0s and 1s in a hashmap. In the worst case, the hashmap will store n entries, where n is the length of the input array.
