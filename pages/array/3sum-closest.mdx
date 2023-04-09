@@ -1,0 +1,183 @@
+---
+title: 3Sum Closest
+description: Given an integer array nums and an integer target, find three integers in nums such that the sum is closest to target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+keywords: 3sum closest problem, medium difficulty, find closest sum, integer array, two pointers technique, target sum, smallest difference, optimal solution, array iteration, complexity analysis, sorted array, leetcode
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [3Sum Closest](https://leetcode.com/problems/3sum-closest/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/jEXPzp_Tfvs"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an integer array nums and an integer target, find three integers in nums such that the sum is closest to target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+
+## Example
+
+Input: nums = [-1,2,1,-4], target = 1
+
+Output: 2
+
+## Summary
+
+To solve this problem, we can sort the input array, iterate over each element, and use two pointers (one at the beginning and the other at the end of the array) to find pairs of elements that have the smallest difference with the target. We can then return the sum of the three integers with the smallest difference.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function threeSumClosest(nums: number[], target: number): number {
+	nums.sort((a, b) => a - b);
+	let closestSum = nums[0] + nums[1] + nums[2];
+	const n = nums.length;
+
+	for (let i = 0; i < n - 2; i++) {
+		let left = i + 1;
+		let right = n - 1;
+		while (left < right) {
+			const currentSum = nums[i] + nums[left] + nums[right];
+
+			if (Math.abs(target - currentSum) < Math.abs(target - closestSum)) {
+				closestSum = currentSum;
+			}
+
+			if (currentSum < target) {
+				left++;
+			} else if (currentSum > target) {
+				right--;
+			} else {
+				return currentSum;
+			}
+		}
+	}
+
+	return closestSum;
+}
+```
+
+### In Python
+
+```python
+def threeSumClosest(nums, target):
+		nums.sort()
+		closest_sum = nums[0] + nums[1] + nums[2]
+		n = len(nums)
+
+		for i in range(n - 2):
+				left = i + 1
+				right = n - 1
+				while left < right:
+					current_sum = nums[i] + nums[left] + nums[right]
+
+					if abs(target - current_sum) < abs(target - closest_sum):
+						closest_sum = current_sum
+
+					if current_sum < target:
+						left += 1
+					elif current_sum > target:
+						right -= 1
+					else:
+						return current_sum
+
+		return closest_sum
+```
+
+## Step-by-step explanation
+
+1. Sort the input array nums in ascending order.
+
+```typescript
+nums.sort((a, b) => a - b);
+```
+
+2. Initialize the `closestSum` variable to the sum of the first three elements in the sorted array. This variable will store the current closest sum to the target.
+
+```typescript
+let closestSum = nums[0] + nums[1] + nums[2];
+```
+
+3. Iterate through the array using a `for` loop, leaving the last two elements out of the iteration as we need to find triplets:
+
+```typescript
+for (let i = 0; i < n - 2; i++) {
+	// ...
+}
+```
+
+4. Inside the loop, initialize two pointers, `left` and `right`. left starts right after the current element (i + 1), and right starts at the end of the array.
+
+```typescript
+let left = i + 1;
+let right = n - 1;
+```
+
+5. Use a `while` loop to iterate through the remaining elements using the `left` and `right` pointers, as long as `left` is less than `right`.
+
+```typescript
+while (left < right) {
+	// ...
+}
+```
+
+6. Calculate the current sum of the three integers (nums[i], nums[left], and nums[right]):
+
+```typescript
+const currentSum = nums[i] + nums[left] + nums[right];
+```
+
+7. Compare the absolute difference between the `currentSum` and the target with the absolute difference between the `closestSum` and the target. If the absolute difference for the `currentSum` is smaller, update the `closestSum`.
+
+```typescript
+if (Math.abs(target - currentSum) < Math.abs(target - closestSum)) {
+	closestSum = currentSum;
+}
+```
+
+
+8. If the `currentSum` is less than the target, increment the `left` pointer to increase the sum:
+
+```typescript
+if (currentSum < target) {
+	left++;
+}
+```
+
+9. If the `currentSum` is greater than the target, decrement the `right` pointer to decrease the sum:
+
+```typescript
+else if (currentSum > target) {
+	right--;
+}
+```
+
+10. If the `currentSum` is equal to the target, we have found the optimal solution, and we can return the `currentSum` immediately:
+
+```typescript
+else {
+	return currentSum;
+}
+```
+
+11. After the loop ends, return the `closestSum`, which stores the sum of the three integers with the smallest difference to the target:
+
+```typescript
+return closestSum;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n^2), where n is the length of the input array. The sorting step takes O(n log n) time, and the nested loop takes O(n^2) time in the worst case.
+
+### Space Complexity
+
+The space complexity of this solution is O(log n) due to the sorting step. The in-place sorting does not require additional space except for some space required by the sorting algorithm.
