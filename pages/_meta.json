@@ -3,5 +3,6 @@
 	"array": "Array",
 	"string": "String",
 	"binary-search": "Binary Search",
+	"stack": "Stack",
 	"dynamic-programming": "Dynamic Programming"
 }

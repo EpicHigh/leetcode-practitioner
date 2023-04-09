@@ -1,0 +1,129 @@
+---
+title: Valid Parentheses
+description: Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+keywords: valid parentheses, opening brackets, closing brackets, matching brackets, stack, leetcode, time complexity, space complexity, string validation, parentheses validation, typescript solution, python solution, bracket order
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/WTzjTskDFMg"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a string `s` containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+1. Open brackets must be closed by the same type of brackets.
+2. Open brackets must be closed in the correct order.
+
+## Example
+
+Input: s = "{[]}"
+
+Output: true
+
+## Summary
+
+To solve this problem, we can use a stack to keep track of the opening brackets. We iterate through the string, and for each character, we either push it onto the stack if it is an opening bracket or we pop the top element of the stack and check if it matches the corresponding closing bracket. If the stack is empty after processing the entire string, the input string is valid.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function isValid(s: string): boolean {
+	const stack: string[] = [];
+	const map: { [key: string]: string } = {
+		"(": ")",
+		"[": "]",
+		"{": "}"
+	};
+
+	for (const char of s) {
+		if (map[char]) {
+			stack.push(map[char]);
+		} else if (stack.pop() !== char) {
+			return false;
+		}
+	}
+
+	return stack.length === 0;
+}
+```
+
+### In Python
+
+```python
+def isValid(s: str) -> bool:
+	stack = []
+	map = {
+		"(": ")",
+		"[": "]",
+		"{": "}"
+	}
+
+	for char in s:
+		if char in map:
+			stack.append(map[char])
+		elif not stack or stack.pop() != char:
+			return False
+
+	return len(stack) == 0
+```
+
+## Step-by-step explanation
+
+1. Initialize a `stack` to store the opening brackets we encounter as we iterate through the string.
+
+```typescript
+const stack: string[] = [];
+```
+
+2. Create a mapping (`map`) of opening brackets to their corresponding closing brackets. This will help us later when checking if the closing brackets match their respective opening brackets.
+
+```typescript
+const map: { [key: string]: string } = {
+	"(": ")",
+	"[": "]",
+	"{": "}"
+};
+```
+
+3. Iterate through the input string `s`. For each character (`char`), perform one of the following actions:
+
+	a. If the character is an opening bracket (i.e., it exists in the `map`), push its corresponding closing bracket onto the `stack`. <br/>
+	b. If the character is not an opening bracket, it must be a closing bracket. In this case, pop the top element from the `stack` and check if it matches the current character (closing bracket). If it doesn't match, return `false` because the input string is not valid.
+
+```typescript
+for (const char of s) {
+	if (map[char]) {
+		stack.push(map[char]);
+	} else if (stack.pop() !== char) {
+		return false;
+	}
+}
+```
+
+4. After iterating through the entire input string, check if the `stack` is empty. If it is empty, that means all opening brackets have been matched with their corresponding closing brackets, and the input string is valid. Return `true`. If the `stack` is not empty, some opening brackets have not been matched, so return `false`.
+
+```typescript
+return stack.length === 0;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string. We iterate through the input string once, performing constant time operations (pushing or popping elements onto/from the stack) for each character.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we use a stack to store the opening brackets. In the worst case, the input string consists entirely of opening brackets, and the stack will store n entries, where n is the length of the input string.
