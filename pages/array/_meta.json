@@ -17,5 +17,6 @@
 	"contiguous-array": "16. Contiguous Array",
 	"subarray-sum-equals-k": "17. Subarray Sum Equals K",
 	"move-zeroes": "18. Move Zeroes",
-	"meeting-rooms-ii": "19. Meeting Rooms II"
+	"meeting-rooms-ii": "19. Meeting Rooms II",
+	"squares-of-a-sorted-array": "20. Squares of a Sorted Array"
 }

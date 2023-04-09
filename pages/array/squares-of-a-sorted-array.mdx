@@ -1,0 +1,135 @@
+---
+title: Squares of a Sorted Array
+description: Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+keywords: sorted squares algorithm, two pointers method, non-decreasing order, squared integers, sorted array squares, efficient square sorting, positive negative number sorting, absolute value comparison, sorted square elements, linear time complexity
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/FPCZsG_AkUg"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an integer `array` nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+
+## Example
+
+Input: nums = [-4, -1, 0, 3, 10]
+
+Output: [0, 1, 9, 16, 100]
+
+## Summary
+
+To solve this problem, we can use two pointers, one starting at the beginning and one at the end of the input array. We can compare the squares of the numbers at these two pointers and add the larger square to the output array. We can continue this process until the two pointers meet, ensuring that we are adding the squares in non-decreasing order.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function sortedSquares(nums: number[]): number[] {
+	const n = nums.length - 1;
+	const result: number[] = new Array(n);
+	let left = 0;
+	let right = n;
+
+	for (let i = n; i >= 0; i--) {
+		if (Math.abs(nums[left]) > Math.abs(nums[right])) {
+			result[i] = nums[left] * nums[left];
+			left++;
+		} else {
+			result[i] = nums[right] * nums[right];
+			right--;
+		}
+	}
+
+	return result;
+}
+
+```
+
+### In Python
+
+```python
+def sortedSquares(nums: List[int]) -> List[int]:
+	n = len(nums) - 1
+	result = [0] * n
+	left = 0
+	right = n
+
+	for i in range(n, -1, -1):
+		if abs(nums[left]) > abs(nums[right]):
+			result[i] = nums[left] * nums[left]
+			left += 1
+		else:
+			result[i] = nums[right] * nums[right]
+			right -= 1
+
+	return result
+```
+
+## Step-by-step explanation
+
+1. Get the length of the input array `nums` and store it in a constant variable `n`. Initialize the `result` array of the same length, filled with zeros.
+
+```typescript
+const n = nums.length - 1;
+const result: number[] = new Array(n);
+```
+
+2. Initialize two pointers, `left` and `right`, pointing to the beginning and the end of the input array, respectively:
+
+```typescript
+let left = 0;
+let right = n;
+```
+
+3. Iterate through the `result` array in reverse order (from n - 1 down to 0):
+
+```typescript
+for (let i = n; i >= 0; i--) {
+	// ...
+}
+```
+
+4. Compare the absolute values of the elements at the `left` and `right` pointers. If the absolute value at the `left` pointer is greater than or equal to the absolute value at the `right` pointer, square the element at the `left` pointer and store it in the `result` array at the index `i`. Then, increment the `left` pointer.
+
+```typescript
+if (Math.abs(nums[left]) >= Math.abs(nums[right])) {
+	result[i] = nums[left] * nums[left];
+	left++;
+}
+```
+
+5. If the absolute value at the `left` pointer is less than the absolute value at the `right` pointer, square the element at the `right` pointer and store it in the `result` array at the index `i`. Then, decrement the `right` pointer.
+
+```typescript
+} else {
+	result[i] = nums[right] * nums[right];
+	right--;
+}
+```
+
+6. After the loop is done, the `result` array will contain the squares of the elements of the input array `nums` sorted in non-decreasing order. Return the `result` array.
+
+```typescript
+return result;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We are iterating through the input array once, comparing the squares of the numbers at the two pointers and updating them accordingly.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we are storing the squared elements of the input array in a new array. In this case, the space complexity is determined by the size of the input array.
+
