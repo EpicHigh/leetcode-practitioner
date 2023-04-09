@@ -1,0 +1,122 @@
+---
+title: Non-overlapping Intervals
+description: Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+keywords: non-overlapping intervals, medium difficulty, minimum intervals remove, collection of intervals, sort end times, greedy algorithm, leetcode, iterate intervals, time complexity, space complexity, count non-overlapping
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/nONCGxWoUfM"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+
+## Example
+
+Input: intervals = [[1,2],[2,3],[3,4],[1,3]]
+
+Output: 1
+
+## Summary
+
+To solve this problem, we can sort the intervals by their end times. We then iterate through the intervals and greedily choose the intervals that don't overlap with the previous one. The number of intervals that we need to remove is equal to the total number of intervals minus the number of non-overlapping intervals we selected.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function eraseOverlapIntervals(intervals: number[][]): number {
+	if (intervals.length === 0) return 0;
+
+	intervals.sort((a, b) => a[1] - b[1]);
+
+	let count = 1;
+	let end = intervals[0][1];
+
+	for (let i = 1; i < intervals.length; i++) {
+		if (intervals[i][0] >= end) {
+			count++;
+			end = intervals[i][1];
+		}
+	}
+
+	return intervals.length - count;
+}
+```
+
+### In Python
+
+```python
+def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+		if len(intervals) == 0:
+			return 0
+
+		intervals.sort(key=lambda x: x[1])
+
+		count = 1
+		end = intervals[0][1]
+
+		for i in range(1, len(intervals)):
+			if intervals[i][0] >= end:
+				count += 1
+				end = intervals[i][1]
+
+		return len(intervals) - count
+```
+
+## Step-by-step explanation
+
+1. If there are no intervals (empty input), we return 0 since there are no intervals to remove.
+
+```typescript
+if (intervals.length === 0) return 0;
+```
+
+2. We sort the intervals based on their end times in ascending order. This is important because it allows us to greedily choose the intervals that end the earliest, leaving more room for other non-overlapping intervals.
+
+```typescript
+intervals.sort((a, b) => a[1] - b[1]);
+```
+
+3. Initialize a `count` variable to 1, which will store the number of non-overlapping intervals we select. We also initialize an `end` variable to store the end time of the previous interval. We start with the end time of the first interval.
+
+```typescript
+let count = 1;
+let end = intervals[0][1];
+```
+
+4. Iterate through the sorted intervals starting from the second interval (index 1). For each interval, we check if its start time is greater than or equal to the end time of the previous non-overlapping interval (`end`). If it is, then it doesn't overlap with the previous interval, and we can include it in our non-overlapping intervals set.
+
+```typescript
+for (let i = 1; i < intervals.length; i++) {
+	if (intervals[i][0] >= end) {
+		count++;
+		end = intervals[i][1];
+	}
+}
+```
+
+5. Finally, we return the difference between the total number of intervals and the count of non-overlapping intervals we selected. This difference represents the minimum number of intervals we need to remove to make the rest of the intervals non-overlapping.
+
+```typescript
+return intervals.length - count;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n log n), where n is the number of intervals. The sorting step takes O(n log n) time, and the loop takes O(n) time. The overall time complexity is dominated by the sorting step.
+
+### Space Complexity
+
+The space complexity of this solution is O(log n) due to the sorting step. The space required for the sorting algorithm is typically O(log n), as most sorting algorithms use a divide and conquer approach. The rest of the algorithm uses constant space.

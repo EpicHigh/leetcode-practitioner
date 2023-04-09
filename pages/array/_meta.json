@@ -19,5 +19,6 @@
 	"move-zeroes": "18. Move Zeroes",
 	"meeting-rooms-ii": "19. Meeting Rooms II",
 	"squares-of-a-sorted-array": "20. Squares of a Sorted Array",
-	"3sum-closest": "21. 3Sum Closest"
+	"3sum-closest": "21. 3Sum Closest",
+	"non-overlapping-intervals": "22. Non-overlapping Intervals"
 }
