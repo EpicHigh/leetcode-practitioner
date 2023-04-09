@@ -16,5 +16,6 @@
 	"rotate-array": "15. Rotate Array",
 	"contiguous-array": "16. Contiguous Array",
 	"subarray-sum-equals-k": "17. Subarray Sum Equals K",
-	"move-zeroes": "18. Move Zeroes"
+	"move-zeroes": "18. Move Zeroes",
+	"meeting-rooms-ii": "19. Meeting Rooms II"
 }

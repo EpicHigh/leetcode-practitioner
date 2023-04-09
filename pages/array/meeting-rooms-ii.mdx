@@ -1,0 +1,142 @@
+---
+title: Meeting Rooms II
+description: Given an array of meeting time intervals consisting of start and end times [[s1, e1], [s2, e2], ...], find the minimum number of conference rooms required.
+keywords: meeting room scheduler, conference room allocation, min heap meeting scheduler, meeting time intervals, min-meeting-rooms algorithm, efficient meeting room booking, interval scheduling algorithm, room booking optimization, chronological meeting sorting, time complexity scheduler
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/FdzJmTCVyJU"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of meeting time intervals consisting of start and end times `[[s1, e1], [s2, e2], ...]`, find the minimum number of conference rooms required.
+
+## Example
+
+Input: intervals = [[0, 30], [5, 10], [15, 20]]
+
+Output: 2
+
+## Summary
+
+To solve this problem, we can sort the intervals based on their start times. Then we can use a min-heap to keep track of the meeting end times of active meetings. By iterating through the sorted intervals, we can compare the start time of the current meeting with the end time of the earliest ending meeting. If there is a room available, we can update the end time; otherwise, we need to add a new meeting room.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function minMeetingRooms(intervals: number[][]): number {
+	if (intervals.length === 0) {
+		return 0;
+	}
+
+	intervals.sort((a, b) => a[0] - b[0]);
+	const minHeap: number[] = [intervals[0][1]];
+
+	for (let i = 1; i < intervals.length; i++) {
+		const [start, end] = intervals[i];
+
+		if (start >= minHeap[0]) {
+			minHeap.shift();
+		}
+
+		minHeap.push(end);
+		minHeap.sort((a, b) => a - b);
+	}
+
+	return minHeap.length;
+}
+```
+
+### In Python
+
+```python
+import heapq
+
+def minMeetingRooms(intervals):
+		if len(intervals) == 0:
+				return 0
+
+		intervals.sort(key=lambda x: x[0])
+		min_heap = [intervals[0][1]]
+
+		for i in range(1, len(intervals)):
+				start, end = intervals[i]
+
+				if start >= min_heap[0]:
+						heapq.heappop(min_heap)
+
+				heapq.heappush(min_heap, end)
+
+		return len(min_heap)
+```
+
+## Step-by-step explanation
+
+1. First, check if the intervals array is empty. If it is, return 0 because no meeting rooms are needed.
+
+```typescript
+if (intervals.length === 0) {
+	return 0;
+}
+```
+
+2. Sort the input array `intervals` based on their start times using the `sort()` method. This will help us process the meetings in chronological order.
+
+```typescript
+intervals.sort((a, b) => a[0] - b[0]);
+```
+
+3. Initialize a min-heap `minHeap` that will store the end times of the active meetings. Initially, add the end time of the first meeting to the min-heap.
+
+```typescript
+const minHeap: number[] = [intervals[0][1]];
+```
+
+4. Iterate through the sorted intervals array starting from the second interval (i = 1). For each interval, destructure its `start` and `end` times into start and end variables.
+
+```typescript
+for (let i = 1; i < intervals.length; i++) {
+	const [start, end] = intervals[i];
+}
+```
+
+5. Check if the start time of the current interval is greater than or equal to the end time of the earliest ending meeting (i.e., the first element in the min-heap). If so, remove the earliest ending meeting from the min-heap using `shift()`, as this meeting room is now available for the current meeting.
+
+```typescript
+if (start >= minHeap[0]) {
+	minHeap.shift();
+}
+```
+
+6. Add the end time of the current meeting to the min-heap. Then, sort the min-heap to maintain its structure.
+
+```typescript
+minHeap.push(end);
+minHeap.sort((a, b) => a - b);
+```
+
+7. After processing all intervals, the length of the min-heap represents the minimum number of meeting rooms required. Return this value.
+
+```typescript
+return minHeap.length;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n * log(n)), where n is the length of the input array. Sorting the intervals takes O(n * log(n)) time, and inserting the end times into the min-heap takes O(n * log(n)) time in the worst case.
+
+### Space Complexity
+
+The space complexity of this solution is O(n) because we are storing the meeting end times in the min-heap. In the worst case, the min-heap will store n entries, where n is the length of the input array.
