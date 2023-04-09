@@ -1,0 +1,137 @@
+---
+title: Subarray Sum Equals K
+description: Given an array of integers nums and an integer k, find the total number of continuous subarrays whose sum equals k.
+keywords: subarray sum equals k, subarray sum, subarray, sum, array, leetcode, leetcode solution, leetcode problem, leetcode algorithm, leetcode interview, leetcode interview question, leetcode interview algorithm, leetcode interview problem, leetcode interview solution, leetcode interview question, leetcode interview question solution, leetcode interview question algorithm, leetcode interview question problem, leetcode interview question answer, leetcode interview question explanation, leetcode interview question walkthrough, leetcode interview question video, leetcode interview question youtube, leetcode interview question github, leetcode interview question code, leetcode interview question code solution, leetcode interview question code explanation, leetcode interview question code walkthrough, leetcode interview question code video, leetcode interview question code youtube, leetcode interview question code github, leetcode interview question code answer, leetcode interview question code algorithm, leetcode interview question code problem, leetcode interview question code in typescript, leetcode interview question code in python
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/fFVZt-6sgyo"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of integers `nums` and an integer `k`, find the total number of continuous subarrays whose sum equals `k`.
+
+## Example
+
+Input: nums = [1,1,1], k = 2
+
+Output: 2
+
+## Summary
+
+To solve this problem, we can use a hashmap to store the cumulative sums and their counts as we iterate through the array. For each element, we can calculate the cumulative sum up to that element and check if there is a cumulative sum that, if subtracted from the current sum, would result in the target sum `k`. If so, we increment our subarray count. We can return the total number of continuous subarrays whose sum equals `k` at the end.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function subarraySum(nums: number[], k: number): number {
+	const sums = new Map<number, number>();
+	sums.set(0, 1);
+	let count = 0;
+	let sum = 0;
+
+	for (const num of nums) {
+		sum += num;
+
+		if (sums.has(sum - k)) {
+			count += sums.get(sum - k) || 0;
+		}
+
+		sums.set(sum, (sums.get(sum) || 0) + 1);
+	}
+
+	return count;
+}
+```
+
+### In Python
+
+```python
+def subarraySum(nums: List[int], k: int) -> int:
+	sums = {0: 1}
+	count = 0
+	sum = 0
+
+	for num in nums:
+		sum += num
+
+		if sum - k in sums:
+			count += sums[sum - k]
+
+		sums[sum] = sums.get(sum, 0) + 1
+
+	return count
+```
+
+## Step-by-step explanation
+
+1. Initialize the `sums` hashmap with a key of `0` and a value of `1`. This is because a sum of 0 has been "seen" once before starting the iteration.
+
+```typescript
+const sums = new Map<number, number>();
+sums.set(0, 1);
+```
+
+2. Initialize the `count` and `sum` variables to 0. The `count` variable will store the total number of continuous subarrays whose sum equals `k`, while `sum` will store the cumulative sum up to the current element during the iteration.
+
+```typescript
+let count = 0;
+let sum = 0;
+```
+
+3. Iterate through the `nums` array.
+
+```typescript
+for (const num of nums) {
+	// ...
+}
+```
+
+4. Update the cumulative sum by adding the current element's value.
+
+```typescript
+sum += num;
+```
+
+5. Check if there is a cumulative sum in the `sums` hashmap that, if subtracted from the current sum, would result in the target sum `k`. If so, increment the `count` by the number of occurrences of the required sum difference.
+
+```typescript
+if (sums.has(sum - k)) {
+	count += sums.get(sum - k) || 0;
+}
+```
+
+6. Update the `sums` hashmap by incrementing the count of the current cumulative sum. If the current sum is not in the hashmap, it initializes the count to 1.
+
+```typescript
+sums.set(sum, (sums.get(sum) || 0) + 1);
+```
+
+7. After iterating through the entire array, return the `count` variable, which stores the total number of continuous subarrays whose sum equals `k`.
+
+```typescript
+return count;
+```
+
+In summary, this solution calculates the cumulative sums while iterating through the input array and stores the counts of each sum in a hashmap. For each element, it checks if there is a sum in the hashmap that can result in the target sum `k` when subtracted from the current cumulative sum. If so, it increments the subarray count accordingly. The final `count` variable contains the total number of continuous subarrays whose sum equals `k`.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We iterate through the input array once, updating the cumulative sum and checking if there's a valid sum to reach the target `k`.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we are storing the cumulative sums and their counts in a hashmap. In the worst case, the hashmap will store n entries, where n is the length of the input array.
+
