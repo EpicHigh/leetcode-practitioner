@@ -1,0 +1,194 @@
+---
+title: Implement Queue using Stacks
+description: Implement a first-in, first-out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+keywords: implement queue using stacks, fifo queue, two stacks, push, peek, pop, empty, leetcode, typescript solution, python solution, data structure, time complexity, space complexity, queue with stacks
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/) <DifficultyChip difficulty="easy" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/rW4vm0-DLYc"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Implement a first-in, first-out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+
+## Example
+
+1. push(1)
+2. push(2)
+3. peek() // Returns 1
+4. pop() // Returns 1
+5. empty() // Returns false
+
+## Summary
+
+To solve this problem, we can use two stacks, `inputStack` and `outputStack`. The `inputStack` will be used to store new elements when they are pushed to the queue. The `outputStack` will be used to hold the elements in the correct order for popping or peeking. When popping or peeking, if the `outputStack` is empty, we'll transfer all elements from the `inputStack` to the `outputStack`, thus reversing the order of the elements.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+class MyQueue {
+	private inputStack: number[];
+	private outputStack: number[];
+
+	constructor() {
+		this.inputStack = [];
+		this.outputStack = [];
+	}
+
+	push(x: number): void {
+		this.inputStack.push(x);
+	}
+
+	pop(): number | undefined {
+		this.moveElementsToOutputStackIfNeeded();
+		return this.outputStack.pop();
+	}
+
+	peek(): number | undefined {
+		this.moveElementsToOutputStackIfNeeded();
+		return this.outputStack[this.outputStack.length - 1];
+	}
+
+	empty(): boolean {
+		return this.inputStack.length === 0 && this.outputStack.length === 0;
+	}
+
+	private moveElementsToOutputStackIfNeeded(): void {
+		if (this.outputStack.length === 0) {
+			while (this.inputStack.length > 0) {
+				this.outputStack.push(this.inputStack.pop() as number);
+			}
+		}
+	}
+}
+```
+
+### In Python
+
+```python
+class MyQueue:
+
+	def __init__(self):
+		"""
+		Initialize your data structure here.
+		"""
+		self.inputStack = []
+		self.outputStack = []
+
+	def push(self, x: int) -> None:
+		"""
+		Push element x to the back of queue.
+		"""
+		self.inputStack.append(x)
+
+	def pop(self) -> int:
+		"""
+		Removes the element from in front of queue and returns that element.
+		"""
+		self.moveElementsToOutputStackIfNeeded()
+		return self.outputStack.pop()
+
+	def peek(self) -> int:
+		"""
+		Get the front element.
+		"""
+		self.moveElementsToOutputStackIfNeeded()
+		return self.outputStack[-1]
+
+	def empty(self) -> bool:
+		"""
+		Returns whether the queue is empty.
+		"""
+		return len(self.inputStack) == 0 and len(self.outputStack) == 0
+
+	def moveElementsToOutputStackIfNeeded(self) -> None:
+		if len(self.outputStack) == 0:
+			while len(self.inputStack) > 0:
+				self.outputStack.append(self.inputStack.pop())
+```
+
+## Step-by-step explanation
+
+1. Define a `MyQueue` class with two properties, `inputStack` and `outputStack`. Both are initialized as empty arrays to represent the two stacks.
+
+```typescript
+class MyQueue {
+	private inputStack: number[];
+	private outputStack: number[];
+
+	constructor() {
+		this.inputStack = [];
+		this.outputStack = [];
+	}
+}
+```
+
+2. Implement the `push` method. When an element is pushed to the queue, simply push it onto the `inputStack`. The time complexity of this operation is O(1).
+
+```typescript
+push(x: number): void {
+	this.inputStack.push(x);
+}
+```
+
+3. Implement the `pop` method. First, call the `moveElementsToOutputStackIfNeeded` method to ensure that the `outputStack` has elements in the correct order for popping. Then, pop the top element from the `outputStack`. The amortized time complexity of this operation is O(1).
+
+```typescript
+pop(): number | undefined {
+	this.moveElementsToOutputStackIfNeeded();
+	return this.outputStack.pop();
+}
+```
+
+4. Implement the `peek` method. Call the `moveElementsToOutputStackIfNeeded` method to ensure that the `outputStack` has elements in the correct order for peeking. Then, return the top element of the `outputStack` without removing it. The amortized time complexity of this operation is O(1).
+
+```typescript
+peek(): number | undefined {
+	this.moveElementsToOutputStackIfNeeded();
+	return this.outputStack[this.outputStack.length - 1];
+}
+```
+
+5. Implement the `empty` method. The queue is empty if both `inputStack` and `outputStack` are empty. The time complexity of this operation is O(1).
+
+```typescript
+empty(): boolean {
+	return this.inputStack.length === 0 && this.outputStack.length === 0;
+}
+```
+
+6. Implement the `moveElementsToOutputStackIfNeeded` method, which is a helper function to transfer elements from the `inputStack` to the `outputStack` when the `outputStack` is empty. This reverses the order of the elements, making it possible to achieve the desired queue behavior with two stacks.
+
+```typescript
+private moveElementsToOutputStackIfNeeded(): void {
+	if (this.outputStack.length === 0) {
+		while (this.inputStack.length > 0) {
+			this.outputStack.push(this.inputStack.pop() as number);
+		}
+	}
+}
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of the push operation is O(1), as we are only pushing elements onto the `inputStack`.
+
+The time complexity of the pop and peek operations is amortized O(1), as the elements are only transferred from the inputStack to the outputStack when the outputStack is empty. Since each element is transferred at most once, the average time complexity for pop and peek operations is constant.
+
+The time complexity of the empty operation is O(1), as we are only checking the length of the inputStack and outputStack.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we are using two stacks to store the elements in the queue. In the worst case, all elements are stored in one of the stacks, and the space complexity will be proportional to the number of elements in the queue.
