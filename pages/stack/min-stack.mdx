@@ -1,0 +1,194 @@
+---
+title: Min Stack
+description: Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+keywords: min stack, constant time, stack design, push, pop, top, get minimum, leetcode, typescript, python, medium difficulty, complexity analysis, time complexity, space complexity, data structure
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Min Stack](https://leetcode.com/problems/min-stack/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/qkLl7nAwDPo"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+Implement the MinStack class:
+
+- MinStack() initializes the stack object.
+- void push(val) pushes the element val onto the stack.
+- void pop() removes the element on the top of the stack.
+- number top() gets the top element of the stack.
+- number getMin() retrieves the minimum element in the stack.
+
+## Example
+
+Input
+
+["MinStack","push","push","push","getMin","pop","top","getMin"] <br />
+[[],[-2],[0],[-3],[],[],[],[]]
+
+Output
+
+[null,null,null,null,-3,null,0,-2]
+
+Explanation
+
+MinStack minStack = new MinStack(); <br />
+minStack.push(-2); <br />
+minStack.push(0); <br />
+minStack.push(-3); <br />
+minStack.getMin(); // return -3 <br />
+minStack.pop(); <br />
+minStack.top();    // return 0 <br />
+minStack.getMin(); // return -2
+
+## Summary
+
+To solve this problem, we need to design a stack that supports standard stack operations, such as push, pop, and top, as well as a new operation, getMin, to retrieve the minimum element in the stack in constant time. We can maintain two separate stacks: one for storing the elements, and another for storing the minimum elements.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+class MinStack {
+	private elements: number[];
+	private minElements: number[];
+
+	constructor() {
+		this.elements = [];
+		this.minElements = [];
+	}
+
+	push(val: number): void {
+		this.elements.push(val);
+		if (this.minElements.length === 0 || val <= this.minElements[this.minElements.length - 1]) {
+			this.minElements.push(val);
+		}
+	}
+
+	pop(): void {
+		const poppedElement = this.elements.pop();
+		if (poppedElement === this.minElements[this.minElements.length - 1]) {
+			this.minElements.pop();
+		}
+	}
+
+	top(): number {
+		return this.elements[this.elements.length - 1];
+	}
+
+	getMin(): number {
+		return this.minElements[this.minElements.length - 1];
+	}
+}
+```
+
+### In Python
+
+```python
+class MinStack:
+
+	def __init__(self):
+		"""
+		initialize your data structure here.
+		"""
+		self.elements = []
+		self.minElements = []
+
+	def push(self, val: int) -> None:
+		self.elements.append(val)
+		if len(self.minElements) == 0 or val <= self.minElements[-1]:
+				self.minElements.append(val)
+
+	def pop(self) -> None:
+		poppedElement = self.elements.pop()
+		if poppedElement == self.minElements[-1]:
+				self.minElements.pop()
+
+	def top(self) -> int:
+		return self.elements[-1]
+
+	def getMin(self) -> int:
+		return self.minElements[-1]
+```
+
+## Step-by-step explanation
+
+1. First, we define a class `MinStack` with two private properties, `elements` and `minElements`, which are both arrays of numbers. The `elements` array will store the regular stack elements, while the `minElements` array will store the minimum elements in the stack
+
+```typescript
+class MinStack {
+	private elements: number[];
+	private minElements: number[];
+}
+```
+
+2. Then, we define the constructor method for the `MinStack` class. The constructor initializes both arrays as empty arrays.
+
+```typescript
+constructor() {
+	this.elements = [];
+	this.minElements = [];
+}
+```
+
+3. Next, we define the `push` method for the class, which takes an input value, `val`, of type number. In this method, we first push the value onto the `elements` array. If the `minElements` array is empty, or if the value is less than or equal to the last element in the `minElements` array, we push the value onto the `minElements` array as well.
+
+```typescript
+push(val: number): void {
+	this.elements.push(val);
+	if (this.minElements.length === 0 || val <= this.minElements[this.minElements.length - 1]) {
+			this.minElements.push(val);
+	}
+}
+```
+
+4. Now, we define the `pop` method for the class. In this method, we first remove the top element from the elements array using the pop method. If the popped element is equal to the last element in the `minElements` array, then we remove the last element from the `minElements` array as well.
+
+```typescript
+pop(): void {
+	const poppedElement = this.elements.pop();
+	if (poppedElement === this.minElements[this.minElements.length - 1]) {
+			this.minElements.pop();
+	}
+}
+```
+
+5. We then define the `top` method for the class, which returns the top element of the `elements` array:
+
+```typescript
+top(): number {
+	return this.elements[this.elements.length - 1];
+}
+```
+
+6. Finally, we define the `getMin` method for the class, which returns the last element in the `minElements` array. This element represents the current minimum value in the stack.
+
+```typescript
+getMin(): number {
+	return this.minElements[this.minElements.length - 1];
+}
+```
+
+By maintaining a separate `minElements` array that keeps track of the minimum elements in the stack, we can efficiently retrieve the minimum element in constant time using the `getMin` method. This ensures that all operations (push, pop, top, and getMin) have a time complexity of O(1).
+
+## Complexity Analysis
+
+### Time Complexity
+
+- push(): O(1) - Both the stack and minStack push operations take constant time.
+- pop(): O(1) - Both the stack and minStack pop operations take constant time.
+- top(): O(1) - Getting the top element in the stack takes constant time.
+- getMin(): O(1) - Getting the minimum element from minStack takes constant time.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), where n is the number of elements in the stack. We maintain two separate arrays to store the elements and the minimum elements. In the worst case, both arrays will store n entries.
