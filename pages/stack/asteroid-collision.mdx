@@ -1,0 +1,186 @@
+---
+title: Asteroid Collision
+description: Given an array of integers representing asteroids in a row, for each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). Each asteroid moves at the same speed. Find out the state of the asteroids after all collisions. If two asteroids meet, the smaller one will explode. If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.
+keywords: asteroid collision, leetcode, medium difficulty, typescript, python, stack, asteroids, absolute value, asteroid size, asteroid direction, collisions, explode, same direction, time complexity, space complexity
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Asteroid Collision](https://leetcode.com/problems/asteroid-collision/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/LN7KjRszjk4"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+We are given an array asteroids of integers representing asteroids in a row.
+
+For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). Each asteroid moves at the same speed.
+
+Find out the state of the asteroids after all collisions. If two asteroids meet, the smaller one will explode. If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.
+
+## Example
+
+Input: asteroids = [5, 10, -5]
+
+Output: [5, 10]
+
+## Summary
+
+To solve this problem, we can use a stack to keep track of the asteroids. We iterate through the input array and perform the following actions:
+
+- If the stack is empty or the current asteroid is moving in the same direction as the top asteroid on the stack, we push the current asteroid onto the stack.
+- If the current asteroid is moving in the opposite direction of the top asteroid on the stack, we simulate the collisions:
+	- If the top asteroid on the stack is smaller than the absolute value of the current asteroid, we pop it from the stack (it explodes).
+	- If the top asteroid on the stack is equal to the absolute value of the current asteroid, we pop it from the stack and skip the current asteroid (both explode).
+	- If the top asteroid on the stack is larger than the absolute value of the current asteroid, we skip the current asteroid (it explodes).
+
+At the end of the iteration, the remaining asteroids on the stack represent the state of the asteroids after all collisions.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function asteroidCollision(asteroids: number[]): number[] {
+	const stack: number[] = [];
+
+	for (const asteroid of asteroids) {
+		let shouldPush = true;
+
+		while (stack.length && asteroid < 0 && stack[stack.length - 1] > 0) {
+			const topAsteroid = stack.pop() as number;
+
+			if (topAsteroid + asteroid === 0) {
+				shouldPush = false;
+				break;
+			} else if (topAsteroid + asteroid > 0) {
+				shouldPush = false;
+				stack.push(topAsteroid);
+				break;
+			}
+		}
+
+		if (shouldPush) {
+				stack.push(asteroid);
+		}
+	}
+
+	return stack;
+}
+```
+
+### In Python
+
+```python
+def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+	stack = []
+
+	for asteroid in asteroids:
+		should_push = True
+
+		while stack and asteroid < 0 and stack[-1] > 0:
+			top_asteroid = stack.pop()
+
+			if top_asteroid + asteroid == 0:
+				should_push = False
+				break
+			elif top_asteroid + asteroid > 0:
+				should_push = False
+				stack.append(top_asteroid)
+				break
+
+		if should_push:
+			stack.append(asteroid)
+
+	return stack
+```
+
+## Step-by-step explanation
+
+1. We initialize an empty stack stack to keep track of the remaining asteroids after collisions.
+
+```typescript
+const stack: number[] = [];
+```
+
+2. We start a `for` loop that iterates through each asteroid in the input array `asteroids`.
+
+```typescript
+for (const asteroid of asteroids) {
+	// ...
+}
+```
+
+3. Inside the loop, we initialize a boolean variable `shouldPush` to true. This variable will determine whether we should push the current asteroid onto the stack after simulating collisions.
+
+```typescript
+let shouldPush = true;
+```
+
+4. We use a `while` loop to simulate the collisions as long as the following conditions are met:
+	- The stack is not empty.
+	- The current asteroid is moving to the left (negative).
+	- The top asteroid on the stack is moving to the right (positive).
+
+```typescript
+while (stack.length && asteroid < 0 && stack[stack.length - 1] > 0) {
+	// ...
+}
+```
+
+5. Inside the `while` loop, we simulate the collisions by comparing the current asteroid and the top asteroid on the stack.
+	- We pop the top asteroid from the stack and store it in the variable `topAsteroid`.
+
+```typescript
+const topAsteroid = stack.pop() as number;
+```
+
+a. If the sum of the top asteroid and the current asteroid is equal to 0, both asteroids have the same size and will explode. We set `shouldPush` to `false` and break out of the `while` loop.
+
+```typescript
+if (topAsteroid + asteroid === 0) {
+	shouldPush = false;
+	break;
+}
+```
+
+b. If the sum of the top asteroid and the current asteroid is greater than 0, the top asteroid is larger, and the current asteroid will explode. We set `shouldPush` to `false`, push the top asteroid back onto the stack, and break out of the `while` loop.
+
+```typescript
+else if (topAsteroid + asteroid > 0) {
+	shouldPush = false;
+	stack.push(topAsteroid);
+	break;
+}
+```
+
+c. If the sum of the top asteroid and the current asteroid is less than 0, the current asteroid is larger, and the top asteroid will explode. We continue the `while` loop to simulate further collisions, if necessary.
+
+6. After simulating the collisions, if `shouldPush` is true, we push the current asteroid onto the stack.
+
+```typescript
+if (shouldPush) {
+	stack.push(asteroid);
+}
+```
+
+7. After iterating through all asteroids in the input array, the remaining asteroids on the stack represent the state of the asteroids after all collisions. We return the stack as the result.
+
+```typescript
+return stack;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We iterate through the input array once, simulating asteroid collisions using the stack.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we use a stack to store the remaining asteroids after collisions. In the worst case, no collisions occur, and we store all n asteroids in the stack.
