@@ -1,0 +1,206 @@
+---
+title: Basic Calculator II
+description: Given a string s which represents an expression, evaluate this expression and return its value.
+keywords: basic calculator ii, leetcode, string expression, evaluate, integer division, valid expression, stack, addition, subtraction, multiplication, division, typescript, python, digit, operator, time complexity, space complexity
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) <DifficultyChip difficulty="" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/W3Rg4HVSZ9k"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given a string s which represents an expression, evaluate this expression and return its value.
+
+The integer division should truncate toward zero.
+
+You may assume that the given expression is always valid. All intermediate results will be in the range of [-231, 231 - 1].
+
+Note: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as `eval()`.
+
+## Example
+
+Input: s = "3+2*2"
+
+Output: 7
+
+## Summary
+
+To solve this problem, we can use a stack to keep track of the numbers and their signs in the expression. We iterate through the input string and perform the following actions:
+
+- If the current character is a digit, we accumulate the digit to form the complete number.
+- If the current character is an operator or a whitespace, we perform the following actions based on the previous operator:
+	- If the previous operator is a plus (`+`) or minus (`-`), we push the current number onto the stack with its sign.
+	- If the previous operator is a multiplication (`*`) or division (`/`), we pop the top number from the stack, perform the operation with the current number, and push the result back onto the stack.
+	- We update the previous operator with the current operator.
+
+At the end of the iteration, we sum up the numbers on the stack to get the final result.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function calculate(s: string): number {
+	const stack: number[] = [];
+	let currentNumber = 0;
+	let prevOperator = '+';
+
+	for (let i = 0; i < s.length; i++) {
+		const char = s[i];
+
+		if (char >= '0' && char <= '9') {
+			currentNumber = currentNumber * 10 + parseInt(char);
+		}
+
+		if (char === '+' || char === '-' || char === '*' || char === '/' || i === s.length - 1) {
+			if (prevOperator === '+') {
+				stack.push(currentNumber);
+			} else if (prevOperator === '-') {
+				stack.push(-currentNumber);
+			} else if (prevOperator === '*') {
+				stack.push(stack.pop() as number * currentNumber);
+			} else if (prevOperator === '/') {
+				stack.push(Math.trunc((stack.pop() as number) / currentNumber));
+			}
+
+			prevOperator = char;
+			currentNumber = 0;
+		}
+	}
+
+	return stack.reduce((sum, num) => sum + num, 0);
+}
+```
+
+### In Python
+
+```python
+def calculate(self, s: str) -> int:
+	stack = []
+	current_number = 0
+	prev_operator = '+'
+
+	for i in range(len(s)):
+		char = s[i]
+
+		if char.isdigit():
+			current_number = current_number * 10 + int(char)
+
+		if char in '+-*/' or i == len(s) - 1:
+			if prev_operator == '+':
+				stack.append(current_number)
+			elif prev_operator == '-':
+				stack.append(-current_number)
+			elif prev_operator == '*':
+				stack.append(stack.pop() * current_number)
+			elif prev_operator == '/':
+				stack.append(int(stack.pop() / current_number))
+
+			prev_operator = char
+			current_number = 0
+
+	return sum(stack)
+```
+
+## Step-by-step explanation
+
+1. We initialize an empty stack `stack` to keep track of the numbers and their signs in the expression, a variable `currentNumber` to accumulate digits, and a variable `prevOperator` to store the previous operator. We set `prevOperator` to `'+'` initially.
+
+```typescript
+const stack: number[] = [];
+let currentNumber = 0;
+let prevOperator = '+';
+```
+
+2. We start a `for` loop that iterates through each character in the input string `s`.
+
+```typescript
+for (let i = 0; i < s.length; i++) {
+	// ...
+}
+```
+
+3. Inside the loop, we store the current character in the variable `char`.
+
+```typescript
+const char = s[i];
+```
+
+4. If the current character is a digit, we accumulate the digit in `currentNumber`. We multiply the current value of `currentNumber` by 10 and add the integer value of the current character.
+
+```typescript
+if (char >= '0' && char <= '9') {
+	currentNumber = currentNumber * 10 + parseInt(char);
+}
+```
+
+5. If the current character is an operator or a whitespace, or if we have reached the end of the input string, we perform the following actions based on the previous operator:
+
+```typescript
+if (char === '+' || char === '-' || char === '*' || char === '/' || i === s.length - 1) {
+	// ...
+}
+```
+
+a. If the previous operator is a plus (`+`), we push the current number onto the stack.
+
+```typescript
+if (prevOperator === '+') {
+	stack.push(currentNumber);
+}
+```
+
+b. If the previous operator is a minus (`-`), we push the current number with a negative sign onto the stack.
+
+```typescript
+else if (prevOperator === '-') {
+	stack.push(-currentNumber);
+}
+```
+
+c. If the previous operator is a multiplication (`*`), we pop the top number from the stack, multiply it with the current number, and push the result back onto the stack.
+
+```typescript
+else if (prevOperator === '*') {
+	stack.push(stack.pop() as number * currentNumber);
+}
+```
+
+d. If the previous operator is a division (`/`), we pop the top number from the stack, divide it by the current number, truncate the result towards zero using `Math.trunc`, and push the result back onto the stack.
+
+```typescript
+else if (prevOperator === '/') {
+	stack.push(Math.trunc((stack.pop() as number) / currentNumber));
+}
+```
+
+6. After performing the appropriate action based on the previous operator, we update the `prevOperator` with the current operator and reset `currentNumber` to 0.
+
+```typescript
+prevOperator = char;
+currentNumber = 0;
+```
+
+7. After iterating through all characters in the input string, the stack contains the numbers and their signs in the expression. We use the `reduce` function to sum up the numbers on the stack and return the result.
+
+```typescript
+return stack.reduce((sum, num) => sum + num, 0);
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string. We iterate through the input string once, performing operations based on the current character and updating the stack.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we use a stack to store the numbers and their signs in the expression. In the worst case, we might have to store n/2 numbers in the stack, where n is the length of the input string.
