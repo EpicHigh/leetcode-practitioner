@@ -4,5 +4,6 @@
 	"evaluate-reverse-polish-notation": "3. Evaluate Reverse Polish Notation",
 	"min-stack": "4. Min Stack",
 	"daily-temperatures": "5. Daily Temperatures",
-	"backspace-string-compare": "6. Backspace String Compare"
+	"backspace-string-compare": "6. Backspace String Compare",
+	"decode-string": "7. Decode String"
 }

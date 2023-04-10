@@ -1,0 +1,167 @@
+---
+title: Decode String
+description: Given an encoded string, return its decoded string.
+keywords: decode string, encoded string, decoding, leetcode, medium difficulty, typescript, python, stack, repeated string, square brackets, nested strings, string manipulation, time complexity, space complexity
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Decode String](https://leetcode.com/problems/decode-string/) <DifficultyChip difficulty="medium" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/qB0zZpBJlh8"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an encoded string, return its decoded string.
+
+The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+
+You may assume that the input string is always valid; no extra white spaces, square brackets are well-formed, etc.
+
+Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won't be any input like 3a or 2[4].
+
+## Example
+
+Input: s = "3[a]2[bc]"
+
+Output: "aaabcbc"
+
+## Summary
+
+To solve this problem, we can use a stack to keep track of the numbers and the strings to be repeated. We iterate through the input string and perform the following actions:
+
+- If the current character is a digit, we accumulate the digit to form the complete number.
+- If the current character is an opening bracket ([), we push the number and an empty string onto the stack.
+- If the current character is a closing bracket (]), we pop the top string and number from the stack, repeat the string as many times as the number, and append the result to the new top string on the stack.
+- If the current character is a letter, we append it to the top string on the stack.
+
+At the end of the iteration, the decoded string will be the top string on the stack.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function decodeString(s: string): string {
+	const stack: [number, string][] = [];
+	let currentNumber = 0;
+	let currentString = "";
+
+	for (const char of s) {
+		if (char >= '0' && char <= '9') {
+			currentNumber = currentNumber * 10 + parseInt(char);
+		} else if (char === '[') {
+			stack.push([currentNumber, currentString]);
+			currentNumber = 0;
+			currentString = "";
+		} else if (char === ']') {
+			const [num, previousString] = stack.pop() as [number, string];
+			currentString = previousString + currentString.repeat(num);
+		} else {
+			currentString += char;
+		}
+	}
+
+	return currentString;
+}
+```
+
+### In Python
+
+```python
+def decodeString(s: str) -> str:
+	stack = []
+	current_number = 0
+	current_string = ""
+
+	for char in s:
+		if char >= '0' and char <= '9':
+			current_number = current_number * 10 + int(char)
+		elif char == '[':
+			stack.append([current_number, current_string])
+			current_number = 0
+			current_string = ""
+		elif char == ']':
+			num, previous_string = stack.pop()
+			current_string = previous_string + current_string * num
+		else:
+			current_string += char
+
+	return current_string
+```
+
+## Step-by-step explanation
+
+1. We initialize an empty stack `stack` to keep track of the numbers and the strings to be repeated. We also initialize two variables, `currentNumber` and `currentString`, to accumulate the current number and string while iterating through the input string `s`.
+
+```typescript
+const stack: [number, string][] = [];
+let currentNumber = 0;
+let currentString = "";
+```
+
+2. We start a for loop that iterates through each character in the input string `s`.
+
+```typescript
+for (const char of s) {
+	// ...
+}
+```
+
+3. Inside the loop, we use several conditional statements to perform different actions based on the current character `char`.
+
+	a. If `char` is a digit, we accumulate the digit to form the complete number. We multiply the current number by 10 and add the parsed integer value of `char`.
+
+	```typescript
+	if (char >= '0' && char <= '9') {
+		currentNumber = currentNumber * 10 + parseInt(char);
+	}
+	```
+
+	b. If char is an opening bracket ([), we push the current number `currentNumber` and the current string `currentString` onto the stack as a tuple. Then, we reset `currentNumber` and `currentString` to prepare for the next number and string.
+
+	```typescript
+	else if (char === '[') {
+		stack.push([currentNumber, currentString]);
+		currentNumber = 0;
+		currentString = "";
+	}
+	```
+
+	c. If `char` is a closing bracket (]), we pop the top tuple from the stack, which contains a number and a string. We then repeat the current string `currentString` as many times as the popped number and append the result to the popped string. Finally, we update `currentString` to store this new string.
+
+	```typescript
+	else if (char === ']') {
+		const [num, previousString] = stack.pop() as [number, string];
+		currentString = previousString + currentString.repeat(num);
+	}
+	```
+
+	d. If `char` is a letter, we append it to the current string `currentString`.
+
+	```typescript
+	else {
+		currentString += char;
+	}
+	```
+
+4. After iterating through all characters in the input string `s`, the decoded string will be stored in the `currentString` variable. We return `currentString` as the result.
+
+```typescript
+return currentString;
+```
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input string. We iterate through the input string once, performing operations based on the current character.
+
+### Space Complexity
+
+The space complexity of this solution is O(m), where m is the depth of the nested encoded strings in the input string. In the worst case, we might have to store m pairs of numbers and strings in the stack.
