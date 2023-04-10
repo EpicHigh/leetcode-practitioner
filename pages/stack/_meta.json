@@ -2,5 +2,6 @@
 	"valid-parentheses": "1. Valid Parentheses",
 	"implement-queue-using-stacks": "2. Implement Queue using Stacks",
 	"evaluate-reverse-polish-notation": "3. Evaluate Reverse Polish Notation",
-	"min-stack": "4. Min Stack"
+	"min-stack": "4. Min Stack",
+	"daily-temperatures": "5. Daily Temperatures"
 }

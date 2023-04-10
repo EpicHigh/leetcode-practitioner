@@ -1,0 +1,130 @@
+---
+title: Daily Temperatures
+description: Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+keywords: daily temperatures, warmer temperature, wait time, leetcode, typescript, python, stack, array, time complexity, space complexity, solution, number of days, input array
+---
+
+import DifficultyChip from '../../components/DifficultyChip';
+
+# [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) <DifficultyChip difficulty="" />
+
+<div className="iframe-container">
+	<iframe className="responsive-iframe" src="https://www.youtube.com/embed/XXXXXXXX"
+					title="YouTube video player" frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen></iframe>
+</div>
+
+## Problem
+
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+## Example
+
+Input: temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
+
+Output: [1, 1, 4, 2, 1, 1, 0, 0]
+
+## Summary
+
+To solve this problem, we can use a stack to keep track of indices of temperatures. As we iterate through the temperatures array, we will check if the current temperature is greater than the temperature at the index at the top of the stack. If it is, we will update the answer array for that index and pop the index from the stack. We will repeat this process until we find a smaller temperature or the stack is empty. Finally, we will push the current index onto the stack.
+
+## Solution
+
+### In TypeScript
+
+```typescript
+function dailyTemperatures(temperatures: number[]): number[] {
+	const n = temperatures.length;
+	const res: number[] = new Array(n).fill(0);
+	const stack: number[] = [];
+
+	for (let i = 0; i < n; i++) {
+		while (stack.length > 0 && temperatures[i] > temperatures[stack[stack.length - 1]]) {
+			const j = stack.pop();
+			res[j] = i - j;
+		}
+		stack.push(i);
+	}
+
+	return res;
+}
+```
+
+### In Python
+
+```python
+def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+	n = len(temperatures)
+	res = [0] * n
+	stack = []
+
+	for i in range(n):
+		while stack and temperatures[i] > temperatures[stack[-1]]:
+			j = stack.pop()
+			res[j] = i - j
+		stack.append(i)
+
+	return res
+```
+
+## Step-by-step explanation
+
+1. First, we define the function dailyTemperatures, which takes an input array temperatures of numbers. Inside the function, we initialize a few variables:
+
+- `n`: The length of the input array.
+- `res`: The result array, initialized with the same length as the input array and filled with zeros.
+- `stack`: An empty stack that will be used to store the indices of the input temperatures.
+
+```typescript
+const n = temperatures.length;
+const res: number[] = new Array(n).fill(0);
+const stack: number[] = [];
+```
+
+2. Next, we iterate through the input array with a `for` loop, using the loop variable `i` as the current index.
+
+```typescript
+for (let i = 0; i < n; i++) {
+	// ...
+}
+```
+
+3. Inside the loop, we use a `while` loop to check if the stack is not empty and the current temperature is greater than the temperature at the index at the top of the stack.
+
+```typescript
+while (stack.length > 0 && temperatures[i] > temperatures[stack[stack.length - 1]]) {
+	// ...
+}
+```
+
+4. If the conditions are met, it means that we found a warmer day. We then pop the index `j` from the top of the stack and update the result array for that index, setting its value to the difference between the current index `i` and the popped index `j`. This difference represents the number of days to wait for a warmer temperature.
+
+```typescript
+const j = stack.pop();
+res[j] = i - j;
+```
+
+5. After the `while` loop, we push the current index `i` onto the stack. This step ensures that we keep track of the indices of the temperatures as we iterate through the input array.
+
+```typescript
+stack.push(i);
+```
+
+6. After the `for` loop, we return the result array `res`, which contains the number of days to wait for a warmer temperature for each day.
+
+```typescript
+return res;
+```
+
+By using a stack to keep track of the indices of temperatures and updating the result array as we find warmer days.
+
+## Complexity Analysis
+
+### Time Complexity
+
+The time complexity of this solution is O(n), where n is the length of the input array. We iterate through the input array once and perform stack operations, which have a constant time complexity.
+
+### Space Complexity
+
+The space complexity of this solution is O(n), as we are storing the indices of temperatures in a stack. In the worst case, the stack will store n entries, where n is the length of the input array. Additionally, we store the result array with the same length as the input array, which also contributes to the O(n) space complexity.
