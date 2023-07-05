@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@vercel/analytics':
     specifier: ^1.0.0
@@ -26,7 +30,7 @@ dependencies:
 devDependencies:
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.1.1
-    version: 4.1.1(prettier@2.8.7)
+    version: 4.1.1(prettier@3.0.0)
   '@types/node':
     specifier: 18.16.3
     version: 18.16.3
@@ -40,8 +44,8 @@ devDependencies:
     specifier: ^8.4.21
     version: 8.4.21
   prettier:
-    specifier: ^2.8.7
-    version: 2.8.7
+    specifier: ^3.0.0
+    version: 3.0.0
   tailwindcss:
     specifier: ^3.3.1
     version: 3.3.1(postcss@8.4.21)
@@ -490,7 +494,7 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@trivago/prettier-plugin-sort-imports@4.1.1(prettier@2.8.7):
+  /@trivago/prettier-plugin-sort-imports@4.1.1(prettier@3.0.0):
     resolution: {integrity: sha512-dQ2r2uzNr1x6pJsuh/8x0IRA3CBUB+pWEW3J/7N98axqt7SQSm+2fy0FLNXvXGg77xEDC7KHxJlHfLYyi7PDcw==}
     peerDependencies:
       '@vue/compiler-sfc': 3.x
@@ -505,7 +509,7 @@ packages:
       '@babel/types': 7.17.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 2.8.7
+      prettier: 3.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2365,9 +2369,9 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /prettier@2.8.7:
-    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
-    engines: {node: '>=10.13.0'}
+  /prettier@3.0.0:
+    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
