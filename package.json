@@ -21,7 +21,7 @@
   "homepage": "https://github.com/EpicHigh/leetcode-practitioner#readme",
   "dependencies": {
     "@vercel/analytics": "^1.0.0",
-    "next": "^13.2.4",
+    "next": "^14.0.0",
     "next-sitemap": "^4.0.6",
     "nextra": "2.4.2",
     "nextra-theme-docs": "2.4.2",
